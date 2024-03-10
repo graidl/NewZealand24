@@ -1,0 +1,8 @@
+Title: Learning to Guide Heuristic Search in Combinatorial Optimization
+
+The machine learning boom of the last years also led to interesting new developments in the area of heuristic (and exact) methods for approaching hard combinatorial optimization problems. Classical methods are frequently based on construction heuristics, local search but also tree search, sometimes in combination with (mixed integer) linear programming or constraint programming principles. While end-to-end machine learning approaches are still far from replacing these established techniques in combinatorial optimization, it has been recognized that the latter may benefit from incorporating learning for certain purposes. One may say the aim is to ``learn how to better optimize''.
+
+This talk will give an overview on a selection of developments in this direction. For example, in beam search, guidance heuristics may be learned that yield better results than leading manually crafted heuristics. Large neighborhood search approaches were proposed in which the construction of the neighborhoods to be applied is learned. For dynamic and stochastic transportation problems, efficient surrogate objective functions are learned that can effectively replace time-consuming sampling-based approaches. 
+
+Some of these methods rely on imitation or supervised learning where labeled training data or some powerful other method to learn from need to be available. More versatile may be methods based on reinforcement learning principles, on which we will also have a look at.
+
