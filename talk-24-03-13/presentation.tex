@@ -9,10 +9,10 @@
     \usebeamerfont{footline}
     \usebeamercolor[fg]{footline}
     %\hspace{1em}
-    \small\insertframenumber\,%/\inserttotalframenumber
+    \footnotesize\insertframenumber\,%/\inserttotalframenumber
 }
 
-
+% cSpell:disable
 \definecolor{rcomment}{rgb}{0.3, 0.3, 0.3}  % darkgrey
 \definecolor{rred}{rgb}{0.7,0.2,0.2}        % red
 \definecolor{rblue}{rgb}{0.2,0.2,0.7}       % blue (blended blue of beamer)
@@ -44,6 +44,8 @@
 \usepackage[linesnumbered, ruled, noend]{algorithm2e}
 \usepackage{appendixnumberbeamer}
 \usepackage{booktabs}
+\usepackage{multirow}
+
 
 \usepackage{natbib}
 % \usepackage[backend=bibtex,style=authoryear-comp]{biblatex}
@@ -85,6 +87,7 @@
 \newcommand{\Markov}{\textsc{Markov}}
 
 % \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+% cSpell:enable
 
 \title{Learning to Guide Heuristic Search in Combinatorial Optimization}
 
@@ -93,13 +96,13 @@
 \titlegraphic{\includegraphics[height=7mm]{figures/logo-tuwien-informatics.png}\quad
 	\includegraphics[height=7mm]{figures/AClongColor.pdf}}
 
-\institute[]{Algorithms and Complexity , TU Wien, Austria,\\
-    raidl@ac.tuwien.ac.at\\[1ex]
+\institute[]{\normalsize Algorithms and Complexity , TU Wien, Austria,\\
+    \texttt{raidl@ac.tuwien.ac.at}\\[1ex]
 }
 
 \logo{\includegraphics[height=15pt]{figures/logo.pdf}\vspace{245pt}} % Logo on top right
 
-
+% cSpell:disable
 \definecolor{rred}{rgb}{0.7,0.2,0.2}         % red
 \newcommand{\hl}[1]{\textcolor{rred}{#1}}    % highlight
 
@@ -150,7 +153,7 @@
     \end{semilogxaxis}
   \end{tikzpicture}
 }
-
+% cSpell:enable
 \renewcommand{\footnotesize}{\scriptsize}
 
 \begin{document}{}
@@ -258,22 +261,25 @@ Part of Informatics Faculty @ TU Wien
 			\includegraphics[width=0.85\linewidth]{figures/mh-ml}
 		\end{center}
 		\item \structure{Focus here:} utilize learning to better solve \important{combinatorial optimization problems (COPs)}
-		\item \alert{Basic idea of learning in MHs not new!}
 	\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Learning to Better Optimize}
 	\begin{center}
-		\includegraphics[width=0.95\linewidth]{figures/talbi-data-driven-mhs}\\[2ex]
-		\footnotesize{(from \citet{talbi-21})}
+		\includegraphics[width=0.80\linewidth]{figures/talbi-data-driven-mhs}\\[2ex]
+    \footnotesize{From \citet{talbi-21}: Machine Learning into Metaheuristics: A Survey and Taxonomy}
 	\end{center}
 \end{frame}
 
 
 \begin{frame}{Some Classical Metaheuristics Involving Learning}
-    \begin{itemize}
-    \itemsep2.5ex
+
+  \important{Basic idea of learning in (meta-)heuristics not new:}
+
+  \bigskip
+  \begin{itemize}
+  \itemsep2.5ex
 	%\item Simulated Annealing with self-adaptive temperature
 	
 	\item Reactive tabu search
@@ -301,8 +307,8 @@ Part of Informatics Faculty @ TU Wien
 		\includegraphics[width=0.4\linewidth]{figures/aco} \\
 		{\footnotesize (from Dr\'eo, 2006)}
 
-    \bigskip
-    \important{\bf $\rightarrow$ Similarities with Reinforcement Learning!}
+    % \bigskip
+    % \important{\bf $\rightarrow$ Similarities with Reinforcement Learning!}
 	\end{center}
 \end{frame}
 
@@ -371,12 +377,12 @@ Part of Informatics Faculty @ TU Wien
 % 	\end{itemize}
 % \end{frame}
 
-\begin{frame}{Learning to Better Optimize}
-	\begin{center}
-		\includegraphics[width=0.75\linewidth]{figures/talbi-data-driven-mhs}\\[2ex]
-		\footnotesize{From \citet{talbi-21}: Machine Learning into Metaheuristics: A Survey and Taxonomy}
-	\end{center}
-\end{frame}
+% \begin{frame}{Learning to Better Optimize}
+% 	\begin{center}
+% 		\includegraphics[width=0.75\linewidth]{figures/talbi-data-driven-mhs}\\[2ex]
+% 		\footnotesize{From \citet{talbi-21}: Machine Learning into Metaheuristics: A Survey and Taxonomy}
+% 	\end{center}
+% \end{frame}
 
 % \begin{frame}{High-Level Data Driven Metaheuristics}
 % %Idea of \textbf{using some kind of \important{learning} to better solve an optimization problem} at hand is not new.
@@ -446,7 +452,7 @@ Part of Informatics Faculty @ TU Wien
 			\end{minipage}
 
 		\vspace{2ex}
-		\item<2> \alert{Constructing a solution to a COP can be seen as an episode in an environment, objective value $\hat=$ reward}
+		\important{Constructing a solution to a COP can be seen as an episode in an environment, objective value $\hat=$ reward}
 	\end{itemize}
 \end{frame}
 
@@ -454,7 +460,7 @@ Part of Informatics Faculty @ TU Wien
 \begin{frame}
 	\frametitle{Reinforcement Learning (RL) - Classification}
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{figures/rlmethods.jpg}
+		\includegraphics[width=0.72\textwidth]{figures/rlmethods.jpg}
 
 		\bigskip
 		\footnotesize{(from \citet{mazyavkina-21b})}
@@ -493,6 +499,7 @@ Part of Informatics Faculty @ TU Wien
 % 			\item model-free/model-based
 % 		\end{itemize}
 % 		\important{Deep} RL: uses deep neural networks
+% cSpell:disable-next-line
 % 		\item Examples of agents: Q-Learning, SARSA, DQN, DDPG, A3C, TRPO, PPO, SAC, \ldots 
 % 	\end{itemize}
 % \end{frame}
@@ -540,7 +547,7 @@ Part of Informatics Faculty @ TU Wien
 				\item Graph Isomorphism Network (Xu et al., 2019)
 				\item Graph Attention Network (Kool et al., 2019; Joshi et al., 2021)
 			\end{itemize}
-			{\includegraphics[width=0.7\linewidth, page=3]{figures/graphics.pdf}}\\
+			{\includegraphics[width=0.7\linewidth, page=3]{figures/graphics.pdf}}\\[2ex]
 			% learn \important{embedding of nodes} by looking at nearby nodes
 		\end{itemize} 
 	\end{itemize}
@@ -691,98 +698,98 @@ Part of Informatics Faculty @ TU Wien
 \begin{frame}
 \frametitle{Learning Beam Search \citep{huber-21}}
 	\begin{center}
-		\includegraphics[height=210pt]{figures/lbsProcedure.png}
+		\includegraphics[height=225pt]{figures/lbsProcedure.png}
 	\end{center}
 \end{frame}
 	
-% \begin{frame}%[t,c,b,plain]
-% 	\frametitle{LBS Experiments: Considered Problems}
+\begin{frame}%[t,c,b,plain]
+	\frametitle{Longest Common Subsequence Problem}
 	
-% 	\medskip
+	\medskip
 	
-% 	\structure{Given:} set of $m$ input strings $S = \{s_1 , \ldots, s_m \}$ over alphabet $\Sigma$.
+	\structure{Given:} set of $m$ input strings $S = \{s_1 , \ldots, s_m \}$ over alphabet $\Sigma$.
 	
-% 	\medskip
+	\medskip
 	
-% 	\begin{itemize}
-% 		\item \structure{Longest Common Subsequence (LCS):} find a longest string that appears as subsequence in any string of $S$. \\ \medskip
-% 		Example: $m=2$, $|\Sigma|=3$
-% 	\end{itemize}
-% 	\begin{center}
-% 	\begin{tabular}{ccc}
-% 		$s_1$: AB\textcolor{gray}{B}A & \multirow{2}{*}{$\Rightarrow$ \textcolor{red}{ABA}.}\\
-% 		$s_2$: \textcolor{gray}{C}ABA
-% 	\end{tabular}
-% 	\end{center}
+	\begin{itemize}
+		\item \structure{Longest Common Subsequence (LCS):} find a longest string that appears as subsequence in any string of $S$. \\ \medskip
+		Example: $m=2$, $|\Sigma|=3$
+	\end{itemize}
+	\begin{center}
+	\begin{tabular}{ccc}
+		$s_1$: AB\textcolor{gray}{B}A & \multirow{2}{*}{$\Rightarrow$ \textcolor{red}{ABA}.}\\
+		$s_2$: \textcolor{gray}{C}ABA
+	\end{tabular}
+	\end{center}
 	
-% 	% \begin{itemize}
-% 	% 	\item \structure{Constrained Longest Common Subsequence (CLCS):} additionally, a pattern string $P$ must appear as subsequence. \\ \medskip
-% 	% 	Example: P=\textcolor{darkgreen}{AB}
-% 	% \end{itemize}
-% 	% \begin{center}
-% 	% \begin{tabular}{ccc}
-% 	% 	$s_1$: AB\textcolor{gray}{B}A & \multirow{2}{*}{$\Rightarrow$ \textcolor{darkgreen}{AB}A.}\\
-% 	% 	$s_2$: \textcolor{gray}{C}ABA
-% 	% \end{tabular}
-% 	% \end{center}
+	% \begin{itemize}
+	% 	\item \structure{Constrained Longest Common Subsequence (CLCS):} additionally, a pattern string $P$ must appear as subsequence. \\ \medskip
+	% 	Example: P=\textcolor{darkgreen}{AB}
+	% \end{itemize}
+	% \begin{center}
+	% \begin{tabular}{ccc}
+	% 	$s_1$: AB\textcolor{gray}{B}A & \multirow{2}{*}{$\Rightarrow$ \textcolor{darkgreen}{AB}A.}\\
+	% 	$s_2$: \textcolor{gray}{C}ABA
+	% \end{tabular}
+	% \end{center}
 
-% 	\bigskip
-% 	\structure{State-of-the-art:} BS with theoretically derived guidance functions EX \citep{djukanovic-19b}
-% \end{frame}
+	\bigskip
+	\structure{State-of-the-art:} BS with theoretically derived guidance functions EX\\ \citep{djukanovic-19b}
+\end{frame}
 
-% \begin{frame}
-% 	\frametitle{LBS Experiments: Approximation of Real LCS Length}
-% 	% \bigskip
-% 	% \textbf{How well does a NN trained by LBS predict the real LCS length?}
-% 	% \medskip
-% 	% \begin{itemize}
-% 	% 	\item Approximate exact LCS lengths by applying the so far leading BS with EX guidance function~\citep{djukanovic-19b}.
-% 	% \end{itemize}
+\begin{frame}
+	\frametitle{LBS Experiments: Approximation of Real LCS Length}
+	% \bigskip
+	% \textbf{How well does a NN trained by LBS predict the real LCS length?}
+	% \medskip
+	% \begin{itemize}
+	% 	\item Approximate exact LCS lengths by applying the so far leading BS with EX guidance function~\citep{djukanovic-19b}.
+	% \end{itemize}
 	
-% 	The NN of the LBS approximates the real LCS lengths better than EX:
+	The learned network of LBS approximates the real expected LCS lengths better than EX:
 
-% 	\bigskip
-% 	\begin{center}
-% 		% \makebox[\linewidth]{
-% 		\input{figures/nn-vs-ael-buffer-mae.pgf}
-% 	\end{center}
+	\bigskip
+	\begin{center}
+		% \makebox[\linewidth]{
+		\input{figures/nn-vs-ael-buffer-mae.pgf}
+	\end{center}
 	
 	
-% \end{frame}
+\end{frame}
 	
 	
-% \begin{frame}
-% 	\frametitle{LBS Experiments: Results}
-% 	\medskip
-% 	Results on \texttt{rat} and \texttt{BB} LCS benchmark instances:
-% 	\medskip
-% 	\begin{itemize}
-% 		\item \structure{NN:} MLP with 20+20 hidden nodes
-% 		\item \structure{Features:} remaining input string lengths, remaining min.\ letter occurrences
-% 		\item \structure{Beam width:}
-% 		\begin{itemize}
-% 			\item[--] LBS training done with $\beta=50$
-% 			\item[--] Low computation time tests with $\beta=50$
-% 			\item[--] High quality tests with $\beta=600$
-% 		\end{itemize}
-% 	\end{itemize}
-% 	\medskip
-% 	\structure{LBS achieved \important{new best results} in}
-% 	\begin{itemize}
-% 		\item low time experiments: \important{13 out of 28}
-% 		\item high quality experiments: \important{7 out of 28}
-% 	\end{itemize}
-% 	and matched most others.
+\begin{frame}
+	\frametitle{LBS Experiments: Results}
+	\medskip
+	Results on \texttt{rat} and \texttt{BB} LCS benchmark instances:
+	\medskip
+	\begin{itemize}
+		\item \structure{NN:} MLP with 20+20 hidden nodes
+		\item \structure{Features:} remaining input string lengths, remaining min.\ letter occurrences
+		\item \structure{Beam width:}
+		\begin{itemize}
+			\item[--] LBS training done with $\beta=50$
+			\item[--] Low computation time tests with $\beta=50$
+			\item[--] High quality tests with $\beta=600$
+		\end{itemize}
+	\end{itemize}
+	\medskip
+	\structure{LBS achieved \important{new best results} in}
+	\begin{itemize}
+		\item low time experiments: \important{13 out of 28}
+		\item high quality experiments: \important{7 out of 28}
+	\end{itemize}
+	and matched most others.
 
-% 	\bigskip
-% 	\structure{Also successfully considered:}\\
-% 	Constrained LCS, shortest common supersequence problem\\
-% 	no-wait flow shop problem, quantum circuit design problem
-% 	%\structure{CLCS results:} in \important{10 out of 36 cases new best results}, worse only in 2
+	\bigskip
+	\structure{Also successfully considered:}\\
+	Constrained LCS, shortest common supersequence problem
+	no-wait flow shop problem
+	%\structure{CLCS results:} in \important{10 out of 36 cases new best results}, worse only in 2
 
-% 	% \bigskip
-% 	% Runtimes are roughly comparable.
-% \end{frame}
+	% \bigskip
+	% Runtimes are roughly comparable.
+\end{frame}
 
 
 % \begin{frame}
@@ -818,7 +825,7 @@ Part of Informatics Faculty @ TU Wien
 
 \begin{frame}
 	\vspace*{2cm}
-	{\Large{\structure{A Learning Large Neighborhood Search\\[1ex] for the Staff Rerostering Problem}}}
+	{\Large{\structure{A Learning Large Neighborhood Search for the Staff Rerostering Problem}}}
 
 	\medskip
 	F.~Oberweger, G.~Raidl, E.~Rönnberg, and M.~Huber\\CPAIOR~22
@@ -879,7 +886,7 @@ Part of Informatics Faculty @ TU Wien
 \end{frame}
 
 
-\begin{frame}{Large Neighborhood Search (LNS)}
+\begin{frame}{MILP-Based Large Neighborhood Search (LNS)}
 	\begin{itemize}
 		\item Initial solution from a simple construction heuristic
 		\item Repeated application of a \important{destroy} and a \important{repair} operators
@@ -899,25 +906,25 @@ Part of Informatics Faculty @ TU Wien
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Repair Operator}
+% \begin{frame}{Repair Operator}
 	
-	\begin{itemize}
-		\itemsep2ex
-		\item Regular MILP for \important{feasible} solutions
-		\item MILP with \important{relaxed} hard constraints for \important{infeasible} solutions
-		\begin{itemize}
-			\item Hard constraint violations are \important{penalized} 
-			\item Objective value always \important{worse} for infeasible solution
-		\end{itemize}
-		%\item $x_{nds} = 1$ iff employee $n \in N$ is scheduled to work shift $s \in S$ on day $d \in D$
-	\end{itemize}
-\end{frame}
+% 	\begin{itemize}
+% 		\itemsep2ex
+% 		\item Regular MILP for \important{feasible} solutions
+% 		\item MILP with \important{relaxed} hard constraints for \important{infeasible} solutions
+% 		\begin{itemize}
+% 			\item Hard constraint violations are \important{penalized} 
+% 			\item Objective value always \important{worse} for infeasible solution
+% 		\end{itemize}
+% 		%\item $x_{nds} = 1$ iff employee $n \in N$ is scheduled to work shift $s \in S$ on day $d \in D$
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}{Classical Randomized Destroy Operator}
 	\begin{itemize}
 		\item<1-2> \important{Randomly} choose employee-day pairs
 		\item<1-2> Destroy all variables associated with \important{employee-day pairs}
-		\item<3-> \important{Consecutive day constraints}: selecting consec.\ days unlikely
+		\item<3-> \important{Consecutive day constraints}: selecting consecutive days unlikely
 		\item<3-> Better select and destroy \important{random sequences} of days!
 	\end{itemize}
 	\begin{figure}
@@ -934,14 +941,16 @@ Part of Informatics Faculty @ TU Wien
 \begin{frame}{Learning-Based Destroy Operator}
     \framesubtitle{Destroy Set Model}
     \begin{itemize}
-    	\item Use \important{Graph Neural Network (GNN)} \cite{scarselli2008graph}
     	\item Model current solution as a \important{graph} in each state of LNS
+    	\item Use \important{Graph Neural Network (GNN)} \cite{scarselli2008graph}
     	%\item\important{Imitation learning} to mimic expert policy
-   		\item Predict \important{weight} of an employee-day pair to belong in destroy set
-    \end{itemize}
-    \begin{figure}
+		\item Predict \important{probability} of each employee-day pair to \important{belong to destroy set yielding highest improvement}
+		\item Select with randomized sampling procedure enforcing selection of segments
+	\end{itemize}
+
+	\begin{figure}
     	\begin{overprint}
-    		\onslide<1>\centering\scalebox{0.6}{\begin{tikzpicture}[
+    		\onslide<1>\centering\scalebox{0.8}{\begin{tikzpicture}[
     				annot/.style={text width=3em, text centered},
     				neuron/.style={circle, draw, minimum size=12mm}]
     				% employee nodes
@@ -988,12 +997,123 @@ Part of Informatics Faculty @ TU Wien
     		\end{tikzpicture}}
     	\onslide<2>\centering \includegraphics[width=\linewidth, page=3]{figures/graphics.pdf}
     	\end{overprint}
-    	\caption{Simplified representation of the destroy set model architecture.}
+    	%\caption{Simplified representation of the destroy set model architecture.}
     \end{figure}
 \end{frame}
 
 
-\begin{frame}{Features }
+% \begin{frame}{Learning-Based Destroy Operator}
+% 	\framesubtitle{Destroy Set Sampling Strategy}
+% 	\begin{itemize}
+% 		\item Based on \important{consecutive day} observation
+% 		\item Use \important{GNN} outputs $\mu_{nd}$ $\forall n \in N, d \in D$ for refined sampling
+% 	\end{itemize}
+% 	\begin{figure}
+% 		\begin{overprint}
+% 			\onslide<1>\centering\includegraphics[width=\textwidth, page=17]{figures/graphics.pdf}
+% 			\onslide<2>\centering\includegraphics[width=\textwidth, page=18]{figures/graphics.pdf}
+% 			\onslide<3>\centering\includegraphics[width=\textwidth, page=19]{figures/graphics.pdf}
+% 			\onslide<4>\centering\includegraphics[width=\textwidth, page=20]{figures/graphics.pdf}
+% 			\onslide<5>\centering\includegraphics[width=\textwidth, page=21]{figures/graphics.pdf}
+% 			\onslide<6>\centering\includegraphics[width=\textwidth, page=22]{figures/graphics.pdf}
+% 			\onslide<7>\centering\includegraphics[width=\textwidth, page=23]{figures/graphics.pdf}
+% 			\onslide<8,9>\centering\includegraphics[width=\textwidth, page=24]{figures/graphics.pdf}
+% 			%\onslide<10>\centering\includegraphics[width=\textwidth, page=25]{figures/graphics.pdf}
+% 		\end{overprint}
+% 		\caption{Destroy set sampling strategy.}
+% 	\end{figure}
+% 	\onslide<9->\begin{itemize}
+% 		\item Regulate \important{influence} of GNN with \important{temperature} $\tau$
+% 		\begin{itemize}
+% 			\item Such that $\mu_{nd}^\frac{1}{\tau}$ $\forall n \in N, d \in D$
+% 			\item So far $\tau=1$
+% 		\end{itemize}
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{Learning-Based Destroy Operator}
+% 	\framesubtitle{Temperature Model}
+% 	\begin{itemize}
+% 		\item \important{Learn} temperature $\tau$ for each state with a GNN
+% 		\item \textbf{Input:} 
+% 		\begin{itemize}
+% 			\item graph representation of \important{current solution}
+% 			\item destroy set model \important{outputs}
+% 		\end{itemize}
+% 		%graph representation of current solution,  destroy set model outputs
+% 		\item \textbf{Output:} \important{probabilities} for selecting temperature in $\mathcal{T} = \{ 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 3, 5 \}$
+% 	\end{itemize}
+% 	\begin{figure}
+% 		\centering\includegraphics[width=\textwidth, page=5]{figures/graphics.pdf}
+% 		\caption{Simplified representation of  the temperature model architecture.}
+% 	\end{figure}
+% \end{frame}
+
+\begin{frame}{Learning-Based Destroy Operator}
+    \framesubtitle{Training}
+	\begin{itemize}
+		\itemsep 2ex
+		\item Offline with representative problem instances via \important{imitation learning}
+		\item \important{Expert policy:}\\
+		MILP with local branching constraint to determine optimal destroy set\\(very slow)
+		\item \important{Loss function}: log-likelihood of expert actions,
+		cross-entropy for temperature
+		\item \important{DAGGER \citep{ross2011reduction}}:\\
+		Trajectories are first created with expert strategy,\\
+		later with learned model
+	\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Computational Results}
+	\begin{itemize}
+		\item Model trained with $|N| = 110$ employees
+		%\item LNS time limit of \structure{$15$ minutes}
+		\item \structure{MILP + Gurobi} optimality gap between \textbf{26\%} and \textbf{34\%}
+	\end{itemize}
+	\begin{figure}
+		\scalebox{1}{\includegraphics[width=0.45\textwidth]{figures/generalization-box.pdf}\includegraphics[width=0.45\textwidth]{figures/generalization-line.pdf}}
+		\caption{Comparison of LNS\_RND and LNS\_NN optimality gaps. $15$ minutes running time. Lower bounds from solving MILP for three hours.}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Conclusions}
+	\begin{itemize}
+		\itemsep2.5ex
+		\item Large variety of ML-based approaches to support/improve (meta-)heuristics for COP
+		\item Modern RL techniques seem particularly promising
+		\begin{itemize}
+			\item to reduce effort in manually crafting/tuning heuristics
+			\item without labeled training data (supervised learning)
+		\end{itemize}
+		\item End-to-end ML-based approaches to COPs usually not competitive
+		\item Combinations with tree search, local search and problem-specific heuristics can boost performance substantially!
+		\item Also keep in mind: 
+		\begin{itemize}
+			\item (deep) neural networks not always necessary,\\
+			e.g., other ML models may be faster \& more robust
+			\item deep RL can be tricky
+		\end{itemize}
+	
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\footnotesize
+	%\nocite{*}
+	% \bibliographystyle{abbrv}
+	\bibliographystyle{apalike}
+	\bibliography{lit.bib}
+\end{frame}
+
+
+\begin{frame}{Features for Learning-Based Destroy Operator}
 	\footnotesize
 	\structure{For each assignment $(n, d)$}
 	\begin{itemize}
@@ -1007,7 +1127,7 @@ Part of Informatics Faculty @ TU Wien
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Features}
+\begin{frame}{Features for Learning-Based Destroy Operator}
 	\footnotesize
 	\structure{For each employee $n$}
 	\begin{itemize}
@@ -1030,498 +1150,6 @@ Part of Informatics Faculty @ TU Wien
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Learning-Based Destroy Operator}
-	\framesubtitle{Destroy Set Sampling Strategy}
-	\begin{itemize}
-		\item Based on \important{consecutive day} observation
-		\item Use \important{GNN} outputs $\mu_{nd}$ $\forall n \in N, d \in D$ for refined sampling
-	\end{itemize}
-	\begin{figure}
-		\begin{overprint}
-			\onslide<1>\centering\includegraphics[width=\textwidth, page=17]{figures/graphics.pdf}
-			\onslide<2>\centering\includegraphics[width=\textwidth, page=18]{figures/graphics.pdf}
-			\onslide<3>\centering\includegraphics[width=\textwidth, page=19]{figures/graphics.pdf}
-			\onslide<4>\centering\includegraphics[width=\textwidth, page=20]{figures/graphics.pdf}
-			\onslide<5>\centering\includegraphics[width=\textwidth, page=21]{figures/graphics.pdf}
-			\onslide<6>\centering\includegraphics[width=\textwidth, page=22]{figures/graphics.pdf}
-			\onslide<7>\centering\includegraphics[width=\textwidth, page=23]{figures/graphics.pdf}
-			\onslide<8,9>\centering\includegraphics[width=\textwidth, page=24]{figures/graphics.pdf}
-			%\onslide<10>\centering\includegraphics[width=\textwidth, page=25]{figures/graphics.pdf}
-		\end{overprint}
-		\caption{Destroy set sampling strategy.}
-	\end{figure}
-	\onslide<9->\begin{itemize}
-		\item Regulate \important{influence} of GNN with \important{temperature} $\tau$
-		\begin{itemize}
-			\item Such that $\mu_{nd}^\frac{1}{\tau}$ $\forall n \in N, d \in D$
-			\item So far $\tau=1$
-		\end{itemize}
-	\end{itemize}
-\end{frame}
 
-\begin{frame}{Learning-Based Destroy Operator}
-	\framesubtitle{Temperature Model}
-	\begin{itemize}
-		\item \important{Learn} temperature $\tau$ for each state with a GNN
-		\item \textbf{Input:} 
-		\begin{itemize}
-			\item graph representation of \important{current solution}
-			\item destroy set model \important{outputs}
-		\end{itemize}
-		%graph representation of current solution,  destroy set model outputs
-		\item \textbf{Output:} \important{probabilities} for selecting temperature in $\mathcal{T} = \{ 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 3, 5 \}$
-	\end{itemize}
-	\begin{figure}
-		\centering\includegraphics[width=\textwidth, page=5]{figures/graphics.pdf}
-		\caption{Simplified representation of  the temperature model architecture.}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{Learning-Based Destroy Operator}
-    \framesubtitle{Training}
-	\begin{itemize}
-		\itemsep 2ex
-		\item Offline with representative problem instances via \important{imitation learning}
-		\item \important{Expert policy:}\\
-		MILP with local branching constraint to determine optimal destroy set
-		\item \important{Loss function}: log-likelihood of expert actions,\\
-		cross-entropy for temperature
-		\item \important{DAGGER \citep{ross2011reduction}}:\\
-		Trajectories are first created with expert strategy,\\
-		later with learned model
-	\end{itemize}
-\end{frame}
-
-
-
-
-\begin{frame}{Computational Results}
-	\begin{itemize}
-		\item Model trained with $|N| = 110$
-		%\item LNS time limit of \structure{$15$ minutes}
-		\item \structure{MILP + Gurobi} optimality gap between \textbf{26\%} and \textbf{34\%}
-	\end{itemize}
-	\begin{figure}
-		\scalebox{1}{\includegraphics[width=0.5\textwidth]{figures/generalization-box.pdf}\includegraphics[width=0.5\textwidth]{figures/generalization-line.pdf}}
-		\caption{Comparison of LNS\_RND and LNS\_NN optimality gaps. $15$ minutes running time. Lower bounds from solving MILP for three hours.}
-	\end{figure}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Conclusions}
-	\begin{itemize}
-		\itemsep2.5ex
-		\item Large variety of ML-based approaches to support/improve metaheuristics
-		\item Modern RL techniques seem particularly promising
-		\begin{itemize}
-			\item to reduce effort in manually crafting/tuning heuristics
-			\item without labeled training data (supervised learning)
-		\end{itemize}
-		\item Naive application of an RL agent to a COP usually not competitive
-		\item Combinations with tree search, local search and problem-specific heuristics can boost performance substantially
-		\item Keep in mind: 
-		\begin{itemize}
-			\item (deep) neural networks not always necessary,\\
-			e.g., other ML models may be faster \& more robust
-			\item deep RL can be tricky
-		\end{itemize}
-	
-	\end{itemize}
-\end{frame}
-
-
-
-
-
-\begin{frame}[allowframebreaks]
-	\frametitle{References}
-	\footnotesize
-	%\nocite{*}
-	% \bibliographystyle{abbrv}
-	\bibliographystyle{apalike}
-	\bibliography{lit.bib}
-\end{frame}
-
-
-\end{document}
-
-\begin{frame}{Speeding up Logic-Based Benders Decomposition by Strengthening Cuts with Graph Neural Networks}
-\begin{itemize}
-  \itemsep2ex
-  \item Work mainly done during a research visit at Linköping University, Sweden,\\ ELIIT Focus Period ``Hybrid AI: Where data-driven and model-based methods meet''
-
-  \item Presented at the 9th Int.\ Conference on Machine Learning, Optimization, and Data Science (LOD) 2023, Grasmere, UK, September, 2023
-
-  \item Article to appear in:\\
-  J.\ Varga, E.\ Karlsson, G.\ R.\ Raidl, E.\ Rönnberg, F.\ Lindsten, T.\ Rodemann:\\
-  Machine Learning, Optimization, and Data Science -- LOD 2023,
-  Revised Selected Papers, Springer.
-\end{itemize}
-\end{frame}
-
-
-
-\section{Logic-based Benders Decomposition}
-
-\begin{frame}{Classical Benders Decomposition}
-
-(\emph{Benders, 1962})
-
-\bigskip
-\begin{itemize}
-  \itemsep1.5ex
-  \item Prominent exact technique for solving large \important{mixed-integer linear programs (MILPs)}
-  \item Breaks down MILP into \important{master} and \important{subproblems}
-  \item Master problem (MP) considers only subset of variables/constraints
-  \item Solving subproblems (SPs):\\
-  via duality we obtain \important{Benders feasibility and/or optimality cuts} for MP
-  \item Iterative process
-  \item<2> \alert{SPs must be linear programs (LPs), only continuous variables allowed}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Logic-Based Benders Decomposition}
-
-\emph{J.\ N.\ Hooker and G.\ Ottosson: Logic-based Benders decomposition. Mathematical Programming, 96:33--60, 2003}
-
-\bigskip
-\begin{itemize}
-  \itemsep1.5ex
-  \item Generalization to essentially \important{arbitrary SPs also incl.\ integral variables}
-  \item Unfortunately, \alert{no general systematic way of deriving (strong) Benders cuts} exist anymore
-  \item Typically, \important{problem-specific cut-strengthening techniques} are applied,\\ exploiting problem structure
-\end{itemize}
-
-\bigskip
-\structure{Also related:}
-\begin{itemize}
-  \item Branch and check (\emph{Hooker and Ottosson, 2003})\\
-  MP only solved once, SPs when feasible solutions are encountered
-  \item \emph{G.~Codato and M.~Fischetti: Combinatorial Benders cuts for mixed-integer linear programming. Operations Research, 54:756--766, 2006} \nocite{2006_codato-fischetti_article}
-\end{itemize}
-
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Logic-based Benders Decomposition}
-  \begin{centering}
-    \only<1>{
-      \includegraphics[width=\textwidth]{img/lbbd1}
-    }\only<2>{
-      \includegraphics[width=\textwidth]{img/lbbd2}
-    }
-  \end{centering}
-
-  We consider here only feasibility cuts.
-
-  \bigskip
-  \uncover<2>{
-    Our approach: \important{Learn strengthening procedure}
-  }
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Test bed: Single-Machine Scheduling Problem \footfullcite{2020_horn-et-al_article}}
-  \begin{minipage}{0.5\textwidth}
-    \begin{itemize}
-      \item \important{Single machine}
-      \item \important{Tasks} with \important{multiple time windows}
-      \item \important{Setup times} between tasks
-      \item \important{Prize} for each task
-      \item Objective: Maximize \important{total prize} of scheduled tasks
-    \end{itemize}
-    \vspace{1em}
-    \uncover<2->{
-      \begin{itemize}
-        \item \important{MP:} Select \important{task time window pairs} (TTWP)
-        \item \important{SP:} Feasible schedule?
-        \item \important{Feasibility cut:} $\widehat{=}$ set of TTWPs
-        \item \important{Cut-strengthening:} reduce set
-      \end{itemize}
-    }
-  \end{minipage}%
-  \begin{minipage}{0.5\textwidth}
-    \scalebox{0.3}{
-      \begin{tikzpicture}
-        \node at (2,0) {\includegraphics[height=4cm]{img/machine.pdf}};
-        \node[rectangle,fill=black!70,minimum width=15cm,minimum height=2cm] at (13.5,0) {};
-
-        \draw[very thick, draw=black] (6,1.5) to (6,-10.5);
-        \draw[very thick, draw=black] (21,1.5) to (21,-10.5);
-
-        \node[rectangle,fill=black!40,minimum width=2cm,minimum height=2cm] at (1,-4) {};
-        \only<3,4>{\node[rectangle,fill=rgreen,minimum width=4cm,minimum height=2cm] at (9,-4) {};}
-        \node[rectangle,draw=black,minimum width=4cm,minimum height=2cm] at (9,-4) {};
-        \node[rectangle,draw=black,minimum width=3cm,minimum height=2cm] at (16.5,-4) {};
-
-        \node[rectangle,fill=black!40,minimum width=4cm,minimum height=2cm] at (2,-7) {};
-        \only<3,4>{\node[rectangle,fill=rgreen,minimum width=6cm,minimum height=2cm] at (9,-7) {};}
-        \node[rectangle,draw=black,minimum width=6cm,minimum height=2cm] at (9,-7) {};
-        \node[rectangle,draw=black,minimum width=5cm,minimum height=2cm] at (18.5,-7) {};
-
-        \node[rectangle,fill=black!40,minimum width=3cm,minimum height=2cm] at (1.5,-10) {};
-        \only<3>{\node[rectangle,fill=rgreen,minimum width=3cm,minimum height=2cm] at (10.5,-10) {};}
-        \node[rectangle,draw=black,minimum width=3cm,minimum height=2cm] at (10.5,-10) {};
-        \node[rectangle,draw=black,minimum width=3cm,minimum height=2cm] at (16.5,-10) {};
-      \end{tikzpicture}
-    }
-  \end{minipage}
-\end{frame}
-
-\begin{frame}{Cut Strengthening Methods}
-
-\structure{Deletion filter:}
-\begin{itemize}
-  \item Consider TTWPs iteratively and try to remove each
-  \item Accept removal when subproblem remains infeasible
-  \item $\rightarrow $ \important{irreducible set of TTWPs / cut}
-  \item Order of TTWPs is crucial, but ``best'' order unknown!
-\end{itemize}
-
-\bigskip
-\structure{MARCO (Liffiton and Malik, 2013):}
-\begin{itemize}
-  \item Enumerates \important{\emph{all} irreducible sets of TTWPs} systematically
-  \item Much more expensive in terms of SPs to check
-\end{itemize}
-
-\bigskip 
-%\emph{Karlsson and Rönnberg (2021):} Comparison of different cut strengthening procedures\nocite{karlsson2021strengthening}
-\fullcite{karlsson2021strengthening}
-
-\bigskip
-Our approach: based on the faster deletion filter,\\
-but for obtaining training data we use MARCO.
-\end{frame}
-
-
-\section{Learning the Strengthening of Cuts}
-
-\begin{frame}
-  \frametitle{GNN-Based Cut-Strengthening}
-  Learn \important{Graph Neural Network (GNN) based function}
-  \begin{equation*}
-    f_\Theta(
-      \,\overbrace{I}^\text{\hspace{-1cm}instance\hspace{-1cm}}\,,
-      \,\underbrace{X}_\text{\hspace{-1cm}TTWPs from MP\hspace{-1cm}}\,,
-      \,\overbrace{S}^\text{\hspace{-1cm}selected TTWPs\hspace{-1cm}}\,
-    )
-    \qquad \longrightarrow \qquad
-    \underbrace{(i,w)}_\text{next TTWP to add to $S$} \text{ and }\quad
-    \underbrace{\tau}_\text{stop?}
-  \end{equation*}
-
-  \bigskip
-  \uncover<2->{
-    \noindent\important{Given:} problem instance $I$, feasibility cut $X$ \\
-    \important{Return:} strengthened feasibility cut
-    \begin{enumerate}
-      \item Start with $S=[]$
-      \item Autoregressively add TTWPs $(i,w)$ until $\tau$
-      \item Autoregressively add TTWPs $(i,w)$ until subproblem($S$) is infeasible
-      \item Apply deletion filter in reverse order of $S$
-    \end{enumerate}
-  }
-\end{frame}
-
-\begin{frame}
-  \frametitle{GNN Architecture\footnote{Inspired by \fullcite{kool2019attention}}}
-  Complete directed graph with nodes $\widehat{=}$ \important{$X$} (TTWPs from MP solution) \\
-  \important{Input:} 16 node features $x$, 7 arc features $y$ \\
-  \important{Output:} $p$, $\tau$
-
-  \begin{centering}
-    \scalebox{0.7}{
-      \begin{tikzpicture}[scale=0.8]
-        \node at (0,0) (x) {$x$};
-        \node[layer] at (2.5,0) (linx) {Linear};
-        \node at (0,-2) (y) {$y$};
-        \node[layer] at (2.5,-2) (liny) {Linear};
-        \node[layer] at (5.6,0) (mha) {MHA};
-        \node[plus] at (7.2,0) (skip-mha) {};
-        \node[layer] at (9,0) (bn-mha) {Batch-Norm};
-        \node[layer] at (12,0) (ff) {FF(512)};
-        \node[plus] at (13.55,0) (skip-ff) {};
-        \node[layer] at (15.4,0) (bn-ff) {Batch-Norm};
-        \node[layer] at (18.5,0) (ffp) {FF(64)};
-        \node at (21,0) (p) {$p$};
-        \node[layer] at (18.5,-2) (fff) {FF(64)};
-        \node at (21,-2) (f) {$\tau$};
-
-        \draw[->] (x) -- (linx);
-        \draw[->] (linx) -- (mha);
-        \draw[->] (y) -- (liny);
-        \draw[->] (liny) -| (mha);
-        \draw[->] (mha) -- (skip-mha);
-        \draw[->] (linx) -| ++(1.8,1.2) -| (skip-mha);
-        \draw[->] (skip-mha) -- (bn-mha);
-        \draw[->] (bn-mha) -- (ff);
-        \draw[->] (ff) -- (skip-ff);
-        \draw[->] (bn-mha) -| ++(1.6,1.2) -| (skip-ff);
-        \draw[->] (skip-ff) -- (bn-ff);
-        \draw[->] (bn-ff) -- (ffp);
-        \draw[->] (ffp) -- (p);
-        \draw[->] (bn-ff) ++(1.8,0) |- (fff);
-        \draw[->] (fff) -- (f);
-
-        \node[rectangle, draw=red, dashed, minimum width=10.2cm, minimum height=3.2cm] at (10.5,-0.5) {};
-        \node[text=red] at (10.5, -2.3) {3x};
-      \end{tikzpicture}
-    }
-    \captionof{figure}{Architecture of the GNN.}
-  \end{centering}
-
-  \important{MHA:} Multi-head attention, i.e., transformer-based convolution layer with 8 heads
-
-  \bigskip
-  $f_\Theta$ returns TTWP with maximal $p$ and rounded $\tau$
-\end{frame}
-
-\begin{frame}
-  \frametitle{Training}
-  Offline, in supervised fashion using representative problem instances
-
-  \bigskip
-  \structure{Collecting training samples:}
-
-  \medskip
-  \begin{enumerate}
-    \itemsep2ex
-    \item \important{Run Logic-based Benders Decomposition}
-      \begin{itemize}
-        \item enumerate \important{\emph{all} irreducible cuts} via MARCO, add them to the MP
-        \item record all SPs and cuts
-      \end{itemize}
-    \item Determine a minimal subset of \important{\bf strong cuts},\\
-      i.e., cuts actually required in MP to get feasible optimal solution
-    \item For each subproblem: \important{Rollouts}
-      \begin{itemize}
-        \item Start with empty set $S$
-        \item Successively add TTWPs leading to a strong cut randomly until $S$ $\widehat{=}$ irreducible cut
-        \item \important{Each iteration:} add \important{training sample}
-        \item \important{Labels:} based on strong cuts
-      \end{itemize}
-  \end{enumerate}
-
-  \bigskip
-  Loss function: binary cross-entropy
-\end{frame}
-
-\section{Results}
-
-% \begin{frame}[fragile]
-%   \frametitle{Experiments Setup}
-%   \begin{itemize}
-%     \item \important{Instances} like in \emph{Horn, Raidl, and Rönnberg (2021)}, $n\in\{10,15,20,25\}$ tasks
-%     \item \verb|pytorch_geometric|, Gurobi 9.5, CP\,Optimizer 20.1
-%     \item AMD Ryzen 9 5900X
-%     \item For each $n$: 300\,000 to 600\,000 training samples from 2.000 to 200\,000 instances
-%     \item 40 to 300 training epochs
-%     \vspace{6mm}
-%     \item Comparison to \important{deletion filter} with different orders:
-%       \begin{itemize}
-%         \item Random
-%         \item Sorted: natural order from instance
-%         \item Hooker \footfullcite{2013_coban-hooker_article}: sorted by decreasing slack
-%       \end{itemize}
-%   \end{itemize}
-% \end{frame}
-
-% \begin{frame}
-%   \frametitle{Results: Number of Solved SPs to Reach Optimality}
-%   \centering
-%   \cumuldistr{../lod23/csv/avionics20_inst20}{no_subproblems_performed}{0.8\textwidth}{0.6\textheight}{\# of solved subproblems}{\# of solved\\instances}{\normalsize 20 Tasks}
-%   \ref{legend:cumuldistr-../lod23/csv/avionics20_inst20-no_subproblems_performed}
-
-%   \bigskip
-%   Reduction: $\approx 70\%$
-% \end{frame}
-
-% \begin{frame}
-%   \frametitle{Results: Time to Reach Optimality}
-%   \centering
-%   \cumuldistr{../lod23/csv/avionics20_inst20}{time_spent}{0.8\textwidth}{0.6\textheight}{Time {[s]}}{\# of solved\\instances}{}\hfill
-%   \ref{legend:cumuldistr-../lod23/csv/avionics20_inst20-time_spent}
-
-%   \bigskip
-%   Reduction: $\approx 50\%$
-% \end{frame}
-
-% \begin{frame}
-%   \frametitle{Results: Number of MP Iterations}
-%   \centering
-%   \cumuldistr{../lod23/csv/avionics20_inst20}{no_benders_iteration}{0.8\textwidth}{0.6\textheight}{Time {[s]}}{\# of LBBD iterations}{}\hfill
-%   \ref{legend:cumuldistr-../lod23/csv/avionics20_inst20-no_benders_iteration}
-% \end{frame}
-
-% \begin{frame}{Results: Bounds over Time}
-%   \centering
-%   \includegraphics[width=10cm]{img/results-bounds.png}\hfill
-%   \ref{legend:cumuldistr-../lod23/csv/avionics20_inst20-no_benders_iteration}
-% \end{frame}
-
-% \begin{frame}{Results: Out-of-Distribution Usage of GNNs}
-%   \centering
-%   25 Tasks\\
-%   \includegraphics[width=15cm]{img/results-extrapolation.png}
-% \end{frame}
-
-% \section{Conclusion}
-
-% \begin{frame}
-%   \frametitle{Conclusion and Future Work}
-%   \begin{itemize}
-%     \itemsep1.5ex
-%     \item \important{GNN} to \important{guide cut strengthening} in Logic-based Benders Decomposition
-%     \item Reduced \# subproblems to be solved by $\approx 70\%$
-%     \item Reduced runtime by $\approx 50\%$
-%     \item Promising future work
-%       \begin{itemize}
-%         \item Application to other/more complex problems
-%         \item Deeper analysis of importance of features, GNN structure
-%         \item Curriculum learning
-%         \item Reinforcement learning
-%       \end{itemize}
-%   \end{itemize}
-% \end{frame}
-
-% \part{End}
-
-% \begin{frame}
-%   \frametitle{}
-%   \centering
-%   \LARGE
-%   Thank you!
-
-%   \vspace{1em}
-%   Paper to appear in LOD~23 post-conference proceedings:\\
-%   \includegraphics[width=0.3\textwidth]{img/qrcode.pdf}
-% \end{frame}
-
-%\appendix
-
-\section{References}
-
-% ### Bibliography ################################################################################
-\begin{frame}%[allowframebreaks]
-  \frametitle{References}
-  \nocite{saken2023computational}
-  \printbibliography
-\end{frame}
-
-\section{Backup}
-
-\begin{frame}{Node Features}
-  \centering
-  \includegraphics[height=0.9\textheight]{img/node-features.png}
-\end{frame}
-
-\begin{frame}{Arc Features}
-  \centering
-  \includegraphics[height=0.65\textheight]{img/arc-features.png}
-\end{frame}
 
 \end{document}
