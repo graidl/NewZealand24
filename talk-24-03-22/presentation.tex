@@ -444,11 +444,10 @@
   
 \end{frame}
 
-%GR Came up to here!!!
 %TODO use alternative 1, remove others
 % alternative 1: 
 \begin{frame}
-  \frametitle{Battery-Restricted Fragments {\footnotesize{\textcolor{gray}{(\cite{Su:2023})}}}}
+  \frametitle{Battery-Restricted Fragments} %{\footnotesize{\textcolor{gray}{(\cite{Su:2023})}}}}
   
 \begin{definition}[\textsc{Battery-restricted fragment}]
 	A \important{\emph{battery-restricted fragment}}~$\mathcal{F} = (i_1, i_2, \dots, i_k)$ is a subsequence of a feasible route that consists only of \important{pickup and drop-off nodes}, where the vehicle \important{arrives empty} at $i_1$ and \important{leaves empty} at $i_k$ and has passenger(s) on board at all other nodes.
@@ -457,57 +456,135 @@
 % insert example of route with fragments (instead of first bullet point) -> e.g. from Su et al.
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.3]{graphics/battery-restricted-fragment-example.png}
-	\caption{Route with battery-restricted fragments, taken from \cite{Su:2023}.}
+	\includegraphics[scale=0.42]{graphics/battery-restricted-fragment-example.png}
+	%\caption{Route with battery-restricted fragments, taken from \cite{Su:2023}.}
 \end{figure}
 
 \begin{itemize}
 %	\item Route = concatenation of an origin depot, battery-restricted fragments, optional charging stations, and a destination depot 
 %	\item Minimum user excess ride time $t^{\mathrm{excess}}_{\mathrm{min}}(\mathcal{F})$ of a fragment $\mathcal{F}$: calculated exactly with a linear program (LP)
-	\item Minimum user excess ride time $t^{\mathrm{excess}}_{\mathrm{min}}(\mathcal{F})$: calculated exactly with a linear program (LP)
+	\item Charging within a fragment not allowed
+	\item Timing within can be \important{independently optimized} to \important{minimize user excess ride time}\\ %$t^{\mathrm{excess}}_{\mathrm{min}}(\mathcal{F})$}\\
+	$\rightarrow$ exactly determined by solving a \important{linear program (LP)}
+	\item Fragments + results are \important{cached} to avoid repeated calculation
 \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}
-  \frametitle{Battery-Restricted Fragments {\footnotesize{\textcolor{gray}{(\cite{Su:2023})}}}}
-  \framesubtitle{Usage}
+% \begin{frame}
+%   \frametitle{Battery-Restricted Fragments {\footnotesize{\textcolor{gray}{(\cite{Su:2023})}}}}
+%   \framesubtitle{Usage}
   
-\structure{Efficient route cost computation:}
-\begin{itemize}
-	\item Minimum user excess ride time of a feasible route $r$ with fragments $\mathcal{F}_1, \mathcal{F}_2, \dots, \mathcal{F}_n$: $t^{\mathrm{excess}}_{\mathrm{min}}(r) = \sum_{i = 1}^{n} t^{\mathrm{excess}}_{\mathrm{min}}(\mathcal{F}_i)$ 
-\end{itemize}
+% \structure{Efficient route cost computation:}
+% \begin{itemize}
+% 	\item Minimum user excess ride time of a feasible route $r$ with fragments $\mathcal{F}_1, \mathcal{F}_2, \dots, \mathcal{F}_n$: $t^{\mathrm{excess}}_{\mathrm{min}}(r) = \sum_{i = 1}^{n} t^{\mathrm{excess}}_{\mathrm{min}}(\mathcal{F}_i)$ 
+% \end{itemize}
 
-\medskip
+% \medskip
   
-\structure{\cite{Su:2023}:}
-\begin{itemize}
-	\item Enumerate and evaluate all feasible fragments during preprocessing 
-		\begin{itemize}
-			\item[$\rightarrow$] can be inefficient, time-consuming, memory demanding 
-		\end{itemize}
-%	\item Use precalculated user excess rides times during route evaluation
-\end{itemize}
+% \structure{\cite{Su:2023}:}
+% \begin{itemize}
+% 	\item Enumerate and evaluate all feasible fragments during preprocessing 
+% 		\begin{itemize}
+% 			\item[$\rightarrow$] can be inefficient, time-consuming, memory demanding 
+% 		\end{itemize}
+% %	\item Use precalculated user excess rides times during route evaluation
+% \end{itemize}
 
-\medskip
+% \medskip
 
-\structure{Our approach:}
-\begin{itemize}
-	\item Evaluate fragments on first encounter 
-		\begin{itemize}
-%			\item[$\rightarrow$] cache in hash table 
-			\item[$\rightarrow$] better scalability 
-		\end{itemize}
-	\item Improve charging stop insertion %: used to improve efficiency as charging stations can only be inserted in between fragments and not within them 
-\end{itemize}
+% \structure{Our approach:}
+% \begin{itemize}
+% 	\item Evaluate fragments on first encounter 
+% 		\begin{itemize}
+% %			\item[$\rightarrow$] cache in hash table 
+% 			\item[$\rightarrow$] better scalability 
+% 		\end{itemize}
+% 	\item Improve charging stop insertion %: used to improve efficiency as charging stations can only be inserted in between fragments and not within them 
+% \end{itemize}
 
-\end{frame}
+% \end{frame}
 
 
 \section{Solving Approach}
 
 %(done) preprocessing could be removed if presentation too long -> moved to additional slides 
+
+
+\begin{frame}[noframenumbering]
+	\frametitle{Large Neighborhood Search (LNS) \\ \footnotesize{\textcolor{gray}{\cite{Shaw:1998, Pisinger:2010}}}}
+
+\begin{itemize}
+	\item Based on
+		\begin{itemize}
+			\item (Set of) destroy operator(s)
+			\item (Set of) repair operator(s)
+		\end{itemize}
+	%\item Important parameter: \important{degree of destruction~$k$}
+\end{itemize}
+
+\medskip
+% pseudo code for LNS
+\scalebox{0.8}{
+\begin{algorithm}[H]
+	\SetAlgoSkip{}
+	\SetArgSty{textnormal}	% prints termination criterion in normal text instead of italics
+	\SetKwFunction{FMain}{LNS}
+	\SetKwProg{Fn}{Procedure}{:}{end}
+	\KwIn{feasible solution $x$}
+ 	\KwOut{best found solution $x^b$}
+	%\Fn{\FMain{}}{ % prints "Procedure LNS():"
+  		%\Begin{
+  			$x^b \leftarrow x$\;
+			Select a destroy and a repair operator pair $(d,r)$\;
+  			\Repeat{stop criterion is met}{
+  				$x^t \leftarrow r(d(x))$\;
+  				\If{$\text{accept}(x^t,x)$}{
+  					$x \leftarrow x^t$\;
+  				}
+  				\If{$c(x^t) < c(x^b)$}{
+  					$x^b \leftarrow x^t$\;
+  				}
+  			}
+  			\Return{$x^b$\;}
+  		%}
+  	%}
+  %\caption{Large Neighborhood Search procedure \texttt{LNS()} for a minimization problem}
+  \caption{Large Neighborhood Search}
+  \label{alg:large-neighborhood-search} % \label has to be placed AFTER \caption to produce correct cross-references.
+\end{algorithm} 
+}
+
+% \onslide<3>{
+% % example
+% \begin{minipage}[t]{0.3\linewidth}
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=\textwidth]{graphics/tsp-initial-solution}
+% 	\caption{Initial solution.}
+% \end{figure}
+% \end{minipage}%
+% \hfill%
+% \begin{minipage}[t]{.3\textwidth}
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=\textwidth]{graphics/tsp-destroy-solution} 
+% 	\captionof{figure}[]{After destroy operation.}
+% \end{figure}
+% \end{minipage}%
+% \hfill%
+% \begin{minipage}[t]{.3\textwidth}
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=\textwidth]{graphics/tsp-repair-solution} 
+% 	\captionof{figure}[]{After repair operation.}
+% \end{figure}
+% \end{minipage}%
+% }
+
+\end{frame}
+
 
 \subsection{Large Neighborhood Search (LNS)}
 
@@ -516,6 +593,8 @@
 % destroy operator, repair operator
 \begin{frame}
   \frametitle{Large Neighborhood Search (LNS)}
+
+  Basic framework similar to {\textcolor{gray}{(\cite{Ropke:2006})}}
 %  \framesubtitle{Destroy Operator}
 
 %TODO insert figure of destroy operator or destroy-repair in LNS
@@ -584,10 +663,10 @@
 %	\item Remove randomly selected requests 
 %\end{itemize}
 
-\structure{Destroy operator:} random removal {\footnotesize{\textcolor{gray}{(\cite{Ropke:2006})}}}
+\structure{Destroy operator:} %random removal {\footnotesize{\textcolor{gray}{(\cite{Ropke:2006})}}}
 \begin{itemize}
 %	\item Remove 15 randomly selected requests 
-	\item Remove randomly selected requests 
+	\item Remove uniformly randomly selected requests 
 \end{itemize}
 
 
@@ -597,7 +676,7 @@
   \frametitle{Large Neighborhood Search (LNS)}
   \framesubtitle{Repair Operators}
   
-\structure{Greedy heuristic:} {\footnotesize{\textcolor{gray}{(\cite{Ropke:2006})}}}
+\structure{Greedy heuristic:}
 \begin{itemize}
 	\item Cheapest insertion over all unserved requests and routes 
 \end{itemize}
@@ -633,14 +712,14 @@
 	
 %(done) fix spacing (more space)
 \begin{itemize}
-	\item LNS does not deal with charging stops
+	\item \important{LNS does not (directly) deal with charging stops!}
 	\medskip 
 	\item Route evaluation procedure: 
 		\smallskip
 		\begin{itemize}
 			\item Checks feasibility 
 			\smallskip
-			\item Inserts charging stops as needed 
+			\item Inserts charging stops as needed on-the-fly
 			\smallskip
 %			\item Determines times (waiting, service, charging)
 			\item Determines charging durations 
@@ -674,8 +753,7 @@
 
 
 \begin{frame}
-  \frametitle{On-The-Fly (OTF) Charging Stop Insertion}
-  \framesubtitle{Mixed Integer Linear Program (MILP)}
+  \frametitle{MILP-Based Charging Stop Insertion}
   
 \structure{Goals:}
 \begin{itemize}
@@ -695,8 +773,7 @@
 
 \structure{Drawbacks:}
 \begin{itemize}
-	\item Computationally expensive 
-	\item Slow
+	\item Computationally expensive, slow 
 \end{itemize}
 
 \end{frame}
@@ -704,21 +781,20 @@
 
 %TODO maybe visualize workflow
 \begin{frame}
-  \frametitle{On-The-Fly Charging Stop Insertion}
-  \framesubtitle{Time-Efficient Heuristic I}
+  \frametitle{Heuristic Charging Stop Insertion}
 
 \only<1>{
 \structure{Workflow:}
 \begin{itemize}
-	\item Remove charging stops from route 
-	\item Determine remaining route~$R$: fragments and depots 
-	\item Forward pass: % determine  
+	\item Determine list of start depot, fragments, and end depot,\\
+	check individual validity of each fragment
+	\item \structure{Forward pass:} % determine  
 		\begin{itemize}
 			\item Earliest service start times~$t^\mathrm{early}$ and waiting durations~$d^\mathrm{wait}$
 			\item Battery levels of vehicle 
 			\item Latest stop $i^\mathrm{ch}$ before which charging is necessary 
 		\end{itemize}
-	\item Backward pass: % determine 
+	\item \structure{Backward pass:} % determine 
 		\begin{itemize}
 			\item Latest service start times $t^\mathrm{late}$ and backward-waiting durations~$d^\mathrm{wait\_back}$
 		\end{itemize}
@@ -750,12 +826,12 @@
 
 %TODO remove whole slide to save time? TBD
 \begin{frame}
-  \frametitle{On-The-Fly Charging Stop Insertion}
+  \frametitle{Heuristic Charging Stop Insertion}
   \framesubtitle{Time-Efficient Heuristic II}
   
 \begin{itemize}
 %	\item Allows multiple charging stops per route
-	\item Feasibility with 1 charging stop possible:
+	\item Feasibility achievable with 1 charging stop possible:
 	\smallskip
 		\begin{itemize}
 			\item Optimal insertion
@@ -855,14 +931,13 @@
 % alternative2: removed columns with standard deviation and columns with number of feasible solutions
 % new version without citations 
 \begin{frame}
-  \frametitle{Results}
+  \frametitle{Results: Cordeau instances with $\gamma = 0.1$}
   
 %\setlength{\intextsep}{0.1\baselineskip}
   
 %NEW2: Cordeau instances with $\gamma = 0.1$
-Cordeau instances with $\gamma = 0.1$
 
-\vspace{-0.5mm}
+
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
 % \usepackage{graphicx}
@@ -874,7 +949,7 @@ Cordeau instances with $\gamma = 0.1$
 %\caption{Results on Cordeau instances with $\gamma = 0.1$ for limited CS visits ($n_\mathrm{s} = 1$) and unlimited CS visits ($n_\mathrm{s} = \infty$).  }
 %\caption{ Cordeau instances with $\gamma = 0.1$}
 \label{tab:eurocast24_results_cordeau_g01}
-\resizebox{0.95\columnwidth}{!}{%
+\resizebox{0.9\columnwidth}{!}{%
 \begin{tabular}{lrrrrrrrrrrr}
 \hline
 \multicolumn{1}{c}{}                           & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}e-ADARP2\end{tabular}} & \multicolumn{3}{c}{\begin{tabular}[c]{@{}c@{}}DA\end{tabular}}                                                                 & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}BI-LNS\end{tabular}} & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}OTF MILP\end{tabular}} & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}OTF Heuristic\end{tabular}} \\ \cline{2-12} %\cmidrule{2-12}%
@@ -918,11 +993,9 @@ a5-50                                          &                                
 % alternative2: removed columns with standard deviation and columns with number of feasible solutions
 % new version: without citations 
 \begin{frame}
-  \frametitle{Results}
+  \frametitle{Results: Cordeau instances with $\gamma = 0.7$ }
   
-Cordeau instances with $\gamma = 0.7$ 
 
-\vspace{-0.5mm}
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
 % \usepackage{graphicx}
@@ -932,7 +1005,7 @@ Cordeau instances with $\gamma = 0.7$
 \centering
 %\caption{Results on Cordeau instances with $\gamma = 0.7$ for limited CS visits ($n_\mathrm{s} = 1$) and unlimited CS visits ($n_\mathrm{s} = \infty$).  }
 \label{tab:eurocast24_results_cordeau_g07}
-\resizebox{0.95\textwidth}{!}{%
+\resizebox{0.9\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrrrrr}
 \hline
 \multicolumn{1}{c}{}                           & \multicolumn{2}{c}{e-ADARP2}                                 & \multicolumn{3}{c}{DA}                                                                       & \multicolumn{2}{c}{BI-LNS}             & \multicolumn{2}{c}{OTF MILP}                                                  & \multicolumn{2}{c}{OTF Heuristic}                        \\ \cline{2-12} 
@@ -977,11 +1050,9 @@ a5-50                                          &              & \multicolumn{1}{
 % alternative: removed columns with standard deviation 
 % new version: without citations 
 \begin{frame}
-  \frametitle{Results}
+  \frametitle{Results: Ropke instances with $\gamma = 0.1$}
   
-Ropke instances with $\gamma = 0.1$
 
-\vspace{-4.5mm}
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
 % \usepackage{graphicx}
@@ -991,7 +1062,7 @@ Ropke instances with $\gamma = 0.1$
 \centering
 %\caption{Results on Ropke instances with $\gamma = 0.1$ for limited CS visits ($n_\mathrm{s} = 1$) and unlimited CS visits ($n_\mathrm{s} = \infty$).  }
 \label{tab:eurocast24_results_ropke_g01}
-\resizebox{\textwidth}{!}{%
+\resizebox{0.95\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrrr}
 \hline
 \multicolumn{1}{c}{}                           & \multicolumn{3}{c}{DA}                                 & \multicolumn{3}{c}{OTF MILP}                    & \multicolumn{3}{c}{OTF Heuristic}                                  \\ \cline{2-10} 
@@ -1028,9 +1099,8 @@ a8-96                                          & 6.11              & 1049.98 & \
 % alternative: removed columns with standard deviation 
 % new version: without citations 
 \begin{frame}
-  \frametitle{Results}
+  \frametitle{Results: Ropke instances with $\gamma = 0.7$}
   
-Ropke instances with $\gamma = 0.7$
 
 %\vspace{-1.5mm}
 % Please add the following required packages to your document preamble:
@@ -1043,7 +1113,7 @@ Ropke instances with $\gamma = 0.7$
 \LARGE
 %\caption{Results on Ropke instances with $\gamma = 0.7$ for limited CS visits ($n_\mathrm{s} = 1$) and unlimited CS visits ($n_\mathrm{s} = \infty$).  }
 \label{tab:eurocast24_results_ropke_g07}
-\resizebox{\textwidth}{!}{%
+\resizebox{0.95\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrrrrrr}
 \hline
 \multicolumn{1}{c}{}                           & \multicolumn{3}{c}{DA}                                                                            & \multicolumn{3}{c}{BI-LNS}             & \multicolumn{3}{c}{OTF MILP}                    & \multicolumn{3}{c}{OTF Heuristic}                                  \\ \cline{2-13} 
@@ -1085,8 +1155,8 @@ a8-96                                          & 13.45                          
 \onslide<1->{
 \structure{Conclusions:}
 \begin{itemize}
-	\item Charging stops more important for higher $\gamma$ and larger instances 
-	\item OTF heuristic better than OTF MILP approach 
+	%\item Charging stops more important for higher $\gamma$ and larger instances 
+	\item OTF heuristic highly efficient and effective, better than OTF MILP approach 
 		\begin{itemize}
 			\item[$\rightarrow$] especially on larger instances
 		\end{itemize}
@@ -1095,20 +1165,20 @@ a8-96                                          & 13.45                          
 			\item best mean objective values
 			\item best known or new best objective values 
 		\end{itemize}
+	\item [$\rightarrow$] caching of fragments' results and carefully crafted evaluation with OTF charging station insertion pays off!
 \end{itemize}
 }
 
-\onslide<2->{
 \bigskip 
 
 \structure{Future Work:}
 \begin{itemize}
 %	\item Consideration of very large-scale instances with different LNS operators 
-	\item Very large-scale instances with different LNS operators 
-	\item Machine learning-based operator selection 
+	\item Address very large-scale instances
+	\item More destroy/repair operators, machine learning-based selection
+	\item Learn more meaningful destroy/repair operators 
 	\item Dynamic E-ADARP 
 \end{itemize}
-}
 	
 \end{frame}
 
@@ -1236,16 +1306,14 @@ a8-96                                          & 13.45                          
 	\frametitle{Large Neighborhood Search (LNS) \\ \footnotesize{\textcolor{gray}{\cite{Shaw:1998, Pisinger:2010}}}}
 
 \begin{itemize}
-	\item Local search metaheuristics
-	\item Large neighborhoods with \important{complex move operators}
+	\item Based on
 		\begin{itemize}
-			\item Destroy operator
-			\item Repair operator
+			\item (Set of) destroy operator(s)
+			\item (Set of) repair operator(s)
 		\end{itemize}
 	%\item Important parameter: \important{degree of destruction~$k$}
 \end{itemize}
 
-\only<2>{
 \medskip
 % pseudo code for LNS
 \scalebox{0.8}{
@@ -1259,6 +1327,7 @@ a8-96                                          & 13.45                          
 	%\Fn{\FMain{}}{ % prints "Procedure LNS():"
   		%\Begin{
   			$x^b \leftarrow x$\;
+			Select a destroy and a repair operator pair $(d,r)$\;
   			\Repeat{stop criterion is met}{
   				$x^t \leftarrow r(d(x))$\;
   				\If{$\text{accept}(x^t,x)$}{
@@ -1276,33 +1345,33 @@ a8-96                                          & 13.45                          
   \label{alg:large-neighborhood-search} % \label has to be placed AFTER \caption to produce correct cross-references.
 \end{algorithm} 
 }
-}
-\onslide<3>{
-% example
-\begin{minipage}[t]{0.3\linewidth}
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{graphics/tsp-initial-solution}
-	\caption{Initial solution.}
-\end{figure}
-\end{minipage}%
-\hfill%
-\begin{minipage}[t]{.3\textwidth}
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{graphics/tsp-destroy-solution} 
-	\captionof{figure}[]{After destroy operation.}
-\end{figure}
-\end{minipage}%
-\hfill%
-\begin{minipage}[t]{.3\textwidth}
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{graphics/tsp-repair-solution} 
-	\captionof{figure}[]{After repair operation.}
-\end{figure}
-\end{minipage}%
-}
+
+% \onslide<3>{
+% % example
+% \begin{minipage}[t]{0.3\linewidth}
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=\textwidth]{graphics/tsp-initial-solution}
+% 	\caption{Initial solution.}
+% \end{figure}
+% \end{minipage}%
+% \hfill%
+% \begin{minipage}[t]{.3\textwidth}
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=\textwidth]{graphics/tsp-destroy-solution} 
+% 	\captionof{figure}[]{After destroy operation.}
+% \end{figure}
+% \end{minipage}%
+% \hfill%
+% \begin{minipage}[t]{.3\textwidth}
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=\textwidth]{graphics/tsp-repair-solution} 
+% 	\captionof{figure}[]{After repair operation.}
+% \end{figure}
+% \end{minipage}%
+% }
 
 \end{frame}
 
