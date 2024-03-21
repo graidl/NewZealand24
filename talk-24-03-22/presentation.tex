@@ -1171,30 +1171,140 @@ a8-96                                          & 13.45                          
 
 \bigskip 
 
-\structure{Future Work:}
+\structure{Next steps:}
 \begin{itemize}
 %	\item Consideration of very large-scale instances with different LNS operators 
 	\item Address very large-scale instances
 	\item More destroy/repair operators, machine learning-based selection
-	\item Learn more meaningful destroy/repair operators 
+	\item Learn more meaningful restricted destroy/repair operators 
 	\item Dynamic E-ADARP 
 \end{itemize}
 	
 \end{frame}
 
+\section{Dynamic Stochastic VRPs}
+
+\begin{frame}{Addressing Dynamic Stochastic VRPs}
+
+\structure{Principal approach: ``Model Predictive Control'':}
+
+\begin{itemize}
+	\itemsep3ex
+	\item At certain points in time, solve problem with available information for aspects than can still be controlled.
 	
-	
-\begin{frame}
-	\frametitle{Discussion \& Questions}
-	\centering
-	\huge 
-	Thank you!
-	
-%	\bigskip
-%	
-%	Questions?
+	\item[$\rightarrow$] e.g., apply LNS for static problem
+	\item = \important{myopic approach}
+\end{itemize}
 
 \end{frame}
+
+\begin{frame}
+	\frametitle{Adversary Example}
+	\begin{figure}[tb]
+		\centering
+		\includegraphics[width=.80\columnwidth]{graphics/illustrative_example.pdf}
+		%\caption{Taken from Bracher et al.~(2021), p.~7}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Mean Order Delivery Time / Driver Performance}% \\ \small \textcolor{gray}{Beardwood et al. (1959), Daganzo (1984), Figliozzi (2008, 2010)}}
+	Given a day $a$ and an hour $t$, we define the \alert{mean order delivery time} $\phi_t(a)$, the time needed by an average driver to deliver one order.
+	\bigskip
+	
+	%\textbf{Aim of this work}. Find a good predictor $\tilde \phi_t(a)$ for $\phi_t(a)$.
+	%\structure{Bootstrapping}: Consider active labor time, subsequent shift planning will result into tight shifts with almost no waiting times.
+	%\bigskip
+	
+	%Is necessary for:
+	%\begin{itemize}
+	%	\item Shift planning
+	%	\item Large horizon planning
+	%	\item Waiting time strategies
+	%\end{itemize}
+	
+	\begin{figure}[tb]
+		\centering
+		\includegraphics[width=.80\columnwidth]{graphics/phi_fit}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Classical Approach to Consider Future: Scenario Sampling}
+
+\begin{itemize}
+	\itemsep2ex
+	\item \important{Sample scenario instances} containing artificial future orders according to an expected distribution
+	\item \important{Solve} each scenario
+	\item Combine solutions to a single \important{consensus solution} for actually available orders
+	\item[$\rightarrow$] usually \important{much better}, but \alert{computationally expensive}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Learning Surrogate Models\\ \small \textcolor{gray}{Bracher, Frohner, and Raidl (2021)}}
+	
+	\textbf{Issue:} depot returns not anticipated
+	
+	% \begin{itemize}
+	% 	\item static LNS happily \alert{mixes urgent and non-urgent orders}
+	% 	\item focuses on the geographical aspect, when deadlines are met
+	% \end{itemize}	
+	% \bigskip
+	
+	%\pause
+	Surrogate function approach:
+	\begin{itemize}
+		\item replace route duration $d(r)$ by parameterized \alert{surrogate travel time} $d'(r)$
+		\item predicts the \alert{future} travel time of delayable orders/routes
+		\item supervised learning in an offline phase using scenario sampling
+		\item resulting surrogate directly used in online LNS optimization
+	\end{itemize}
+	\bigskip
+	
+	\pause
+	\textbf{Key results:} up to 5--10\% improvement in travel times with 30-40 orders per hour and sufficient drivers to avoid tardiness.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Results}
+	\centering
+	\includegraphics[width=0.4\textwidth]{graphics/boxplots.pdf}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Conclusions}
+	
+	\begin{itemize}
+		\itemsep2ex
+		\item \important{Dynamic Stochastic VRPs} are challenging
+		\item Described approach uses the power of the state-of-the-art for the static problem
+		\item \important{Scenario Sampling} can be precise, but often too computationally expensive
+		\item Learned \important{surrogate models} can be highly effective and are faster
+		\item \important{More complex models are not necessarily better!}
+	\end{itemize}
+\end{frame}
+	
+
+	
+
+
+
+	
+	
+% \begin{frame}
+% 	%\frametitle{Discussion \& Questions}
+% 	\centering
+% 	\huge 
+% 	Thank you!
+	
+% %	\bigskip
+% %	
+% %	Questions?
+
+% \end{frame}
 
 
 
