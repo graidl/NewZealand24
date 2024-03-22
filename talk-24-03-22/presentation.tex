@@ -518,8 +518,8 @@
 \begin{itemize}
 	\item Based on
 		\begin{itemize}
-			\item (Set of) destroy operator(s)
-			\item (Set of) repair operator(s)
+			\item (set of) destroy operator(s)
+			\item (set of) repair operator(s)
 		\end{itemize}
 	%\item Important parameter: \important{degree of destruction~$k$}
 \end{itemize}
@@ -1062,7 +1062,7 @@ a5-50                                          &              & \multicolumn{1}{
 \centering
 %\caption{Results on Ropke instances with $\gamma = 0.1$ for limited CS visits ($n_\mathrm{s} = 1$) and unlimited CS visits ($n_\mathrm{s} = \infty$).  }
 \label{tab:eurocast24_results_ropke_g01}
-\resizebox{0.95\textwidth}{!}{%
+\resizebox{0.92\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrrr}
 \hline
 \multicolumn{1}{c}{}                           & \multicolumn{3}{c}{DA}                                 & \multicolumn{3}{c}{OTF MILP}                    & \multicolumn{3}{c}{OTF Heuristic}                                  \\ \cline{2-10} 
@@ -1113,7 +1113,7 @@ a8-96                                          & 6.11              & 1049.98 & \
 \LARGE
 %\caption{Results on Ropke instances with $\gamma = 0.7$ for limited CS visits ($n_\mathrm{s} = 1$) and unlimited CS visits ($n_\mathrm{s} = \infty$).  }
 \label{tab:eurocast24_results_ropke_g07}
-\resizebox{0.95\textwidth}{!}{%
+\resizebox{0.92\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrrrrrr}
 \hline
 \multicolumn{1}{c}{}                           & \multicolumn{3}{c}{DA}                                                                            & \multicolumn{3}{c}{BI-LNS}             & \multicolumn{3}{c}{OTF MILP}                    & \multicolumn{3}{c}{OTF Heuristic}                                  \\ \cline{2-13} 
@@ -1150,7 +1150,7 @@ a8-96                                          & 13.45                          
 \section{Conclusion \& Outlook}
 
 \begin{frame}
-	\frametitle{Conclusion \& Outlook}
+	\frametitle{Conclusion for Static E-ADARP \& Outlook}
 	
 \onslide<1->{
 \structure{Conclusions:}
@@ -1165,7 +1165,7 @@ a8-96                                          & 13.45                          
 			\item best mean objective values
 			\item best known or new best objective values 
 		\end{itemize}
-	\item [$\rightarrow$] caching of fragments' results and carefully crafted evaluation with OTF charging station insertion pays off!
+	\item [$\rightarrow$] \important{caching of fragments' results} and \important{carefully crafted evaluation with OTF charging station} insertion pays off!
 \end{itemize}
 }
 
@@ -1186,13 +1186,20 @@ a8-96                                          & 13.45                          
 
 \begin{frame}{Addressing Dynamic Stochastic VRPs}
 
+\structure{mainly taken from:} \cite{bracher-21}\\
+{\small\important{Learning Surrogate Functions for the Short-Horizon Planning in Same-Day Delivery Problems}, 17th Int.\ Conf.\ on Integration of Constraint Programming, Artificial Intelligence, and Operations Research (CPAIOR'21), Springer LNCS volume 12735, 283--298, 2021.}
+
+\bigskip
+\structure{Background:} \important{Real world VRP} at an online supermarket that \important{delivers within 1 or 2 hours}
+
+\bigskip
 \structure{Principal approach: ``Model Predictive Control'':}
 
 \begin{itemize}
-	\itemsep3ex
-	\item At certain points in time, solve problem with available information for aspects than can still be controlled.
+	\itemsep2ex
+	\item At certain points in time, solve problem with available information\\ for aspects than can still be controlled.
 	
-	\item[$\rightarrow$] e.g., apply LNS for static problem
+	\item[$\rightarrow$] e.g., iteratively apply LNS for static problem
 	\item = \important{myopic approach}
 \end{itemize}
 
@@ -1208,33 +1215,15 @@ a8-96                                          & 13.45                          
 \end{frame}
 
 
-\begin{frame}{Mean Order Delivery Time / Driver Performance}% \\ \small \textcolor{gray}{Beardwood et al. (1959), Daganzo (1984), Figliozzi (2008, 2010)}}
-	Given a day $a$ and an hour $t$, we define the \alert{mean order delivery time} $\phi_t(a)$, the time needed by an average driver to deliver one order.
-	\bigskip
-	
-	%\textbf{Aim of this work}. Find a good predictor $\tilde \phi_t(a)$ for $\phi_t(a)$.
-	%\structure{Bootstrapping}: Consider active labor time, subsequent shift planning will result into tight shifts with almost no waiting times.
-	%\bigskip
-	
-	%Is necessary for:
-	%\begin{itemize}
-	%	\item Shift planning
-	%	\item Large horizon planning
-	%	\item Waiting time strategies
-	%\end{itemize}
-	
-	\begin{figure}[tb]
-		\centering
-		\includegraphics[width=.80\columnwidth]{graphics/phi_fit}
-	\end{figure}
-\end{frame}
-
 
 \begin{frame}{Classical Approach to Consider Future: Scenario Sampling}
 
+See, e.g., \cite{voccia2019same}, \cite{Bent2004}, \cite{Hvattum2006}
+
+\bigskip
 \begin{itemize}
 	\itemsep2ex
-	\item \important{Sample scenario instances} containing artificial future orders according to an expected distribution
+	\item \important{Sample scenario instances} containing artificial future orders\\ according to an expected distribution
 	\item \important{Solve} each scenario
 	\item Combine solutions to a single \important{consensus solution} for actually available orders
 	\item[$\rightarrow$] usually \important{much better}, but \alert{computationally expensive}
@@ -1243,43 +1232,100 @@ a8-96                                          & 13.45                          
 
 
 \begin{frame}
-	\frametitle{Learning Surrogate Models\\ \small \textcolor{gray}{Bracher, Frohner, and Raidl (2021)}}
+	\frametitle{Learning a Surrogate Evaluation Function}
 	
-	\textbf{Issue:} depot returns not anticipated
+	{\small\color{gray}\cite{bracher-21}}
+	%\textbf{Issue:} depot returns not anticipated
 	
 	% \begin{itemize}
 	% 	\item static LNS happily \alert{mixes urgent and non-urgent orders}
 	% 	\item focuses on the geographical aspect, when deadlines are met
 	% \end{itemize}	
-	% \bigskip
+	\vfill
 	
 	%\pause
-	Surrogate function approach:
+	\structure{Evaluation of routes within LNS:}
+	\bigskip
 	\begin{itemize}
-		\item replace route duration $d(r)$ by parameterized \alert{surrogate travel time} $d'(r)$
-		\item predicts the \alert{future} travel time of delayable orders/routes
-		\item supervised learning in an offline phase using scenario sampling
+		\itemsep2ex
+		\item replace route duration $d(r)$ by parameterized \important{surrogate travel time} $d'(r)$
+		\item predicts an expected \important{discouted travel time} considering that future orders may be combined with current orders in a route
+		\item \important{supervised learning} in an \important{offline} phase using \important{scenario sampling}
 		\item resulting surrogate directly used in online LNS optimization
 	\end{itemize}
 	\bigskip
-	
-	\pause
-	\textbf{Key results:} up to 5--10\% improvement in travel times with 30-40 orders per hour and sufficient drivers to avoid tardiness.
 \end{frame}
+
+\begin{frame}{Mean Order Delivery Time / Driver Performance}% \\ \small \textcolor{gray}{Beardwood et al. (1959), Daganzo (1984), Figliozzi (2008, 2010)}}
+	Given a day $a$ and an hour $t$, we define the \important{mean order delivery time} $\phi_t(a)$, the time needed by an average driver to deliver one order.
+	\bigskip
+
+	\begin{figure}[tb]
+		\centering
+		\includegraphics[width=.80\columnwidth]{graphics/phi_fit}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Discounted Route Duration with ML Model $g_\Theta$}
+	\begin{equation}
+		d'(r) = \begin{cases}
+			g_\Theta (d(r), l_r, \omega(\tilde t, \tau_r),\hat\phi,\ldots) & \mbox{ if } \tau_r>\tilde t \land \phi(r)>\hat\phi \\
+			d(r) & \mbox{ else}.
+		\end{cases}
+		\label{eq:d_prime}
+	\end{equation}
+
+	\bigskip
+	\structure{Parameters / features:}
+	\medskip
+	\begin{itemize}
+		\itemsep1ex
+		\item {Route duration:} $d(r)$
+		\item {Number of orders in route:} $l_r$
+		\item {Current time:} $\tilde t$
+		\item {Latest departure time of route:} $\tau_r$
+		\item {How many orders to expect before route is started:} $\omega(\tilde t, \tau_r)$
+		\item {Expected average time per order:} $\hat \phi$
+		\item {Further features derived from the above}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Considered Models for $g_\Theta$}
+	\begin{itemize}
+		\itemsep2ex
+		\item \important{Exponential function}: (educated guess) 
+		\begin{equation*}
+				g^\mathrm{exp}_\rho(d(r), l_r, \omega(\tilde t, \tau_r), \hat\phi) = d(r) - (d(r)-\hat\phi \cdot l_r) \cdot (1-e^{-\rho \cdot \omega(\tilde t, \tau_r)})
+		\end{equation*}
+		\vspace{-7mm}
+		\begin{figure}[tb]
+			\centering
+			\includegraphics[width=.550\columnwidth]{graphics/exp-model.png}
+		\end{figure}
+		just parameter $\rho$ has to be learned
+		\item \important{Linear regression}
+		\item \important{Multilayer perceptron}\\
+		fully connected, two hidden layers, ReLU activation function
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Results}
 	\centering
-	\includegraphics[width=0.4\textwidth]{graphics/boxplots.pdf}
+	\includegraphics[width=0.7\textwidth]{graphics/boxplots.pdf}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Conclusions}
+	\frametitle{Conclusions to Dynamic Problem}
 	
 	\begin{itemize}
 		\itemsep2ex
 		\item \important{Dynamic Stochastic VRPs} are challenging
+		\item $\approx$5--10\% improvement in travel times with 30-40 orders
 		\item Described approach uses the power of the state-of-the-art for the static problem
 		\item \important{Scenario Sampling} can be precise, but often too computationally expensive
 		\item Learned \important{surrogate models} can be highly effective and are faster
@@ -1313,9 +1359,9 @@ a8-96                                          & 13.45                          
 
 \begin{frame}[allowframebreaks]
 	\frametitle{References}
-	\fontsize{6pt}{7.2}\selectfont
-
-	\bibliography{eurocast-2024-presentation_sources}
+	%\fontsize{6pt}{7.2}\selectfont
+	\small
+	\bibliography{lit}
 \end{frame}
 
 
@@ -1409,79 +1455,6 @@ a8-96                                          & 13.45                          
 %	\item use knowledge of infeasible arcs to determine incompatible user pairs 
 %	\item forbid assignment of incompatible users to the same vehicle 
 %\end{itemize}
-
-\end{frame}
-
-\begin{frame}[noframenumbering]
-	\frametitle{Large Neighborhood Search (LNS) \\ \footnotesize{\textcolor{gray}{\cite{Shaw:1998, Pisinger:2010}}}}
-
-\begin{itemize}
-	\item Based on
-		\begin{itemize}
-			\item (Set of) destroy operator(s)
-			\item (Set of) repair operator(s)
-		\end{itemize}
-	%\item Important parameter: \important{degree of destruction~$k$}
-\end{itemize}
-
-\medskip
-% pseudo code for LNS
-\scalebox{0.8}{
-\begin{algorithm}[H]
-	\SetAlgoSkip{}
-	\SetArgSty{textnormal}	% prints termination criterion in normal text instead of italics
-	\SetKwFunction{FMain}{LNS}
-	\SetKwProg{Fn}{Procedure}{:}{end}
-	\KwIn{feasible solution $x$}
- 	\KwOut{best found solution $x^b$}
-	%\Fn{\FMain{}}{ % prints "Procedure LNS():"
-  		%\Begin{
-  			$x^b \leftarrow x$\;
-			Select a destroy and a repair operator pair $(d,r)$\;
-  			\Repeat{stop criterion is met}{
-  				$x^t \leftarrow r(d(x))$\;
-  				\If{$\text{accept}(x^t,x)$}{
-  					$x \leftarrow x^t$\;
-  				}
-  				\If{$c(x^t) < c(x^b)$}{
-  					$x^b \leftarrow x^t$\;
-  				}
-  			}
-  			\Return{$x^b$\;}
-  		%}
-  	%}
-  %\caption{Large Neighborhood Search procedure \texttt{LNS()} for a minimization problem}
-  \caption{Large Neighborhood Search}
-  \label{alg:large-neighborhood-search} % \label has to be placed AFTER \caption to produce correct cross-references.
-\end{algorithm} 
-}
-
-% \onslide<3>{
-% % example
-% \begin{minipage}[t]{0.3\linewidth}
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=\textwidth]{graphics/tsp-initial-solution}
-% 	\caption{Initial solution.}
-% \end{figure}
-% \end{minipage}%
-% \hfill%
-% \begin{minipage}[t]{.3\textwidth}
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=\textwidth]{graphics/tsp-destroy-solution} 
-% 	\captionof{figure}[]{After destroy operation.}
-% \end{figure}
-% \end{minipage}%
-% \hfill%
-% \begin{minipage}[t]{.3\textwidth}
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=\textwidth]{graphics/tsp-repair-solution} 
-% 	\captionof{figure}[]{After repair operation.}
-% \end{figure}
-% \end{minipage}%
-% }
 
 \end{frame}
 
