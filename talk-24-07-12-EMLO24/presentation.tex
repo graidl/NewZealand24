@@ -247,6 +247,152 @@
 \section{Introduction}
 %\subsection{Motivation}
 
+
+\begin{frame}
+	\frametitle{Motivation}
+	\begin{minipage}{0.45\textwidth}
+		\begin{center}
+			\includegraphics[width=0.9\textwidth]{graphics/48StatesTSP.png}
+
+			\bigskip
+			Algorithm \structure{MySuperTSPSolver}\\
+			\includegraphics[width=2cm]{graphics/hook.png}
+		\end{center}
+	\end{minipage}
+	\qquad
+	\frametitle{Motivation}
+	\begin{minipage}{0.45\textwidth}
+		\begin{center}
+			\includegraphics[width=0.9\textwidth]{graphics/TSPLeiter2opt.jpg}
+
+			\bigskip
+			\structure{MySuperTSPSolver} \alert{takes ``forever''}
+			\includegraphics[width=3cm]{graphics/question-mark.jpg}
+		\end{center}
+	\end{minipage}
+
+\end{frame}
+
+\begin{frame}{Motivation}
+
+	\begin{center}
+	\includegraphics<1>[width=0.4\textwidth]{graphics/hybrid-motivation.pdf}
+	\includegraphics<2>[width=0.4\textwidth]{graphics/hybrid-motivation2.pdf}
+	\end{center}
+
+	\begin{itemize}
+		\item 
+		\structure{MySuperTSPSolver} does not scale well enough to (much) larger instances!
+	
+		\item \alert{Is different faster but cruder algorithm the only option?}
+		\item<2> We aim at \important{\bf methods to improve the scalability} of MySuperTSPSolver,\\ (trading speed for quality).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Traditional/Naive Approaches}
+	\begin{itemize}
+	\item{\structure{Partition problem into smaller subproblems}\\
+		solve them independently and combine solutions}\\
+		\begin{center}
+			\includegraphics[width=0.22\textwidth]{graphics/partition.jpg}
+		\end{center}
+	\item<2>{\structure{Sparsifying the search space}}\\
+		e.g., only consider $k$-nearest neighbor graph for TSP, VRP; \# edges: $O(n^2)\rightarrow O(n)$\\
+		\begin{center}
+			\includegraphics[width=0.28\textwidth]{graphics/kNN-graph.jpg}
+		\end{center}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{(Hybrid) Metaheuristic Approaches}
+	\begin{itemize}
+		\itemsep5ex
+		\item \structure{Large Neighborhood Search (LNS)}\\
+		\begin{itemize}
+			\item Iteratively \important{destroy} parts of the solution by removing elements
+			\item and \important{repair} it by solving the respective subproblem
+			\item \alert{crucial:} choice of destroyed parts
+		\end{itemize}
+		\item \structure{Construct, Merge, Solve, and Adapt (CMSA)} \citep{blum-16b}
+		\item \structure{POPMUSIC: Partial Optimization Metaheuristic Under Special Intensification Conditions} \citep{taillard-02}
+		\item \ldots
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Issues}
+	While above strategies sometimes work well on academic problems,\\ they \alert{{\bf often fail} in more complex real-world scenarios}, e.g.,
+	
+	\bigskip
+	\begin{itemize}
+		\itemsep2ex
+		\item because it is \alert{unclear which solution components are more or less promising}
+		\item or \alert{more or less related to each other}. 
+	\end{itemize}
+
+	\vspace{1cm}
+	\important{\bf Can we use machine learning for such aspects?}
+	\begin{itemize}
+		\item Focus here: offline, on representative training instances
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{A Multilevel Optimization Approach for
+	Large Scale\\ Battery Exchange Station Location Planning}
+
+Jatschka, Rodemann, and Raidl (EvoCOP, 2023) \cite{jatschka-23}
+
+\medskip
+from a joint project with Honda Japan and Honda Research Institute Europe
+
+\bigskip
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{graphics/Gogoro_Swapping_Station.jpg}\\
+	{\small (c) Gogoro Inc.}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item \structure{Given:} 
+	\begin{itemize}
+		\item Potential locations for battery exchange stations
+		\item Origin/Destination (O/D) pairs of expected trips
+	\end{itemize}
+\item \structure{Goal:}
+	\begin{itemize}
+		\item Decide where to build stations with which capacities
+		\item to maximize fulfilled demand while minimizing costs
+	\end{itemize}
+\end{itemize}
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{graphics/graph_second.pdf}
+	\includegraphics<2>[width=0.6\textwidth]{graphics/graph_third.pdf}
+\end{center}
+\end{frame}
+
+
+
+% ### Bibliography ################################################################################
+
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	%\fontsize{6pt}{7.2}\selectfont
+	\small
+	\bibliography{lit}
+\end{frame}
+
+
+
+\end{document}
+
+
+
+
+
+\end{document}
 \begin{frame}{Multilevel Optimization}
 
 	\footnotesize{\textcolor{gray}{\cite{walshaw-04}}}
@@ -1376,15 +1522,6 @@ See, e.g., \cite{voccia2019same}, \cite{Bent2004}, \cite{Hvattum2006}
 
 
 
-
-% ### Bibliography ################################################################################
-
-\begin{frame}[allowframebreaks]
-	\frametitle{References}
-	%\fontsize{6pt}{7.2}\selectfont
-	\small
-	\bibliography{lit}
-\end{frame}
 
 
 % ### Additional Slides ############################################
