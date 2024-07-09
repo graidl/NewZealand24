@@ -236,9 +236,6 @@
 
 \begin{document}{}
 
-
-\part{Main}
-
 \begin{frame}
   \titlepage
 \end{frame} 
@@ -353,12 +350,12 @@ from a joint project with Honda Japan and Honda Research Institute Europe
 \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Battery Exchange Station Location Planning (BEXLP)}
 \begin{itemize}
 \item \structure{Given:} 
 	\begin{itemize}
 		\item Potential locations for battery exchange stations
-		\item Origin/Destination (O/D) pairs of expected trips
+		\item Origin/Destination (O/D) pairs of expected trips \& frequency
 	\end{itemize}
 \item \structure{Goal:}
 	\begin{itemize}
@@ -368,10 +365,113 @@ from a joint project with Honda Japan and Honda Research Institute Europe
 \end{itemize}
 
 \begin{center}
-	\includegraphics[width=0.6\textwidth]{graphics/graph_second.pdf}
-	\includegraphics<2>[width=0.6\textwidth]{graphics/graph_third.pdf}
+	\includegraphics<1>[width=0.5\textwidth]{graphics/bex1.jpg}
+	\includegraphics<2>[width=0.5\textwidth]{graphics/bex2.jpg}
+	\includegraphics<3>[width=0.5\textwidth]{graphics/bex3.jpg}
+	\includegraphics<4>[width=0.5\textwidth]{graphics/bex4.jpg}
+	% \includegraphics[width=0.6\textwidth]{graphics/graph_second.pdf}
+	% \includegraphics<2>[width=0.6\textwidth]{graphics/graph_third.pdf}
 \end{center}
 \end{frame}
+
+\begin{frame}{Fulfilled Demand of O/D Pairs}
+\begin{itemize}
+	\item Depends on \important{detour lengths} to close stations and their \important{capacities}
+\end{itemize}
+\begin{center}
+	%\includegraphics<1>[width=0.6\textwidth]{graphics/graph_second.pdf}
+	\includegraphics[width=0.6\textwidth]{graphics/graph_third.pdf}
+	\includegraphics[width=0.35\textwidth]{graphics/decay.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Solution Approaches}
+	\begin{itemize}
+		\itemsep3ex
+		\item \important{Mixed Integer Linear Program (MILP)}:\\ works well for small instances with \alert{few hundred} nodes and O/D pairs
+		\item \important{MILP-Based Large Neighborhood Search}:\\ can handle \alert{few thousand} nodes and O/D pairs
+		\item \important{Multilevel Optimization}:\\ for instances with \alert{up to 10,000 nodes and 100,000 O/D pairs}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Multilevel Optimization (MLO) by \citet{walshaw-04}}
+
+	\begin{enumerate}
+		\item \important{\bf Coarsening}: Contract graph to smaller size
+		\item Repeat (1) until threshold size is reached
+		\item Solve problem on the coarsest graph
+		\item \important{\bf Extend and refine} solution to the next level
+		\item Repeat (4) until solution to original instance is obtained
+			%\item \structure{Optional:} iteratively \important{\bf recoarsen} and extend+refine 
+	\end{enumerate}
+
+	\bigskip
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{graphics/multilevel.jpg}\\
+		%\includegraphics[width=0.6\textwidth]{graphics/mlr-gpp.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Multilevel Optimization (MLO) by \citet{walshaw-04}}
+	\begin{center}
+		\includegraphics[width=0.9\textwidth]{graphics/mlr-gpp.png}\\
+		{\small (for graph partitioning; from \citet{walshaw-04})}
+	\end{center}
+
+\important{Solution quality strongly depends on}
+\begin{itemize}
+	\item coarsening strategy
+	\item extension and refinement strategies
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Multilevel Optimization for BEXLP}
+\begin{center}
+	\includegraphics[scale=1.0]{graphics/MLR_example.pdf}
+\end{center}
+\end{frame}	
+
+\begin{frame}{Multilevel Optimization for BEXLP}
+\begin{itemize}
+	\itemsep3ex
+	\item Diverse clustering techniques considered
+	\item MILP model used for extension/refinement
+	\item Most challenging: What to take as \important{similarity measures} for
+	\begin{itemize}
+		\item O/D pairs to merge?
+		\item for stations to merge?
+	\end{itemize}
+	\item Originally, we ended up with a crude Jaccard similarity measure
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Learning Multilevel Optimization for BEXLP}
+	\citep{tomandl-24}
+
+	\bigskip
+	\begin{itemize}
+		\itemsep2ex
+		\item We \important{learned models to approximate the expected loss in solution quality} when
+		\begin{itemize}
+			\item merging two O/D pairs or 
+			\item merging two stations, respectively
+		\end{itemize} 
+		\item Supervised learning with labels derived from
+		\begin{itemize}
+			\item merging pairs of nodes, solving, extension/refinement
+			\item in comparison to solving original problem
+		\end{itemize} 
+		\item Models: multilayer perceptron with two hidden layers
+		\item Diverse features derived from original nodes and merged nodes
+		\item \important{Improvements of up to 1--5\% obtained}
+		\item \important{Reasonable generalization to larger instances}
+	\end{itemize}
+\end{frame}
+
+
+
+
 
 
 
@@ -384,39 +484,11 @@ from a joint project with Honda Japan and Honda Research Institute Europe
 	\bibliography{lit}
 \end{frame}
 
-
-
 \end{document}
 
 
 
 
-
-\end{document}
-\begin{frame}{Multilevel Optimization}
-
-	\footnotesize{\textcolor{gray}{\cite{walshaw-04}}}
-	\begin{enumerate}
-		\item \imp{\bf Coarsening:} contract edges\\ e.g., all edges
-		belonging to a minimum weight maximal matching 
-		
-		\item Repeat (1) until threshold size is reached
-		
-		\item Solve partitioning problem on the coarsest graph
-		
-		\item \imp{\bf Extend and refine} solution to the next lower
-		level\\ e.g., use Kernighan-Lin bisection algorithm
-		
-		\item Repeat (4) until solution to original graph is obtained
-		
-		\item Optional: iteratively \imp{\bf recoarsen} and extend+refine 
-		%the graph\\ s.t.\ edges are only contracted within a subset
-	   \end{enumerate}
-	\begin{center}
-		\includegraphics[width=0.6\textwidth]{graphics/multilevel.jpg}\\
-		\includegraphics[width=0.6\textwidth]{graphics/mlr-gpp.png}
-	\end{center}
-\end{frame}\end{frame}
 
 %old, shorter version
 \begin{frame}
