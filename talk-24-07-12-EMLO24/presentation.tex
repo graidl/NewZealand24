@@ -338,7 +338,7 @@
 \begin{frame}{A Multilevel Optimization Approach for
 	Large Scale\\ Battery Exchange Station Location Planning}
 
-Jatschka, Rodemann, and Raidl (EvoCOP, 2023) \cite{jatschka-23}
+\citep{jatschka-23}
 
 \medskip
 from a joint project with Honda Japan and Honda Research Institute Europe
@@ -442,7 +442,8 @@ from a joint project with Honda Japan and Honda Research Institute Europe
 		\item O/D pairs to merge?
 		\item for stations to merge?
 	\end{itemize}
-	\item Originally, we ended up with a crude Jaccard similarity measure
+	\item Diverse similarity measures considered, ended up with Jaccard similarity
+	\item In tests \important{$\approx$40--50\% better} than a reasonable construction heuristic
 \end{itemize}
 \end{frame}
 
@@ -469,10 +470,121 @@ from a joint project with Honda Japan and Honda Research Institute Europe
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Denoising Diffusion Models (DDMs)}
+\begin{itemize}
+	\item State-of-the-art in many generative AI applications,\\
+	in particular the creation of realistically-looking images
+
+	\medskip
+	\includegraphics[width=0.9\textwidth]{graphics/diffusion.png}
+
+	\bigskip
+	\item \structure{Training}
+	\begin{itemize}
+		\item Gaussian noise step-wise added to original images
+		\item Neural network trained to predict noise added in each step
+	\end{itemize}
+	\item \structure{Inference}
+	\begin{itemize}
+		\item Starts from pure random noise
+		\item Stepwise remove noise via neural network
+	\end{itemize}
+	\item DDMs can be conditioned on additional input
+	\item \important{Concept can also be applied to graph neural networks!}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.} 
+	
+	\citep{sun-23}
+
+	\bigskip
+	\begin{itemize}
+		\itemsep1ex
+		\item TSP and maximum independent set problem considered
+		\item utilizes an anisotropic \important{graph neural network} with edge gating
+		\item \important{discrete diffusion} based on Bernoulli noise
+		\item trained on many small instances + (close to) optimal solutions
+		\item used to create \important{diverse heatmaps} 
+		\item greedy heuristics and MCTS used as decoder
+	\end{itemize}
+
+	\bigskip
+	\only<1>{\centering \includegraphics[width=0.4\textwidth]{graphics/graphdiff.png}}
+	\only<2>{\begin{itemize}
+		\item<2> \structure{Advantages}
+		\begin{itemize}
+			\item \alert{outperforms earlier approaches} by a large margin in their tests
+			\item \alert{faster} than autoregressive models
+			\item \alert{better scaling behavior} to larger instances
+			\item \alert{multi-modality of solution space is considered}
+		\end{itemize}
+	\end{itemize}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{graphics/difusco1.jpg}
+		(from \citet{sun-23})
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{graphics/difusco2.jpg}
+		(from \citet{sun-23})
+	\end{center}
+\end{frame}
 
 
+\begin{frame}
+	\frametitle{Own Ongoing Work}
+	We are currently investigating \important{DDM \& GNN-based approaches for EADARP} 
+		\begin{itemize}
+			\item to determine destroy sets in LNS
+			\item to restrict candidate routes for order insertions
+			\item to restrict candidate positions for order insertions
+			\item to dynamically decompose problem instances
+		\end{itemize}
+	
+	\bigskip
+	Related DDM \& GNN-based methods are also investigated on
+	\begin{itemize}
+		\item graph burning problem
+		\item $\alpha$-domination problem
+		\item maximum influence problems in graphs
+	\end{itemize}
+	
+	\bigskip
+	\important{\bf Early results promising!}
+\end{frame}
 
+\begin{frame}{Conclusions}
+	\begin{itemize}
+		\itemsep3ex
+		\item Manifold strategies to improve scaling of solving approaches for COP
+		\item Sometimes basic strategies work already well, sometimes much harder
+		\item End-to-end learning approaches will not soon replace classical CO techniques in general
+		\item ML can help substantially to
+			\begin{itemize}
+				\item sparsify search space
+				\item find better problem decompositions
+				\item better focus search operators 
+			\end{itemize} 
+		\item Graph \& DDM-based approaches currently particularly promising?
+	\end{itemize}
+\end{frame}
 
+	% \frametitle{Ideas to Utilize DDMs in Population-Based MHs}
+	% \begin{itemize}
+	% 	\item for creating diverse initial solutions
+	% 	\item for a kind of intelligent recombination(?)
+	% \end{itemize}
 
 
 % ### Bibliography ################################################################################
