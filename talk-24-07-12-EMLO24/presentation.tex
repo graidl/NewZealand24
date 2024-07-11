@@ -241,8 +241,26 @@
 \end{frame} 
 
 
-\section{Introduction}
+%\section{Introduction}
 %\subsection{Motivation}
+
+
+\begin{frame}
+	\frametitle{Mixed Integer Linear Programming Solver Speedup 1989--2024}
+
+	\begin{itemize}
+		\item Computer hardware speed increase: $~4.000\times$
+		\item Solver version improvements: $~5.000.000\times$\\
+		\includegraphics[width=0.6\textwidth]{graphics/bixby-2021.png}
+		\item Total speedup: $~20.000.000.000\times$
+	\end{itemize}
+	
+	\bigskip
+	\texttt{solvermax.com/blog/solver-performance-1989-vs-2024}
+
+	\bigskip
+	\important{$\rightarrow$ Better algorithms may achieve more than hardware improvements over time}
+\end{frame}
 
 
 \begin{frame}
@@ -281,7 +299,7 @@
 		\item 
 		\structure{MySuperTSPSolver} does not scale well enough to (much) larger instances!
 	
-		\item \alert{Is different faster but cruder algorithm the only option?}
+		\item \alert{Is a different faster but cruder algorithm the only option?}
 		\item<2> We aim at \important{\bf methods to improve the scalability} of MySuperTSPSolver,\\ (trading speed for quality).
 	\end{itemize}
 \end{frame}
@@ -413,7 +431,10 @@ from a joint project with Honda Japan and Honda Research Institute Europe
 	\end{center}
 \end{frame}
 
-\begin{frame}{Multilevel Optimization (MLO) by \citet{walshaw-04}}
+\begin{frame}{Multilevel Optimization (MLO)}
+	\citep{walshaw-04}
+
+	\bigskip
 	\begin{center}
 		\includegraphics[width=0.9\textwidth]{graphics/mlr-gpp.png}\\
 		{\small (for graph partitioning; from \citet{walshaw-04})}
@@ -476,7 +497,8 @@ from a joint project with Honda Japan and Honda Research Institute Europe
 	\frametitle{The Electric Autonomous Dial-a-Ride Problem (EADARP)}
 
 \citep{Bongiovanni:2019}
-	
+
+\bigskip
 \structure{Given:} $n$ users with transportation requests from a pickup to a drop-off location,\\ a fleet of $m$ \important{electric autonomous} vehicles 
 
 \medskip
@@ -517,21 +539,230 @@ from a joint project with Honda Japan and Honda Research Institute Europe
 \end{frame}
 
 \begin{frame}
-	\frametitle{Sparsening Techniques for EADARP}
+	\frametitle{Sparsening/Clustering Techniques for EADARP}
+
+	\structure{Sparsening to $k$-nearest neighbor graph or\\ clustering into separate geographical regions:}
+
+	\bigskip
+	\alert{Does not work at all.} -- Why? 
+
+	\bigskip
+	\only<2>{Each order has
+				\begin{itemize}
+					\item a pickup location
+					\item a dropoff location
+					\item a time window
+				\end{itemize}
+				and orders need to be combined to tours;\\
+				moreover charging not considered
+				}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Learning Heatmaps}
 
 	\begin{itemize}
-		\item \important{Sparsening to $k$-nearest neighbor graph:}\\
-			\alert{Does not work well.} - Why? Each order has
+		\itemsep3ex
+		\item Learn model indicating likelihood for
 		\begin{itemize}
-			\item a pickup location
-			\item a dropoff location
-			\item a time window
+			\item pairs of orders to be served successively in same tour
+			\item in (close to) optimal solutions.
 		\end{itemize}
+		\includegraphics[width=0.3\textwidth]{graphics/heatmap.jpg}
+		\item Trained model on medium-sized instances and solutions obtained by the LNS
+		\item Diverse classical ML models as well as neural networks considered
+		\item<2> Reasonable results obtained
+		\item<3> More substantial improvements achieved with \important{graph neural networks}
 	\end{itemize}
 
-	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Potential Issue of Heatmaps: Unimodality}
+
+	\structure{Example:} \important{Maximum independent set problem} on $K_{3,3}$ has two optimal solutions:
+
+	\bigskip
+	\begin{center}
+	\begin{tikzpicture}
+			\node[draw, circle, fill=green] (n1) at (0,0) {1};
+			\node[draw, circle, fill=green] (n2) at (0,-1.5) {2};
+			\node[draw, circle, fill=green] (n3) at (0,-3) {3};
+			\node[draw, circle] (n4) at (2,0) {4};
+			\node[draw, circle] (n5) at (2,-1.5) {5};
+			\node[draw, circle] (n6) at (2,-3) {6};
+			\draw (n1) -- (n4);
+			\draw (n1) -- (n5);
+			\draw (n1) -- (n6);
+			\draw (n2) -- (n4);
+			\draw (n2) -- (n5);
+			\draw (n2) -- (n6);
+			\draw (n3) -- (n4);
+			\draw (n3) -- (n5);
+			\draw (n3) -- (n6);
+	\end{tikzpicture}
+	\qquad
+	\begin{tikzpicture}
+		\node[draw, circle] (n1) at (0,0) {1};
+		\node[draw, circle] (n2) at (0,-1.5) {2};
+		\node[draw, circle] (n3) at (0,-3) {3};
+		\node[draw, circle, fill=green] (n4) at (2,0) {4};
+		\node[draw, circle, fill=green] (n5) at (2,-1.5) {5};
+		\node[draw, circle, fill=green] (n6) at (2,-3) {6};
+		\draw (n1) -- (n4);
+		\draw (n1) -- (n5);
+		\draw (n1) -- (n6);
+		\draw (n2) -- (n4);
+		\draw (n2) -- (n5);
+		\draw (n2) -- (n6);
+		\draw (n3) -- (n4);
+		\draw (n3) -- (n5);
+		\draw (n3) -- (n6);
+\end{tikzpicture}
+\end{center}
+
+\structure{Heatmap:} \alert{all nodes are equally likely} in an optimal solution.
+
+\bigskip
+$\rightarrow$ no meaningful information
+
+\bigskip
+\important{More generally, symmetries and very different (close to) optimal solutions may cause problems.}
 
 \end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Learning Effective Destroy Sets in LNS}
+	\begin{itemize}
+		\itemsep2ex
+		\item Decomposition-based learning LNS\\ \citep{song2020general}
+		\item Neural LNS\\ \citep{addanki2020neural}
+		\item Neural Neighborhood Selection (NNS)\\ \citep{sonnerat2021learning}
+		\item \important{Learning Large Neighborhood Search for Staff Rerostering}\\ \citep{oberweger-22} 
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Staff Rerostering Problem (SRRP)}
+	\begin{itemize}
+		\item \textbf{Given:} \important{old schedule, disruptions, demand to be met}
+		\item \textbf{Goal:} create new schedule
+		\begin{itemize}
+			\item meeting new \important{demand} as best as possible (soft)
+			\item having as few \important{changes} to old schedule as possible (soft)
+			\item meeting all hard constraints, e.g., work regulations
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth, page=7]{graphics/graphics.pdf}
+		\caption{Overview of hard constraints.}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Learning LNS for SRRP}
+	\begin{itemize}
+		\item Initial solution from a simple construction heuristic
+		%\item Repeated application of a \important{destroy} and a \important{repair} operators
+		\item \structure{Destroy:} Unassign some variables $\rightarrow$ partial solution
+	\end{itemize}
+	\begin{figure}
+		\begin{overprint}
+			%\onslide<1>\centering\includegraphics[width=\textwidth, page=11]{graphics/graphics.pdf}
+			% \onslide<1>\centering\includegraphics[width=\textwidth, page=10]{graphics/graphics.pdf}
+			\onslide<1>\centering\includegraphics[width=\textwidth, page=9]{graphics/graphics.pdf}
+		\end{overprint}
+		%\caption{Simplified representation of an LNS on an SRRP instance.}
+	\end{figure}
+	\begin{itemize}
+		\item \structure{Repair:} Mixed Integer Linear Programming (MILP) solver applied
+		%\item<2> Aiming to create a \important{learning-based destroy operator}
+		\item {Training:} Supervised, optimal destroy sets from MILP model with local branching constraint
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Learning-Based Destroy Operator}
+    \begin{itemize}
+    	\item Model current solution as a \important{graph} in each state of LNS
+    	\item Use \important{Graph Neural Network (GNN)}
+    	%\item\important{Imitation learning} to mimic expert policy
+		\item Predict \important{probability} of each employee-day pair to \important{belong to destroy set yielding highest improvement}
+		\item Select with randomized sampling procedure enforcing selection of segments
+	\end{itemize}
+
+	\begin{figure}
+    	\begin{overprint}
+    		\onslide<1>\centering\scalebox{0.8}{\begin{tikzpicture}[
+    				annot/.style={text width=3em, text centered},
+    				neuron/.style={circle, draw, minimum size=12mm}]
+    				% employee nodes
+    				\node[neuron] (n1) at (4, 0) {$N_1$};
+    				\node[neuron] (n2) at (7.5, 0) {$N_2$};
+    				\node[neuron] (n3) at (11, 0) {$N_3$};
+    				% assignment nodes
+    				\node[neuron] (n1d1) at (1, -3) {\tiny $(N_1,D_1)$};
+    				\node[neuron] (n2d1) at (2.5, -3) {\tiny $(N_2,D_1)$};
+    				\node[neuron] (n3d1) at (4, -3) {\tiny $(N_3,D_1)$};
+    				\node[neuron] (n1d2) at (6, -3) {\tiny $(N_1,D_2)$};
+    				\node[neuron] (n2d2) at (7.5, -3) {\tiny $(N_2,D_2)$};
+    				\node[neuron] (n3d2) at (9, -3) {\tiny $(N_3,D_2)$};
+    				\node[neuron] (n1d3) at (11, -3) {\tiny $(N_1,D_3)$};
+    				\node[neuron] (n2d3) at (12.5, -3) {\tiny $(N_2,D_3)$};
+    				\node[neuron] (n3d3) at (14, -3) {\tiny $(N_3,D_3)$};
+    				% day nodes
+    				\node[neuron] (d1) at (2.5, -5) {$D_1$};
+    				\node[neuron] (d2) at (7.5, -5) {$D_2$};
+    				\node[neuron] (d3) at (12.5, -5) {$D_3$};
+    				% assigned to relations
+    				\draw (n1) -- (n1d1);
+    				\draw (n1) -- (n1d2);
+    				\draw (n1) -- (n1d3);
+    				\draw (n2) -- (n2d1);
+    				\draw (n2) -- (n2d2);
+    				\draw (n2) -- (n2d3);
+    				\draw (n3) -- (n3d1);
+    				\draw (n3) -- (n3d2);
+    				\draw (n3) -- (n3d3);
+    				% on day relations
+    				\draw (d1) -- (n1d1);
+    				\draw (d2) -- (n1d2);
+    				\draw (d3) -- (n1d3);
+    				\draw (d1) -- (n2d1);
+    				\draw (d2) -- (n2d2);
+    				\draw (d3) -- (n2d3);
+    				\draw (d1) -- (n3d1);
+    				\draw (d2) -- (n3d2);
+    				\draw (d3) -- (n3d3);
+    				% is before relation
+    				\draw (d1) -- (d2);
+    				\draw (d2) -- (d3);
+    		\end{tikzpicture}}
+    	\onslide<2>\centering \includegraphics[width=\linewidth, page=3]{graphics/graphics.pdf}
+    	\end{overprint}
+    	%\caption{Simplified representation of the destroy set model architecture.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Potential Issue of Learning-Based Destroy}
+
+	\begin{itemize}
+		\itemsep3ex
+		\item \alert{Multimodality:}\\
+		Often there are multiple (close to) optimal destroy sets.
+
+		\item Learning just on with \important{single best destroy set per training sample can be misleading}.
+		
+		\item<2> \important{Aggregating multiple (close to) optimal destroy sets} can be beneficial.\\
+		\structure{However:} Obtained probability distributions often less informative
+		
+		\item<2> \important{Carefully designed problem-specific sampling procedure important!}
+	\end{itemize}
+
+\end{frame}
+
 
 % -----------------------------------------------------
 
