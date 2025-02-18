@@ -93,14 +93,14 @@
 
 \author{Günther R.\ Raidl}
 \date{Workshop on AI for Optimisation and Decision Making 2025\\ Victoria University of Wellington, NZ\\February 20, 2025}
-\titlegraphic{\includegraphics[height=7mm]{figures/logo-tuwien-informatics.png}\quad
-	\includegraphics[height=7mm]{figures/AClongColor.pdf}}
+\titlegraphic{\includegraphics[height=7mm]{graphics/logo-tuwien-informatics.png}\quad
+	\includegraphics[height=7mm]{graphics/AClongColor.pdf}}
 
 \institute[]{\normalsize Algorithms and Complexity , TU Wien, Austria,\\
     \texttt{raidl@ac.tuwien.ac.at}\\[1ex]
 }
 
-\logo{\includegraphics[height=15pt]{figures/logo.pdf}\vspace{245pt}} % Logo on top right
+\logo{\includegraphics[height=15pt]{graphics/logo.pdf}\vspace{245pt}} % Logo on top right
 
 % cSpell:disable
 \definecolor{rred}{rgb}{0.7,0.2,0.2}         % red
@@ -273,20 +273,48 @@
 		\bigskip
 		\includegraphics[width=0.8\textwidth]{graphics/BBSS.jpg}
 	\end{itemize}  
-	\end{frame}
+\end{frame}
 	
 
-\end{document}
+\begin{frame}{Recent Industry Colloaborations (contd.)}
+	\begin{itemize}
+	\itemsep3.5ex
+		\item \structure{Planning Battery Exchange Stations for Electric Scooters}
+		\begin{itemize}
+		\item with Honda Japan, Honda Research Institute Europe
+		\end{itemize} 
+	
+		\bigskip
+		\includegraphics[width=0.6\textwidth]{graphics/bex.png}
+	\end{itemize}  
+\end{frame}
 
 
-\begin{frame}{Combinatorial Optimization and Learning}
+\begin{frame}{Recent Industry Colloaborations (contd.)}
+	\begin{itemize}
+	\itemsep3.5ex
+		\item \structure{Transport Optimization for an Online Supermarket with Within-the-Hour Delivery}
+		\begin{itemize}
+		\item with Alfies GmbH
+		\end{itemize} 
+	
+		\bigskip
+		\includegraphics[width=0.6\textwidth]{graphics/alfies.jpg}
+	\end{itemize}  
+\end{frame}
+
+
+	
+% --------------------------------------------------------
+
+\begin{frame}{Combinatorial Optimization and AI/Machine Learning}
 	\begin{itemize}
 		\itemsep2.5ex
 		\item \important{AI/machine learning boom} also hit the area of \important{combinatorial optimization}
 		\item This in many different ways
 		\begin{center}
 			\centering
-			\includegraphics[width=0.85\linewidth]{figures/mh-ml}
+			\includegraphics[width=0.85\linewidth]{graphics/mh-ml}
 		\end{center}
 		\item \structure{Focus here:} utilize learning to better solve \important{combinatorial optimization problems (COPs)}
 	\end{itemize}
@@ -295,7 +323,7 @@
 
 \begin{frame}{Learning to Better Optimize}
 	\begin{center}
-		\includegraphics[width=0.80\linewidth]{figures/talbi-data-driven-mhs}\\[2ex]
+		\includegraphics[width=0.80\linewidth]{graphics/talbi-data-driven-mhs}\\[2ex]
     \footnotesize{From \citet{talbi-21}: Machine Learning into Metaheuristics: A Survey and Taxonomy}
 	\end{center}
 \end{frame}
@@ -321,24 +349,25 @@
 	\item Hyper-heuristics
 	%\item<2> \important{Monte Carlo Tree Search}
 	\item Ant Colony Optimization
+	\item Genetic Programming
   \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Idea of Ant Colony Optimization}
-	\begin{itemize}
-		\item Iteratively construct solutions in a randomized greedy fashion
-		\item Additionally consider \important{pheromone values}:
-		\item Decisions in good solutions are \important{reinforced} by increasing their pheromone values while other values are reduced by ``evaporation''
-	\end{itemize}
-	\begin{center}
-		\includegraphics[width=0.4\linewidth]{figures/aco} \\
-		{\footnotesize (from Dr\'eo, 2006)}
+% \begin{frame}{Idea of Ant Colony Optimization}
+% 	\begin{itemize}
+% 		\item Iteratively construct solutions in a randomized greedy fashion
+% 		\item Additionally consider \important{pheromone values}:
+% 		\item Decisions in good solutions are \important{reinforced} by increasing their pheromone values while other values are reduced by ``evaporation''
+% 	\end{itemize}
+% 	\begin{center}
+% 		\includegraphics[width=0.4\linewidth]{graphics/aco} \\
+% 		{\footnotesize (from Dr\'eo, 2006)}
 
-    % \bigskip
-    % \important{\bf $\rightarrow$ Similarities with Reinforcement Learning!}
-	\end{center}
-\end{frame}
+%     % \bigskip
+%     % \important{\bf $\rightarrow$ Similarities with Reinforcement Learning!}
+% 	\end{center}
+% \end{frame}
 
 % \begin{frame}{Some Classical (Meta)heuristics Involving Learning}
 % 	\begin{itemize}
@@ -369,7 +398,7 @@
 % 	\item Four phases, repeated as long as there is time left:
 % 	\end{itemize}
 % 	\begin{center}
-% 		\includegraphics[width=0.9\linewidth]{figures/MCTS2.pdf}
+% 		\includegraphics[width=0.9\linewidth]{graphics/MCTS2.pdf}
 % 	\end{center}
 % 	\vspace{-3ex}
 % 	\begin{itemize}
@@ -407,7 +436,7 @@
 
 % \begin{frame}{Learning to Better Optimize}
 % 	\begin{center}
-% 		\includegraphics[width=0.75\linewidth]{figures/talbi-data-driven-mhs}\\[2ex]
+% 		\includegraphics[width=0.75\linewidth]{graphics/talbi-data-driven-mhs}\\[2ex]
 % 		\footnotesize{From \citet{talbi-21}: Machine Learning into Metaheuristics: A Survey and Taxonomy}
 % 	\end{center}
 % \end{frame}
@@ -425,7 +454,7 @@
 % 	\begin{itemize}
 % 		\item From an algorithm portfolio, select for a given problem instance a best suited algorithm based on features of the instance
 % 		\begin{center}
-% 			\includegraphics[width=0.7\linewidth]{figures/alg-selection}
+% 			\includegraphics[width=0.7\linewidth]{graphics/alg-selection}
 % 		\end{center}
 		
 % 	\end{itemize}
@@ -438,25 +467,24 @@
 
 % \begin{frame}{Learning to Better Optimize}
 % \begin{center}
-% 	\includegraphics[width=0.95\linewidth]{figures/talbi-data-driven-mhs}\\[2ex]
+% 	\includegraphics[width=0.95\linewidth]{graphics/talbi-data-driven-mhs}\\[2ex]
 % 	\footnotesize{(from Talbi, 2020: Machine Learning in Metaheuristics)}
 % \end{center}
 % \end{frame}
 
 % \begin{frame}{Learning to Better Optimize}
 % 	\begin{center}
-% 		\includegraphics[width=0.95\linewidth]{figures/talbi-data-driven-objective-functions}\\[2ex]
+% 		\includegraphics[width=0.95\linewidth]{graphics/talbi-data-driven-objective-functions}\\[2ex]
 % 		\footnotesize{(from Talbi, 2020: Machine Learning in Metaheuristics)}
 % 	\end{center}
 % \end{frame}
 
 % \begin{frame}{Learning to Better Optimize}
 % 	\begin{center}
-% 		\includegraphics[width=0.95\linewidth]{figures/talbi-data-driven-constraints}\\[2ex]
+% 		\includegraphics[width=0.95\linewidth]{graphics/talbi-data-driven-constraints}\\[2ex]
 % 		\footnotesize{(from Talbi, 2020: Machine Learning in Metaheuristics)}
 % 	\end{center}
 % \end{frame}
-
 
 
 \begin{frame}{Reinforcement Learning (RL)}
@@ -466,34 +494,35 @@
 		%\item Received much attention in broader public by DeepMind's successes in agents for Go, chess, and diverse video games
 		\item Framework:\\
 		\begin{minipage}[c]{0.45\textwidth}
-			\includegraphics[width=\linewidth]{figures/reinforcement_learning}
+			\includegraphics[width=\linewidth]{graphics/reinforcement_learning}
 		\end{minipage} \hfill
 		\begin{minipage}[c]{0.20\textwidth}
 		% \begin{textblock}{20}(40,20)
-			\includegraphics[width=\linewidth]{figures/cartpole.png}\\[1cm]
-			%\includegraphics[width=3cm]{figures/compgames.jpg}\\
-			\includegraphics[width=\linewidth]{figures/alphazero.png}
+			\includegraphics[width=\linewidth]{graphics/cartpole.png}\\[1cm]
+			%\includegraphics[width=3cm]{graphics/compgames.jpg}\\
+			\includegraphics[width=\linewidth]{graphics/alphazero.png}
 		\end{minipage}
 		\begin{minipage}[c]{0.20\textwidth}
 			% \begin{textblock}{20}(40,20)
-				\includegraphics[width=\linewidth]{figures/compgames.jpg}
+				\includegraphics[width=\linewidth]{graphics/compgames.jpg}
 			\end{minipage}
 
 		\vspace{2ex}
-		\important{Constructing a solution to a COP can be seen as an episode in an environment, objective value $\hat=$ reward}
+		\important{Constructing a solution to a COP can be seen as an episode in an environment, objective value $\hat=$ reward;
+		\textbf{$\rightarrow$ autoregressive solution construction}}
 	\end{itemize}
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{Reinforcement Learning (RL) - Classification}
-	\begin{center}
-		\includegraphics[width=0.72\textwidth]{figures/rlmethods.jpg}
+% \begin{frame}
+% 	\frametitle{Reinforcement Learning (RL) - Classification}
+% 	\begin{center}
+% 		\includegraphics[width=0.72\textwidth]{graphics/rlmethods.jpg}
 
-		\bigskip
-		\footnotesize{(from \citet{mazyavkina-21b})}
-	\end{center}
-\end{frame}
+% 		\bigskip
+% 		\footnotesize{(from \citet{mazyavkina-21b})}
+% 	\end{center}
+% \end{frame}
 
 
 % \begin{frame}{Q-Learning \citep{watkins1992q}}
@@ -506,7 +535,7 @@
 % 		approximates expected weighted sum of rewards to receive from state $s$ onward when performing action $a$
 % 		\item Update of initially random $Q(s,a)$ values by\\
 % 		\begin{center}
-% 			\includegraphics[width=1\linewidth]{figures/q-learning-equation}
+% 			\includegraphics[width=1\linewidth]{graphics/q-learning-equation}
 % 		\end{center}
 % 		% $Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha \left( R_{t+1} + \gamma\max_{a} Q(s_{t+1},a) - Q(s_t,a_t)\right)$
 % 		\item<2->{\important{Compare Q-Learning and Ant Colony Optimization!}}
@@ -568,14 +597,16 @@
 			\item recurrent neural networks, e.g., LSTMs
 			% \item attention models
 			\item \structure{pointer networks} \citep{vinyals-2015}
-			\item variants of \structure{Graph Neural Networks} \citep{scarselli2008graph}, e.g.,
+			\item variants of \important{\bf Graph Neural Networks} \citep{scarselli2008graph}, e.g.,
 			\begin{itemize}
 				\item Structure-to-Vector Network (Dai et al., 2016)
 				\item Graph Convolutional Network (Kipf and Welling, 2017)
 				\item Graph Isomorphism Network (Xu et al., 2019)
 				\item Graph Attention Network (Kool et al., 2019; Joshi et al., 2021)
 			\end{itemize}
-			{\includegraphics[width=0.7\linewidth, page=3]{figures/graphics.pdf}}\\[2ex]
+
+			\medskip
+			{\includegraphics[width=0.7\linewidth, page=3]{graphics/graphics.pdf}}\\[2ex]
 			% learn \important{embedding of nodes} by looking at nearby nodes
 		\end{itemize} 
 	\end{itemize}
@@ -589,7 +620,7 @@
 		\item graph embedding network \important{structure2vec} used to ``featurize'' nodes
 		\item variant of Q-learning used to obtain a policy for greedily constructing solutions
 		\begin{center}
-			\includegraphics[width=1\linewidth]{figures/dai}
+			\includegraphics[width=1\linewidth]{graphics/dai}
 		\end{center}
 	\end{itemize}
 \end{frame}
@@ -603,7 +634,7 @@
 % 		\item \important{Q-learning} finds combination of most promising nodes\\
 % 		$Q(S,v)$: long-term reward for adding node $v$ to solution $S$\\ approximated by a comparatively simple neural net
 % 		\begin{center}
-% 			\includegraphics[width=1\linewidth]{figures/mittal}
+% 			\includegraphics[width=1\linewidth]{graphics/mittal}
 % 		\end{center}
 % 	\end{itemize}
 % \end{frame}
@@ -614,10 +645,10 @@
 		\item Autoregressive multi-head attention-based encoder/decoder GNN
 		\item for TSP, VRP
 		\begin{center}
-			\includegraphics[width=0.7\linewidth]{figures/MHA-encoder.jpg}
+			\includegraphics[width=0.7\linewidth]{graphics/MHA-encoder.jpg}
 		\end{center}
 		\begin{center}
-			\includegraphics[width=0.7\linewidth]{figures/MHA-decoder.jpg}
+			\includegraphics[width=0.7\linewidth]{graphics/MHA-decoder.jpg}
 		\end{center}
 		\item Trained with REINFORCE
 	\end{itemize}
@@ -635,7 +666,7 @@
 	\item results competitive to state-of-the-art solvers reported 
 	\medskip
 	\begin{center}
-		\includegraphics[width=1\linewidth]{figures/li}
+		\includegraphics[width=1\linewidth]{graphics/li}
 	\end{center}
 \end{itemize}
 \end{frame}
@@ -645,7 +676,7 @@
 % 		\item Superhuman agent for Go, successor of AlphaGo
 % 		\item Learns only by \important{iterated selfplay}:\\
 % 		%\begin{center}
-% 			\includegraphics[width=0.9\linewidth]{figures/alpha-zero-selfplay}
+% 			\includegraphics[width=0.9\linewidth]{graphics/alpha-zero-selfplay}
 % 		%\end{center}
 % 		\item \important{Monte Carlo Tree Search (MCTS)} is applied to obtain a policy and select a move
 % 		\item \important{In the MCTS new states are evaluated by a deep neural net}:
@@ -659,7 +690,7 @@
 
 % \begin{frame}{Basic Idea of AlphaGoZero \citep{silver-18}}
 % 	\begin{center}
-% 	\includegraphics[width=1\linewidth]{figures/alpha-zero-training}
+% 	\includegraphics[width=1\linewidth]{graphics/alpha-zero-training}
 % 	\end{center}
 % 	\begin{itemize}
 % 		\item selfplay games are logged with results in a \important{replay buffer}
@@ -683,6 +714,117 @@
 		% \item claimed to yield new state-of-the-art results
 	\end{itemize}
 \end{frame}
+
+
+
+% -----------------------------------------------------
+
+
+\begin{frame}{Denoising Diffusion Models (DDMs)}
+	\begin{itemize}
+		\item State-of-the-art in many generative AI applications,\\
+		in particular the creation of realistically-looking images
+	
+		\medskip
+		\includegraphics[width=0.9\textwidth]{graphics/diffusion.png}
+	
+		\bigskip
+		\item \structure{Training}
+		\begin{itemize}
+			\item Gaussian noise step-wise added to original images
+			\item Neural network trained to predict noise added in each step
+		\end{itemize}
+		\item \structure{Inference}
+		\begin{itemize}
+			\item Starts from pure random noise
+			\item Stepwise remove noise via neural network
+		\end{itemize}
+		\item DDMs can be conditioned on additional input
+		\item \important{Concept can also be applied to graph neural networks!}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.} 
+	
+	\citep{sun-23}
+
+	\bigskip
+	\begin{itemize}
+		\itemsep1ex
+		\item TSP and maximum independent set problem (MISP) considered
+		\item utilizes an anisotropic \important{graph neural network} with edge gating
+		\item \important{discrete diffusion} based on Bernoulli noise
+		\item trained on many small instances + (close to) optimal solutions
+		\item used to create \important{diverse heatmaps} 
+		\item greedy heuristics and MCTS used as decoder
+	\end{itemize}
+
+	\bigskip
+	\only<1>{\centering \includegraphics[width=0.4\textwidth]{graphics/graphdiff.png}}
+	\only<2>{\begin{itemize}
+		\item<2> \structure{Advantages}
+		\begin{itemize}
+			\item \alert{outperforms earlier approaches} by a large margin in their tests
+			\item \alert{faster} than auto-regressive models
+			\item \alert{better scaling behavior} to larger instances
+			\item \alert{multi-modality of solution space is considered}
+		\end{itemize}
+	\end{itemize}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{graphics/difusco1.jpg}
+		(from \citet{sun-23})
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{graphics/difusco2.jpg}
+		(from \citet{sun-23})
+	\end{center}
+\end{frame}
+
+	
+\begin{frame}
+	\frametitle{Denoising Diffusion Based Evolutionary Algorighm}
+
+	Our ongoing work with J.~Salva Soler, M.~Wustinger, E.~Iurlano
+
+	\bigskip
+	\begin{itemize}
+		\itemsep2ex
+		\item Utilize DIFUSCO to create diverse initial population
+		\item \important{Intelligent recombination} 
+		\begin{itemize}
+			\item A second DDM is trained to derive a best solution\\ conditioned by a given set of parental solutions,\\
+			i.e., mostly using only their solution components
+			\item labeled offline-training data derived by MILPs
+		\end{itemize}
+		\item Under investigation for TSP, MISP, $\alpha$-domination problem, graph burning problem
+		\item<2> \structure{Advantages}
+		\begin{itemize}
+			\item Depending on problem, the \important{whole population can be kept completely on the GPU}
+			\item Scales favorably: \important{runtime in principle almost independent of instance size!}
+		\end{itemize} 
+		\item<3> \structure{Open Question}
+		\begin{itemize}
+			\item Unsupervised learning possible by RL principles?
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+	
+
+
+
+
 
 
 % \begin{frame}
@@ -726,7 +868,7 @@
 \begin{frame}
 \frametitle{Learning Beam Search \citep{huber-21}}
 	\begin{center}
-		\includegraphics[height=225pt]{figures/lbsProcedure.png}
+		\includegraphics[height=225pt]{graphics/lbsProcedure.png}
 	\end{center}
 \end{frame}
 	
@@ -779,7 +921,7 @@
 	\bigskip
 	\begin{center}
 		% \makebox[\linewidth]{
-		\input{figures/nn-vs-ael-buffer-mae.pgf}
+		\input{graphics/nn-vs-ael-buffer-mae.pgf}
 	\end{center}
 	
 	
@@ -812,7 +954,8 @@
 	\bigskip
 	\structure{Also successfully considered:}\\
 	Constrained LCS, shortest common supersequence problem
-	no-wait flow shop problem
+	no-wait flow shop problem\\
+	\citep{djukanovic-24}: restricted LCS
 	%\structure{CLCS results:} in \important{10 out of 36 cases new best results}, worse only in 2
 
 	% \bigskip
@@ -889,7 +1032,7 @@
 %     \end{itemize}
 %     \begin{figure}
 %         \centering
-%         \includegraphics[width=0.5\textwidth, page=8]{figures/graphics.pdf}
+%         \includegraphics[width=0.5\textwidth, page=8]{graphics/graphics.pdf}
 %         \caption{Example schedule with employee-based disruptions: E~... early shift, D~... day shift, N ... night shift, F ... off-day.}
 %     \end{figure}
 % \end{frame}
@@ -908,7 +1051,7 @@
 	\end{itemize}
 	\begin{figure}
 		\centering
-		\includegraphics[width=\textwidth, page=7]{figures/graphics.pdf}
+		\includegraphics[width=\textwidth, page=7]{graphics/graphics.pdf}
 		\caption{Overview of hard constraints.}
 	\end{figure}
 \end{frame}
@@ -922,9 +1065,9 @@
 	\end{itemize}
 	\begin{figure}
 		\begin{overprint}
-			%\onslide<1>\centering\includegraphics[width=\textwidth, page=11]{figures/graphics.pdf}
-			\onslide<1>\centering\includegraphics[width=\textwidth, page=10]{figures/graphics.pdf}
-			\onslide<2>\centering\includegraphics[width=\textwidth, page=9]{figures/graphics.pdf}
+			%\onslide<1>\centering\includegraphics[width=\textwidth, page=11]{graphics/graphics.pdf}
+			\onslide<1>\centering\includegraphics[width=\textwidth, page=10]{graphics/graphics.pdf}
+			\onslide<2>\centering\includegraphics[width=\textwidth, page=9]{graphics/graphics.pdf}
 		\end{overprint}
 		%\caption{Simplified representation of an LNS on an SRRP instance.}
 	\end{figure}
@@ -957,10 +1100,10 @@
 	\end{itemize}
 	\begin{figure}
 		\begin{overprint}
-			\onslide<1>\centering\includegraphics[width=0.75\textwidth, page=13]{figures/graphics.pdf}
-			\onslide<2>\centering\includegraphics[width=0.75\textwidth, page=14]{figures/graphics.pdf}
-			\onslide<3>\centering\includegraphics[width=0.75\textwidth, page=15]{figures/graphics.pdf}
-			\onslide<4>\centering\includegraphics[width=0.75\textwidth, page=16]{figures/graphics.pdf}
+			\onslide<1>\centering\includegraphics[width=0.75\textwidth, page=13]{graphics/graphics.pdf}
+			\onslide<2>\centering\includegraphics[width=0.75\textwidth, page=14]{graphics/graphics.pdf}
+			\onslide<3>\centering\includegraphics[width=0.75\textwidth, page=15]{graphics/graphics.pdf}
+			\onslide<4>\centering\includegraphics[width=0.75\textwidth, page=16]{graphics/graphics.pdf}
 		\end{overprint}
 		\caption{Destroy operator applied on an example SRRP instance.}
 	\end{figure}
@@ -1023,7 +1166,7 @@
     				\draw (d1) -- (d2);
     				\draw (d2) -- (d3);
     		\end{tikzpicture}}
-    	\onslide<2>\centering \includegraphics[width=\linewidth, page=3]{figures/graphics.pdf}
+    	\onslide<2>\centering \includegraphics[width=\linewidth, page=3]{graphics/graphics.pdf}
     	\end{overprint}
     	%\caption{Simplified representation of the destroy set model architecture.}
     \end{figure}
@@ -1038,15 +1181,15 @@
 % 	\end{itemize}
 % 	\begin{figure}
 % 		\begin{overprint}
-% 			\onslide<1>\centering\includegraphics[width=\textwidth, page=17]{figures/graphics.pdf}
-% 			\onslide<2>\centering\includegraphics[width=\textwidth, page=18]{figures/graphics.pdf}
-% 			\onslide<3>\centering\includegraphics[width=\textwidth, page=19]{figures/graphics.pdf}
-% 			\onslide<4>\centering\includegraphics[width=\textwidth, page=20]{figures/graphics.pdf}
-% 			\onslide<5>\centering\includegraphics[width=\textwidth, page=21]{figures/graphics.pdf}
-% 			\onslide<6>\centering\includegraphics[width=\textwidth, page=22]{figures/graphics.pdf}
-% 			\onslide<7>\centering\includegraphics[width=\textwidth, page=23]{figures/graphics.pdf}
-% 			\onslide<8,9>\centering\includegraphics[width=\textwidth, page=24]{figures/graphics.pdf}
-% 			%\onslide<10>\centering\includegraphics[width=\textwidth, page=25]{figures/graphics.pdf}
+% 			\onslide<1>\centering\includegraphics[width=\textwidth, page=17]{graphics/graphics.pdf}
+% 			\onslide<2>\centering\includegraphics[width=\textwidth, page=18]{graphics/graphics.pdf}
+% 			\onslide<3>\centering\includegraphics[width=\textwidth, page=19]{graphics/graphics.pdf}
+% 			\onslide<4>\centering\includegraphics[width=\textwidth, page=20]{graphics/graphics.pdf}
+% 			\onslide<5>\centering\includegraphics[width=\textwidth, page=21]{graphics/graphics.pdf}
+% 			\onslide<6>\centering\includegraphics[width=\textwidth, page=22]{graphics/graphics.pdf}
+% 			\onslide<7>\centering\includegraphics[width=\textwidth, page=23]{graphics/graphics.pdf}
+% 			\onslide<8,9>\centering\includegraphics[width=\textwidth, page=24]{graphics/graphics.pdf}
+% 			%\onslide<10>\centering\includegraphics[width=\textwidth, page=25]{graphics/graphics.pdf}
 % 		\end{overprint}
 % 		\caption{Destroy set sampling strategy.}
 % 	\end{figure}
@@ -1072,7 +1215,7 @@
 % 		\item \textbf{Output:} \important{probabilities} for selecting temperature in $\mathcal{T} = \{ 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 3, 5 \}$
 % 	\end{itemize}
 % 	\begin{figure}
-% 		\centering\includegraphics[width=\textwidth, page=5]{figures/graphics.pdf}
+% 		\centering\includegraphics[width=\textwidth, page=5]{graphics/graphics.pdf}
 % 		\caption{Simplified representation of  the temperature model architecture.}
 % 	\end{figure}
 % \end{frame}
@@ -1092,9 +1235,6 @@
 	\end{itemize}
 \end{frame}
 
-
-
-
 \begin{frame}{Computational Results}
 	\begin{itemize}
 		\item Model trained with $|N| = 110$ employees
@@ -1102,9 +1242,58 @@
 		\item \structure{MILP + Gurobi} optimality gap between \textbf{26\%} and \textbf{34\%}
 	\end{itemize}
 	\begin{figure}
-		\scalebox{1}{\includegraphics[width=0.45\textwidth]{figures/generalization-box.pdf}\includegraphics[width=0.45\textwidth]{figures/generalization-line.pdf}}
-		\caption{Comparison of LNS\_RND and LNS\_NN optimality gaps. $15$ minutes running time. Lower bounds from solving MILP for three hours.}
+		\scalebox{1}{\includegraphics[width=0.45\textwidth]{graphics/generalization-box.pdf}\includegraphics[width=0.45\textwidth]{graphics/generalization-line.pdf}}
+		\caption{Comparison of LNS\_RND and LNS\_NN optimality gaps. $15$ minutes running time.\\ Lower bounds from solving MILP for three hours.}
 	\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Generative Flow Networks (GFlowNets)}
+
+	\citet{bengio-21a}
+	
+	\begin{itemize}
+		\item \important{stochastic policy} (generative model),
+		\item trained such that it samples objects $x$ through a sequence of construction steps
+		\item with probability \important{proportional to a reward function $R(x)$}
+		\item 
+
+	\includegraphics[width=0.6\textwidth]{graphics/gflownet_anim.png}\\
+	{\footnotesize (image from \url{https://yoshuabengio.org/2022/03/05/generative-flow-networks})}
+
+	\item related to but different from classical RL approaches
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Generative Flow Networks (GFlowNets, contd.)}
+\structure{Advantages}
+	\begin{itemize}
+		\item Able to generate \important{diverse} solutions
+		\item Possibly more robust training than classical RL
+		\begin{itemize}
+			\item Can be trained off-policy/offline
+			\item Does not (necessarily) rely on intermediate rewards
+			\item Models symmetries more efficiently
+			\item Does not get so easily trapped in solutions reachable by many trajectories
+		\end{itemize}
+		\item $\approx 60$ papers published on GFlowNets since 2021
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Generative Flow Networks (GFlowNets, contd.)}
+Our ongoing work with L.~Tomandl, J.~Peng:
+
+\bigskip
+Utilizing GFlowNets for
+
+\medskip
+\begin{itemize}
+	\itemsep2ex
+	\item destroy set generation in LNS
+	\item as hyper-heuristic to schedule lower-level heuristics
+\end{itemize}
 \end{frame}
 
 
@@ -1112,21 +1301,16 @@
 	\frametitle{Conclusions}
 	\begin{itemize}
 		\itemsep2.5ex
-		\item Large variety of ML-based approaches to support/improve (meta-)heuristics for COP
-		\item Modern RL techniques seem particularly promising
-		\begin{itemize}
-			\item to reduce effort in manually crafting/tuning heuristics
-			\item without labeled training data (supervised learning)
-		\end{itemize}
-		\item End-to-end ML-based approaches to COPs usually not competitive
+		\item Large variety of ML-based approaches to support/improve classical methods for COP
+		\item End-to-end ML-based approaches to COPs usually not competitive to well-designed classical methods
+		\item However, ML can be highly promising in addressing specific aspects
 		\item Combinations with tree search, local search and problem-specific heuristics can boost performance substantially!
 		\item Also keep in mind: 
 		\begin{itemize}
 			\item (deep) neural networks not always necessary,\\
 			e.g., other ML models may be faster \& more robust
-			\item deep RL can be tricky
+			\item deep RL can be tricky;\\ GFlowNets might be a promising alternative
 		\end{itemize}
-	
 	\end{itemize}
 \end{frame}
 
@@ -1134,7 +1318,7 @@
 \begin{frame}[allowframebreaks]
 	\frametitle{References}
 	\footnotesize
-	%\nocite{*}
+	%\nocite{*} 
 	% \bibliographystyle{abbrv}
 	\bibliographystyle{apalike}
 	\bibliography{lit.bib}
