@@ -1,0 +1,9 @@
+Advances in Large Neighborhood Search for Electric Dial-A-Ride Problems and in Logic-Based Benders Decomposition for Scheduling Problems
+
+Günther Raidl
+https://www.ac.tuwien.ac.at/raidl
+
+After giving an overview on my research interests and some recent projects, I will focus on two specific works.
+The first is about an electric dial-a-ride problem, for which we will discuss a hybrid Large Neighborhood Search (LNS) heuristic featuring an efficient evaluation algorithm for candidate routes, which insert charging stops in best ways on-the-fly. Hereby, we make use of decomposing candidate routes into atomic fragments that can be evaluated in an isolated fashion and cached for later use.
+We then also consider how such an LNS can be extended towards the dynamic stochastic scenario.
+The second part considers a scheduling problem that is addressed exactly by means of a Logic-Based Benders decomposition. A novel aspect here is that we train a graph neural network on representative instances in order to guide the construction of Benders cuts toward those that are more effective in practice.

@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../lbbd_cut_strengthening_and_learning"
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"Bresich",
+			"Sparsening",
+			"TELO"
+		]
+	}
+}
