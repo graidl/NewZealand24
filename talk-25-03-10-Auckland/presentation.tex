@@ -13,7 +13,7 @@
 }
 
 \usepackage[round]{natbib}
-%\bibliographystyle{plainnatnourl}
+%\bibliographystyle{plainnatnourl} 
 
 % cSpell:disable
 \definecolor{rcomment}{rgb}{0.3, 0.3, 0.3}  % darkgrey
@@ -496,6 +496,8 @@
 \end{itemize}
 	
 \end{frame}
+
+
 
 
 % % alternative2: too much text => keywords only 
@@ -983,7 +985,7 @@ Runtime: $O(|R| \cdot n_{\mathrm{charging}})$
 % alternative2: removed columns with standard deviation and columns with number of feasible solutions
 % new version: without citations 
 \begin{frame}
-  \frametitle{Results: Cordeau instances with $\gamma = 0.7$ }
+  \frametitle{Results: Cordeau instances with $\gamma = 0.7,\ n_\mathrm{S}=\infty$ }
   
 
 % Please add the following required packages to your document preamble:
@@ -1000,7 +1002,7 @@ Runtime: $O(|R| \cdot n_{\mathrm{charging}})$
 \hline
 \multicolumn{1}{c}{}                           & \multicolumn{2}{c}{e-ADARP2}                                 & \multicolumn{3}{c}{DA}                                                                       & \multicolumn{2}{c}{BI-LNS}             & \multicolumn{2}{c}{OTF MILP}                                                  & \multicolumn{2}{c}{OTF Heuristic}                        \\ \cline{2-12} 
 \multicolumn{1}{c}{\multirow{-2}{*}{Instance}} & RT {[}min{]} & \multicolumn{1}{r|}{Obj}                                    & RT mean {[}min{]} & Obj min         & \multicolumn{1}{r|}{Obj mean}                               & Obj min         & \multicolumn{1}{r|}{Obj mean} & Obj min         & \multicolumn{1}{r|}{Obj mean}                               & Obj min         & Obj mean                               \\ \hline
-\multicolumn{12}{c}{$n_\mathrm{s} = 1$}                                                                                                                                                                                                                                                                                                                                                                                      \\ \hline
+%\multicolumn{12}{c}{$n_\mathrm{s} = 1$}                                                                                                                                                                                                                                                                                                                                                                                      \\ \hline
 a2-16                                          & 0.09         & \multicolumn{1}{r|}{{\color[HTML]{000000} \textbf{240.66}}} & 1.60              & \textbf{240.66} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{240.66}}} & 242.83          & \multicolumn{1}{r|}{245.50}   & \textbf{240.66} & \multicolumn{1}{r|}{240.84}                                 & \textbf{240.66} & {\color[HTML]{FE0000} \textbf{240.66}} \\
 a2-20                                          & 120.00       & \multicolumn{1}{r|}{NA}                                     & 2.88              & \textbf{293.27} & \multicolumn{1}{r|}{294.11}                                 & NA              & \multicolumn{1}{r|}{NA}       & \textbf{293.27} & \multicolumn{1}{r|}{294.98}                                 & \textbf{293.27} & {\color[HTML]{FE0000} \textbf{293.27}} \\
 a2-24                                          & 16.02        & \multicolumn{1}{r|}{358.21}                                 & 3.44              & \textbf{353.18} & \multicolumn{1}{r|}{NA}                                     & 356.99          & \multicolumn{1}{r|}{363.04}   & \textbf{353.18} & \multicolumn{1}{r|}{353.45}                                 & \textbf{353.18} & {\color[HTML]{FE0000} \textbf{353.18}} \\
@@ -1014,22 +1016,24 @@ a4-32                                          & 120.00       & \multicolumn{1}{
 a4-40                                          & 120.00       & \multicolumn{1}{r|}{NA}                                     & 1.91              & 479.02          & \multicolumn{1}{r|}{NA}                                     & 471.72          & \multicolumn{1}{r|}{478.93}   & 471.78          & \multicolumn{1}{r|}{487.42}                                 & \textbf{467.72} & {\color[HTML]{FE0000} \textbf{474.47}} \\
 a4-48                                          & 120.00       & \multicolumn{1}{r|}{NA}                                     & 2.74              & 582.22          & \multicolumn{1}{r|}{NA}                                     & 579.71          & \multicolumn{1}{r|}{588.48}   & 580.49          & \multicolumn{1}{r|}{591.36}                                 & \textbf{575.62} & {\color[HTML]{FE0000} \textbf{579.63}} \\
 a5-40                                          & 120.00       & \multicolumn{1}{r|}{447.63}                                 & 1.63              & 424.26          & \multicolumn{1}{r|}{436.94}                                 & 420.20          & \multicolumn{1}{r|}{423.88}   & 425.93          & \multicolumn{1}{r|}{433.02}                                 & \textbf{418.75} & {\color[HTML]{FE0000} \textbf{421.16}} \\
-a5-50                                          & 120.00       & \multicolumn{1}{r|}{NA}                                     & 2.64              & 603.24          & \multicolumn{1}{r|}{NA}                                     & 593.71          & \multicolumn{1}{r|}{602.30}   & 596.54          & \multicolumn{1}{r|}{612.00}                                 & \textbf{589.61} & {\color[HTML]{FE0000} \textbf{596.09}} \\ \hline
-\multicolumn{12}{c}{$n_\mathrm{s} = \infty$}                                                                                                                                                                                                                                                                                                                                                                                 \\ \hline
-a2-16                                          &              & \multicolumn{1}{r|}{}                                       & 1.99              & \textbf{240.66} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{240.66}}} & 242.44          & \multicolumn{1}{r|}{242.44}   & \textbf{240.66} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{240.66}}} & \textbf{240.66} & {\color[HTML]{FE0000} \textbf{240.66}} \\
-a2-20                                          &              & \multicolumn{1}{r|}{}                                       & 5.27              & 286.32          & \multicolumn{1}{r|}{288.89}                                 & 290.33          & \multicolumn{1}{r|}{291.23}   & \textbf{285.86} & \multicolumn{1}{r|}{285.95}                                 & \textbf{285.86} & {\color[HTML]{FE0000} \textbf{285.86}} \\
-a2-24                                          &              & \multicolumn{1}{r|}{}                                       & 5.96              & 354.38          & \multicolumn{1}{r|}{374.68}                                 & 354.53          & \multicolumn{1}{r|}{356.89}   & \textbf{350.32} & \multicolumn{1}{r|}{350.33}                                 & \textbf{350.32} & {\color[HTML]{FE0000} \textbf{350.32}} \\
-a3-18                                          &              & \multicolumn{1}{r|}{}                                       & 1.10              & \textbf{238.82} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{238.82}}} & 241.95          & \multicolumn{1}{r|}{242.46}   & \textbf{238.82} & \multicolumn{1}{r|}{239.55}                                 & 240.03          & 240.03                                 \\
-a3-24                                          &              & \multicolumn{1}{r|}{}                                       & 2.50              & \textbf{275.20} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{275.20}}} & 277.52          & \multicolumn{1}{r|}{278.02}   & \textbf{275.20} & \multicolumn{1}{r|}{276.05}                                 & \textbf{275.20} & {\color[HTML]{FE0000} \textbf{275.20}} \\
-a3-30                                          &              & \multicolumn{1}{r|}{}                                       & 2.85              & 415.71          & \multicolumn{1}{r|}{417.07}                                 & 419.16          & \multicolumn{1}{r|}{426.30}   & \textbf{413.45} & \multicolumn{1}{r|}{415.85}                                 & \textbf{413.45} & {\color[HTML]{FE0000} \textbf{414.08}} \\
-a3-36                                          &              & \multicolumn{1}{r|}{}                                       & 5.72              & 484.85          & \multicolumn{1}{r|}{487.91}                                 & 490.26          & \multicolumn{1}{r|}{492.79}   & \textbf{483.08} & \multicolumn{1}{r|}{490.60}                                 & 484.49          & {\color[HTML]{FE0000} \textbf{486.98}} \\
-a4-16                                          &              & \multicolumn{1}{r|}{}                                       & 0.52              & \textbf{222.49} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{222.49}}} & \textbf{222.49} & \multicolumn{1}{r|}{223.57}   & \textbf{222.49} & \multicolumn{1}{r|}{223.09}                                 & \textbf{222.49} & {\color[HTML]{FE0000} \textbf{222.49}} \\
-a4-24                                          &              & \multicolumn{1}{r|}{}                                       & 1.18              & 315.98          & \multicolumn{1}{r|}{317.99}                                 & 316.51          & \multicolumn{1}{r|}{318.38}   & \textbf{315.40} & \multicolumn{1}{r|}{316.00}                                 & 315.98          & {\color[HTML]{FE0000} \textbf{315.98}} \\
-a4-32                                          &              & \multicolumn{1}{r|}{}                                       & 2.06              & \textbf{394.94} & \multicolumn{1}{r|}{401.82}                                 & 396.64          & \multicolumn{1}{r|}{397.98}   & \textbf{394.94} & \multicolumn{1}{r|}{395.84}                                 & \textbf{394.94} & {\color[HTML]{FE0000} \textbf{394.94}} \\
-a4-40                                          &              & \multicolumn{1}{r|}{}                                       & 3.77              & 458.52          & \multicolumn{1}{r|}{467.60}                                 & 461.16          & \multicolumn{1}{r|}{461.91}   & \textbf{457.76} & \multicolumn{1}{r|}{465.13}                                 & 457.88          & {\color[HTML]{FE0000} \textbf{458.67}} \\
-a4-48                                          &              & \multicolumn{1}{r|}{}                                       & 6.72              & 568.08          & \multicolumn{1}{r|}{575.96}                                 & 568.01          & \multicolumn{1}{r|}{570.80}   & \textbf{561.15} & \multicolumn{1}{r|}{565.94}                                 & 561.38          & {\color[HTML]{FE0000} \textbf{564.54}} \\
-a5-40                                          &              & \multicolumn{1}{r|}{}                                       & 2.50              & 419.33          & \multicolumn{1}{r|}{425.29}                                 & 418.79          & \multicolumn{1}{r|}{421.06}   & \textbf{415.88} & \multicolumn{1}{r|}{425.07}                                 & \textbf{415.88} & {\color[HTML]{FE0000} \textbf{416.43}} \\
-a5-50                                          &              & \multicolumn{1}{r|}{}                                       & 5.88              & 579.15          & \multicolumn{1}{r|}{588.98}                                 & 571.37          & \multicolumn{1}{r|}{575.49}   & 573.37          & \multicolumn{1}{r|}{586.47}                                 & \textbf{567.61} & {\color[HTML]{FE0000} \textbf{571.48}} \\ \hline
+a5-50                                          & 120.00       & \multicolumn{1}{r|}{NA}                                     & 2.64              & 603.24          & \multicolumn{1}{r|}{NA}                                     & 593.71          & \multicolumn{1}{r|}{602.30}   & 596.54          & \multicolumn{1}{r|}{612.00}                                 & \textbf{589.61} & {\color[HTML]{FE0000} \textbf{596.09}} \\
+%\\ \hline
+% \multicolumn{12}{c}{$n_\mathrm{s} = \infty$}                                                                                                                                                                                                                                                                                                                                                                                 \\ \hline
+% a2-16                                          &              & \multicolumn{1}{r|}{}                                       & 1.99              & \textbf{240.66} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{240.66}}} & 242.44          & \multicolumn{1}{r|}{242.44}   & \textbf{240.66} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{240.66}}} & \textbf{240.66} & {\color[HTML]{FE0000} \textbf{240.66}} \\
+% a2-20                                          &              & \multicolumn{1}{r|}{}                                       & 5.27              & 286.32          & \multicolumn{1}{r|}{288.89}                                 & 290.33          & \multicolumn{1}{r|}{291.23}   & \textbf{285.86} & \multicolumn{1}{r|}{285.95}                                 & \textbf{285.86} & {\color[HTML]{FE0000} \textbf{285.86}} \\
+% a2-24                                          &              & \multicolumn{1}{r|}{}                                       & 5.96              & 354.38          & \multicolumn{1}{r|}{374.68}                                 & 354.53          & \multicolumn{1}{r|}{356.89}   & \textbf{350.32} & \multicolumn{1}{r|}{350.33}                                 & \textbf{350.32} & {\color[HTML]{FE0000} \textbf{350.32}} \\
+% a3-18                                          &              & \multicolumn{1}{r|}{}                                       & 1.10              & \textbf{238.82} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{238.82}}} & 241.95          & \multicolumn{1}{r|}{242.46}   & \textbf{238.82} & \multicolumn{1}{r|}{239.55}                                 & 240.03          & 240.03                                 \\
+% a3-24                                          &              & \multicolumn{1}{r|}{}                                       & 2.50              & \textbf{275.20} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{275.20}}} & 277.52          & \multicolumn{1}{r|}{278.02}   & \textbf{275.20} & \multicolumn{1}{r|}{276.05}                                 & \textbf{275.20} & {\color[HTML]{FE0000} \textbf{275.20}} \\
+% a3-30                                          &              & \multicolumn{1}{r|}{}                                       & 2.85              & 415.71          & \multicolumn{1}{r|}{417.07}                                 & 419.16          & \multicolumn{1}{r|}{426.30}   & \textbf{413.45} & \multicolumn{1}{r|}{415.85}                                 & \textbf{413.45} & {\color[HTML]{FE0000} \textbf{414.08}} \\
+% a3-36                                          &              & \multicolumn{1}{r|}{}                                       & 5.72              & 484.85          & \multicolumn{1}{r|}{487.91}                                 & 490.26          & \multicolumn{1}{r|}{492.79}   & \textbf{483.08} & \multicolumn{1}{r|}{490.60}                                 & 484.49          & {\color[HTML]{FE0000} \textbf{486.98}} \\
+% a4-16                                          &              & \multicolumn{1}{r|}{}                                       & 0.52              & \textbf{222.49} & \multicolumn{1}{r|}{{\color[HTML]{FE0000} \textbf{222.49}}} & \textbf{222.49} & \multicolumn{1}{r|}{223.57}   & \textbf{222.49} & \multicolumn{1}{r|}{223.09}                                 & \textbf{222.49} & {\color[HTML]{FE0000} \textbf{222.49}} \\
+% a4-24                                          &              & \multicolumn{1}{r|}{}                                       & 1.18              & 315.98          & \multicolumn{1}{r|}{317.99}                                 & 316.51          & \multicolumn{1}{r|}{318.38}   & \textbf{315.40} & \multicolumn{1}{r|}{316.00}                                 & 315.98          & {\color[HTML]{FE0000} \textbf{315.98}} \\
+% a4-32                                          &              & \multicolumn{1}{r|}{}                                       & 2.06              & \textbf{394.94} & \multicolumn{1}{r|}{401.82}                                 & 396.64          & \multicolumn{1}{r|}{397.98}   & \textbf{394.94} & \multicolumn{1}{r|}{395.84}                                 & \textbf{394.94} & {\color[HTML]{FE0000} \textbf{394.94}} \\
+% a4-40                                          &              & \multicolumn{1}{r|}{}                                       & 3.77              & 458.52          & \multicolumn{1}{r|}{467.60}                                 & 461.16          & \multicolumn{1}{r|}{461.91}   & \textbf{457.76} & \multicolumn{1}{r|}{465.13}                                 & 457.88          & {\color[HTML]{FE0000} \textbf{458.67}} \\
+% a4-48                                          &              & \multicolumn{1}{r|}{}                                       & 6.72              & 568.08          & \multicolumn{1}{r|}{575.96}                                 & 568.01          & \multicolumn{1}{r|}{570.80}   & \textbf{561.15} & \multicolumn{1}{r|}{565.94}                                 & 561.38          & {\color[HTML]{FE0000} \textbf{564.54}} \\
+% a5-40                                          &              & \multicolumn{1}{r|}{}                                       & 2.50              & 419.33          & \multicolumn{1}{r|}{425.29}                                 & 418.79          & \multicolumn{1}{r|}{421.06}   & \textbf{415.88} & \multicolumn{1}{r|}{425.07}                                 & \textbf{415.88} & {\color[HTML]{FE0000} \textbf{416.43}} \\
+% a5-50                                          &              & \multicolumn{1}{r|}{}                                       & 5.88              & 579.15          & \multicolumn{1}{r|}{588.98}                                 & 571.37          & \multicolumn{1}{r|}{575.49}   & 573.37          & \multicolumn{1}{r|}{586.47}                                 & \textbf{567.61} & {\color[HTML]{FE0000} \textbf{571.48}} \\
+ \hline
 \end{tabular}%
 }
 \end{table}
@@ -1089,7 +1093,7 @@ a5-50                                          &              & \multicolumn{1}{
 % alternative: removed columns with standard deviation 
 % new version: without citations 
 \begin{frame}
-  \frametitle{Results: Ropke instances with $\gamma = 0.7$}
+  \frametitle{Results: Ropke instances with $\gamma = 0.7,\ n_\mathrm{S}=1$}
   
 
 %\vspace{-1.5mm}
@@ -1108,7 +1112,7 @@ a5-50                                          &              & \multicolumn{1}{
 \hline
 \multicolumn{1}{c}{}                           & \multicolumn{3}{c}{DA}                                                                            & \multicolumn{3}{c}{BI-LNS}             & \multicolumn{3}{c}{OTF MILP}                    & \multicolumn{3}{c}{OTF Heuristic}                                  \\ \cline{2-13} 
 \multicolumn{1}{c}{\multirow{-2}{*}{Instance}} & \begin{tabular}[c]{@{}r@{}}RT mean \\ {[}min{]}\end{tabular} & Obj min & \multicolumn{1}{r|}{Obj mean} & Obj min & Obj mean & \multicolumn{1}{r|}{Feas}  & Obj min & Obj mean & \multicolumn{1}{r|}{Feas}  & Obj min          & Obj mean                                & Feas  \\ \hline
-\multicolumn{13}{c}{$n_\mathrm{s} = 1$}                                                                                                                                                                                                                                                                                          \\ \hline
+% \multicolumn{13}{c}{$n_\mathrm{s} = 1$}                                                                                                                                                                                                                                                                                          \\ \hline
 a5-60                                          & 8.46                                                         & NA      & \multicolumn{1}{r|}{NA}       & NA      & NA       & \multicolumn{1}{r|}{0/10}  & NA      & NA       & \multicolumn{1}{r|}{0/30}  & NA               & NA                                      & 0/30  \\
 a6-48                                          & 8.37                                                         & NA      & \multicolumn{1}{r|}{NA}       & 519.55  & 522.50   & \multicolumn{1}{r|}{10/10} & 523.49  & 537.45   & \multicolumn{1}{r|}{30/30} & \textbf{517.12}  & {\color[HTML]{FE0000} \textbf{521.62}}  & 30/30 \\
 a6-60                                          & 5.45                                                         & NA      & \multicolumn{1}{r|}{NA}       & 733.45  & 742.02   & \multicolumn{1}{r|}{9/10}  & 736.52  & 750.14   & \multicolumn{1}{r|}{10/30} & \textbf{714.16}  & {\color[HTML]{FE0000} \textbf{731.45}}  & 30/30 \\
@@ -1118,18 +1122,20 @@ a7-70                                          & 8.51                           
 a7-84                                          & 13.18                                                        & NA      & \multicolumn{1}{r|}{NA}       & NA      & NA       & \multicolumn{1}{r|}{0/10}  & NA      & NA       & \multicolumn{1}{r|}{0/30}  & NA               & NA                                      & 0/30  \\
 a8-64                                          & 20.12                                                        & NA      & \multicolumn{1}{r|}{NA}       & 646.82  & 652.38   & \multicolumn{1}{r|}{10/10} & 652.65  & 674.25   & \multicolumn{1}{r|}{30/30} & \textbf{639.06}  & {\color[HTML]{FE0000} \textbf{651.33}}  & 30/30 \\
 a8-80                                          & 14.47                                                        & NA      & \multicolumn{1}{r|}{NA}       & 854.85  & 863.74   & \multicolumn{1}{r|}{10/10} & 869.19  & 888.37   & \multicolumn{1}{r|}{8/30}  & \textbf{837.79}  & {\color[HTML]{FE0000} \textbf{862.75}}  & 30/30 \\
-a8-96                                          & 14.35                                                        & NA      & \multicolumn{1}{r|}{NA}       & NA      & NA       & \multicolumn{1}{r|}{0/10}  & NA      & NA       & \multicolumn{1}{r|}{0/30}  & NA               & NA                                      & 0/30  \\ \hline
-\multicolumn{13}{c}{$n_\mathrm{s} = \infty$}                                                                                                                                                                                                                                                                                     \\ \hline
-a5-60                                          & 8.21                                                         & 708.54  & \multicolumn{1}{r|}{723.73}   & 697.87  & 709.11   & \multicolumn{1}{r|}{10/10} & 695.81  & 704.15   & \multicolumn{1}{r|}{30/30} & \textbf{686.36}  & {\color[HTML]{FE0000} \textbf{692.75}}  & 30/30 \\
-a6-48                                          & 8.07                                                         & 509.76  & \multicolumn{1}{r|}{525.10}   & 511.04  & 514.53   & \multicolumn{1}{r|}{10/10} & 509.87  & 519.44   & \multicolumn{1}{r|}{30/30} & \textbf{508.10}  & {\color[HTML]{FE0000} \textbf{509.46}}  & 30/30 \\
-a6-60                                          & 4.83                                                         & 697.57  & \multicolumn{1}{r|}{711.52}   & 699.70  & 705.56   & \multicolumn{1}{r|}{10/10} & 699.25  & 708.04   & \multicolumn{1}{r|}{30/30} & \textbf{689.95}  & {\color[HTML]{FE0000} \textbf{695.13}}  & 30/30 \\
-a6-72                                          & 9.57                                                         & 796.19  & \multicolumn{1}{r|}{826.48}   & 788.34  & 801.80   & \multicolumn{1}{r|}{10/10} & 782.32  & 799.84   & \multicolumn{1}{r|}{30/30} & \textbf{769.12}  & {\color[HTML]{FE0000} \textbf{779.49}}  & 30/30 \\
-a7-56                                          & 3.53                                                         & 625.91  & \multicolumn{1}{r|}{641.82}   & 627.34  & 633.38   & \multicolumn{1}{r|}{10/10} & 623.45  & 632.08   & \multicolumn{1}{r|}{30/30} & \textbf{617.12}  & {\color[HTML]{FE0000} \textbf{621.51}}  & 30/30 \\
-a7-70                                          & 8.00                                                         & 781.56  & \multicolumn{1}{r|}{800.35}   & 777.69  & 785.49   & \multicolumn{1}{r|}{10/10} & 769.84  & 783.03   & \multicolumn{1}{r|}{30/30} & \textbf{757.66}  & {\color[HTML]{FE0000} \textbf{765.36}}  & 30/30 \\
-a7-84                                          & 11.75                                                        & 915.61  & \multicolumn{1}{r|}{938.49}   & 900.98  & 916.93   & \multicolumn{1}{r|}{10/10} & 900.77  & 920.03   & \multicolumn{1}{r|}{30/30} & \textbf{888.40}  & {\color[HTML]{FE0000} \textbf{897.33}}  & 30/30 \\
-a8-64                                          & 21.50                                                        & 649.93  & \multicolumn{1}{r|}{668.48}   & 645.62  & 648.60   & \multicolumn{1}{r|}{10/10} & 654.75  & 663.89   & \multicolumn{1}{r|}{30/30} & \textbf{632.95}  & {\color[HTML]{FE0000} \textbf{641.17}}  & 30/30 \\
-a8-80                                          & 12.41                                                        & 843.26  & \multicolumn{1}{r|}{865.90}   & 815.06  & 825.74   & \multicolumn{1}{r|}{10/10} & 821.29  & 837.30   & \multicolumn{1}{r|}{30/30} & \textbf{801.08}  & {\color[HTML]{FE0000} \textbf{814.87}}  & 30/30 \\
-a8-96                                          & 13.45                                                        & 1097.76 & \multicolumn{1}{r|}{1136.43}  & 1072.77 & 1091.06  & \multicolumn{1}{r|}{10/10} & 1074.02 & 1091.18  & \multicolumn{1}{r|}{30/30} & \textbf{1048.87} & {\color[HTML]{FE0000} \textbf{1060.22}} & 30/30 \\ \hline
+a8-96                                          & 14.35                                                        & NA      & \multicolumn{1}{r|}{NA}       & NA      & NA       & \multicolumn{1}{r|}{0/10}  & NA      & NA       & \multicolumn{1}{r|}{0/30}  & NA               & NA                                      & 0/30  \\ 
+% \hline
+% \multicolumn{13}{c}{$n_\mathrm{s} = \infty$}                                                                                                                                                                                                                                                                                     \\ \hline
+% a5-60                                          & 8.21                                                         & 708.54  & \multicolumn{1}{r|}{723.73}   & 697.87  & 709.11   & \multicolumn{1}{r|}{10/10} & 695.81  & 704.15   & \multicolumn{1}{r|}{30/30} & \textbf{686.36}  & {\color[HTML]{FE0000} \textbf{692.75}}  & 30/30 \\
+% a6-48                                          & 8.07                                                         & 509.76  & \multicolumn{1}{r|}{525.10}   & 511.04  & 514.53   & \multicolumn{1}{r|}{10/10} & 509.87  & 519.44   & \multicolumn{1}{r|}{30/30} & \textbf{508.10}  & {\color[HTML]{FE0000} \textbf{509.46}}  & 30/30 \\
+% a6-60                                          & 4.83                                                         & 697.57  & \multicolumn{1}{r|}{711.52}   & 699.70  & 705.56   & \multicolumn{1}{r|}{10/10} & 699.25  & 708.04   & \multicolumn{1}{r|}{30/30} & \textbf{689.95}  & {\color[HTML]{FE0000} \textbf{695.13}}  & 30/30 \\
+% a6-72                                          & 9.57                                                         & 796.19  & \multicolumn{1}{r|}{826.48}   & 788.34  & 801.80   & \multicolumn{1}{r|}{10/10} & 782.32  & 799.84   & \multicolumn{1}{r|}{30/30} & \textbf{769.12}  & {\color[HTML]{FE0000} \textbf{779.49}}  & 30/30 \\
+% a7-56                                          & 3.53                                                         & 625.91  & \multicolumn{1}{r|}{641.82}   & 627.34  & 633.38   & \multicolumn{1}{r|}{10/10} & 623.45  & 632.08   & \multicolumn{1}{r|}{30/30} & \textbf{617.12}  & {\color[HTML]{FE0000} \textbf{621.51}}  & 30/30 \\
+% a7-70                                          & 8.00                                                         & 781.56  & \multicolumn{1}{r|}{800.35}   & 777.69  & 785.49   & \multicolumn{1}{r|}{10/10} & 769.84  & 783.03   & \multicolumn{1}{r|}{30/30} & \textbf{757.66}  & {\color[HTML]{FE0000} \textbf{765.36}}  & 30/30 \\
+% a7-84                                          & 11.75                                                        & 915.61  & \multicolumn{1}{r|}{938.49}   & 900.98  & 916.93   & \multicolumn{1}{r|}{10/10} & 900.77  & 920.03   & \multicolumn{1}{r|}{30/30} & \textbf{888.40}  & {\color[HTML]{FE0000} \textbf{897.33}}  & 30/30 \\
+% a8-64                                          & 21.50                                                        & 649.93  & \multicolumn{1}{r|}{668.48}   & 645.62  & 648.60   & \multicolumn{1}{r|}{10/10} & 654.75  & 663.89   & \multicolumn{1}{r|}{30/30} & \textbf{632.95}  & {\color[HTML]{FE0000} \textbf{641.17}}  & 30/30 \\
+% a8-80                                          & 12.41                                                        & 843.26  & \multicolumn{1}{r|}{865.90}   & 815.06  & 825.74   & \multicolumn{1}{r|}{10/10} & 821.29  & 837.30   & \multicolumn{1}{r|}{30/30} & \textbf{801.08}  & {\color[HTML]{FE0000} \textbf{814.87}}  & 30/30 \\
+% a8-96                                          & 13.45                                                        & 1097.76 & \multicolumn{1}{r|}{1136.43}  & 1072.77 & 1091.06  & \multicolumn{1}{r|}{10/10} & 1074.02 & 1091.18  & \multicolumn{1}{r|}{30/30} & \textbf{1048.87} & {\color[HTML]{FE0000} \textbf{1060.22}} & 30/30 \\ 
+\hline
 \end{tabular}%
 }
 \end{table}
@@ -1159,8 +1165,6 @@ pay off!
 \end{itemize}
 	
 \end{frame}
-
-\section{Dynamic Stochastic VRPs}
 
 \begin{frame}{Addressing Dynamic Stochastic VRPs}
 
@@ -1315,6 +1319,345 @@ See, e.g., \cite{voccia2019same}, \cite{Bent2004}, \cite{Hvattum2006}
 
 
 
+\begin{frame}
+	\begin{center}
+		{\LARGE\bf\structure{Advances in Logic-Based Benders Decomposition for Scheduling}}
+	\end{center}
+
+	\bigskip
+	\emph{J.~Varga, G.~Raidl, E.~Karlsson, E.~Rönnberg, F.~Lindsten, T.~Rodemann: Speeding up Logic-Based Benders Decomposition by Strengthening Cuts with Graph Neural Networks, Machine Learning, Optimization, and Data Science. LOD 2023}
+\end{frame}
+
+
+
+\begin{frame}{Classical Benders Decomposition}
+
+(\emph{Benders, 1962})
+
+\bigskip
+\begin{itemize}
+	\itemsep1.5ex
+	\item Prominent exact technique for solving large \important{mixed-integer linear programs (MILPs)}
+	\item Breaks down MILP into \important{master} and \important{subproblems}
+	\item Master problem (MP) considers only subset of variables/constraints
+	\item Solving subproblems (SPs):\\
+	via duality we obtain \important{Benders feasibility and/or optimality cuts} for MP
+	\item Iterative process
+	\item<2> \alert{SPs must be linear programs (LPs), only continuous variables allowed}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Logic-Based Benders Decomposition}
+
+\emph{J.\ N.\ Hooker and G.\ Ottosson: Logic-based Benders decomposition. Mathematical Programming, 96:33--60, 2003}
+
+\bigskip
+\begin{itemize}
+	\itemsep1.5ex
+	\item Generalization to essentially \important{arbitrary SPs also incl.\ integral variables}
+	\item Unfortunately, \alert{no general systematic way of deriving (strong) Benders cuts} exist anymore
+	\item Typically, \important{problem-specific cut-strengthening techniques} are applied,\\ exploiting problem structure
+\end{itemize}
+
+\bigskip
+\structure{Also related:}
+\begin{itemize}
+	\item Branch and check (\emph{Hooker and Ottosson, 2003})\\
+	MP only solved once, SPs when feasible solutions are encountered
+	\item \emph{G.~Codato and M.~Fischetti: Combinatorial Benders cuts for mixed-integer linear programming. Operations Research, 54:756--766, 2006} \nocite{2006_codato-fischetti_article}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logic-based Benders Decomposition}
+	\begin{centering}
+	\only<1>{
+		\includegraphics[width=\textwidth]{graphics/lbbd1}
+	}\only<2>{
+		\includegraphics[width=\textwidth]{graphics/lbbd2}
+	}
+	\end{centering}
+
+	We consider here only feasibility cuts.
+
+	\bigskip
+	\uncover<2>{
+	Our approach: \important{Learn strengthening procedure}
+	}
+\end{frame}
+
+
+
+
+\begin{frame}
+	\frametitle{Test bed: Single-Machine Scheduling Problem \citep{2020_horn-et-al_article}}
+	\begin{minipage}{0.5\textwidth}
+	\begin{itemize}
+		\item \important{Single machine}
+		\item \important{Tasks} with \important{multiple time windows}
+		\item \important{Setup times} between tasks
+		\item \important{Prize} for each task
+		\item Objective: Maximize \important{total prize} of scheduled tasks
+	\end{itemize}
+	\vspace{1em}
+	\uncover<2->{
+		\begin{itemize}
+		\item \important{MP:} Select \important{task time window pairs} (TTWP)
+		\item \important{SP:} Feasible schedule?
+		\item \important{Feasibility cut:} $\widehat{=}$ set of TTWPs
+		\item \important{Cut-strengthening:} reduce set
+		\end{itemize}
+	}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+	\scalebox{0.3}{
+		\begin{tikzpicture}
+		\node at (2,0) {\includegraphics[height=4cm]{graphics/machine.pdf}};
+		\node[rectangle,fill=black!70,minimum width=15cm,minimum height=2cm] at (13.5,0) {};
+
+		\draw[very thick, draw=black] (6,1.5) to (6,-10.5);
+		\draw[very thick, draw=black] (21,1.5) to (21,-10.5);
+
+		\node[rectangle,fill=black!40,minimum width=2cm,minimum height=2cm] at (1,-4) {};
+		\only<3,4>{\node[rectangle,fill=rgreen,minimum width=4cm,minimum height=2cm] at (9,-4) {};}
+		\node[rectangle,draw=black,minimum width=4cm,minimum height=2cm] at (9,-4) {};
+		\node[rectangle,draw=black,minimum width=3cm,minimum height=2cm] at (16.5,-4) {};
+
+		\node[rectangle,fill=black!40,minimum width=4cm,minimum height=2cm] at (2,-7) {};
+		\only<3,4>{\node[rectangle,fill=rgreen,minimum width=6cm,minimum height=2cm] at (9,-7) {};}
+		\node[rectangle,draw=black,minimum width=6cm,minimum height=2cm] at (9,-7) {};
+		\node[rectangle,draw=black,minimum width=5cm,minimum height=2cm] at (18.5,-7) {};
+
+		\node[rectangle,fill=black!40,minimum width=3cm,minimum height=2cm] at (1.5,-10) {};
+		\only<3>{\node[rectangle,fill=rgreen,minimum width=3cm,minimum height=2cm] at (10.5,-10) {};}
+		\node[rectangle,draw=black,minimum width=3cm,minimum height=2cm] at (10.5,-10) {};
+		\node[rectangle,draw=black,minimum width=3cm,minimum height=2cm] at (16.5,-10) {};
+		\end{tikzpicture}
+	}
+	\end{minipage}
+\end{frame}
+
+
+
+\begin{frame}{Cut Strengthening Methods}
+
+\structure{Deletion filter:}
+\begin{itemize}
+	\item Consider TTWPs iteratively and try to remove each
+	\item Accept removal when subproblem remains infeasible
+	\item $\rightarrow $ \important{irreducible set of TTWPs / cut}
+	\item Order of TTWPs is crucial, but ``best'' order unknown!
+\end{itemize}
+
+\bigskip
+\structure{MARCO (Liffiton and Malik, 2013):}
+\begin{itemize}
+	\item Enumerates \important{\emph{all} irreducible sets of TTWPs} systematically
+	\item Much more expensive in terms of SPs to check
+\end{itemize}
+
+\bigskip 
+\citet{karlsson2021strengthening}: Comparison of different cut strengthening procedures
+
+\bigskip
+Our approach: based on the faster deletion filter,\\
+but for obtaining training data we use MARCO.
+\end{frame}
+
+
+\section{Learning the Strengthening of Cuts}
+
+\begin{frame}
+	\frametitle{GNN-Based Cut-Strengthening}
+	Learn \important{Graph Neural Network (GNN) based function}
+	\begin{equation*}
+	f_\Theta(
+		\,\overbrace{I}^\text{\hspace{-1cm}instance\hspace{-1cm}}\,,
+		\,\underbrace{X}_\text{\hspace{-1cm}TTWPs from MP\hspace{-1cm}}\,,
+		\,\overbrace{S}^\text{\hspace{-1cm}selected TTWPs\hspace{-1cm}}\,
+	)
+	\qquad \longrightarrow \qquad
+	\underbrace{(i,w)}_\text{next TTWP to add to $S$} \text{ and }\quad
+	\underbrace{\tau}_\text{stop?}
+	\end{equation*}
+
+	\bigskip
+	\uncover<2->{
+	\noindent\important{Given:} problem instance $I$, feasibility cut $X$ \\
+	\important{Return:} strengthened feasibility cut
+	\begin{enumerate}
+		\item Start with $S=[]$
+		\item Autoregressively add TTWPs $(i,w)$ until $\tau$
+		\item Autoregressively add TTWPs $(i,w)$ until subproblem($S$) is infeasible
+		\item Apply deletion filter in reverse order of $S$
+	\end{enumerate}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{GNN Architecture\footnote{Inspired by \citet{kool2019attention}}}
+	Complete directed graph with nodes $\widehat{=}$ \important{$X$} (TTWPs from MP solution) \\
+	\important{Input:} 16 node features $x$, 7 arc features $y$ \\
+	\important{Output:} $p$, $\tau$
+
+	% cSpell:disable
+	\begin{centering}
+	\scalebox{0.7}{
+		\begin{tikzpicture}[scale=0.8]
+		\node at (0,0) (x) {$x$};
+		\node[layer] at (2.5,0) (linx) {Linear};
+		\node at (0,-2) (y) {$y$};
+		\node[layer] at (2.5,-2) (liny) {Linear};
+		\node[layer] at (5.6,0) (mha) {MHA};
+		\node[plus] at (7.2,0) (skip-mha) {};
+		\node[layer] at (9,0) (bn-mha) {Batch-Norm};
+		\node[layer] at (12,0) (ff) {FF(512)};
+		\node[plus] at (13.55,0) (skip-ff) {};
+		\node[layer] at (15.4,0) (bn-ff) {Batch-Norm};
+		\node[layer] at (18.5,0) (ffp) {FF(64)};
+		\node at (21,0) (p) {$p$};
+		\node[layer] at (18.5,-2) (fff) {FF(64)};
+		\node at (21,-2) (f) {$\tau$};
+
+		\draw[->] (x) -- (linx);
+		\draw[->] (linx) -- (mha);
+		\draw[->] (y) -- (liny);
+		\draw[->] (liny) -| (mha);
+		\draw[->] (mha) -- (skip-mha);
+		\draw[->] (linx) -| ++(1.8,1.2) -| (skip-mha);
+		\draw[->] (skip-mha) -- (bn-mha);
+		\draw[->] (bn-mha) -- (ff);
+		\draw[->] (ff) -- (skip-ff);
+		\draw[->] (bn-mha) -| ++(1.6,1.2) -| (skip-ff);
+		\draw[->] (skip-ff) -- (bn-ff);
+		\draw[->] (bn-ff) -- (ffp);
+		\draw[->] (ffp) -- (p);
+		\draw[->] (bn-ff) ++(1.8,0) |- (fff);
+		\draw[->] (fff) -- (f);
+
+		\node[rectangle, draw=red, dashed, minimum width=10.2cm, minimum height=3.2cm] at (10.5,-0.5) {};
+		\node[text=red] at (10.5, -2.3) {3x};
+		\end{tikzpicture}
+	}
+	\captionof{figure}{Architecture of the GNN.}
+	\end{centering}
+	% cSpell:enable
+
+	\important{MHA:} Multi-head attention, i.e., transformer-based convolution layer with 8 heads
+
+	\bigskip
+	$f_\Theta$ returns TTWP with maximal $p$ and rounded $\tau$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Training}
+	Offline, in supervised fashion using representative problem instances
+
+	\bigskip
+	\structure{Collecting training samples:}
+
+	\medskip
+	\begin{enumerate}
+	\itemsep2ex
+	\item \important{Run Logic-based Benders Decomposition}
+		\begin{itemize}
+		\item enumerate \important{\emph{all} irreducible cuts} via MARCO, add them to the MP
+		\item record all SPs and cuts
+		\end{itemize}
+	\item Determine a minimal subset of \important{\bf strong cuts},\\
+		i.e., cuts actually required in MP to get feasible optimal solution
+	\item For each subproblem: \important{Rollouts}
+		\begin{itemize}
+		\item Start with empty set $S$
+		\item Successively add TTWPs leading to a strong cut randomly until $S$ $\widehat{=}$ irreducible cut
+		\item \important{Each iteration:} add \important{training sample}
+		\item \important{Labels:} based on strong cuts
+		\end{itemize}
+	\end{enumerate}
+
+	\bigskip
+	Loss function: binary cross-entropy
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+	\frametitle{Experiments Setup}
+	\begin{itemize}
+	\item \important{Instances} like in \emph{Horn, Raidl, and Rönnberg (2021)}, $n\in\{10,15,20,25\}$ tasks
+	\item \verb|pytorch_geometric|, Gurobi 9.5, CP\,Optimizer 20.1
+	\item AMD Ryzen 9 5900X
+	\item For each $n$: 300\,000 to 600\,000 training samples from 2.000 to 200\,000 instances
+	\item 40 to 300 training epochs
+	\vspace{6mm}
+	\item Comparison to \important{deletion filter} with different orders:
+		\begin{itemize}
+		\item Random
+		\item Sorted: natural order from instance
+		\item \citet{2013_coban-hooker_article}: sorted by decreasing slack
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Results: Number of Solved SPs to Reach Optimality}
+	\centering
+	\cumuldistr{csv/avionics20_inst20}{no_subproblems_performed}{0.8\textwidth}{0.6\textheight}{\# of solved subproblems}{\# of solved\\instances}{\normalsize 20 Tasks}
+	\ref{legend:cumuldistr-csv/avionics20_inst20-no_subproblems_performed}
+
+	\bigskip
+	Reduction: $\approx 70\%$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Results: Time to Reach Optimality}
+	\centering
+	\cumuldistr{csv/avionics20_inst20}{time_spent}{0.8\textwidth}{0.6\textheight}{Time {[s]}}{\# of solved\\instances}{}\hfill
+	\ref{legend:cumuldistr-csv/avionics20_inst20-time_spent}
+
+	\bigskip
+	Reduction: $\approx 50\%$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Results: Number of MP Iterations}
+	\centering
+	\cumuldistr{csv/avionics20_inst20}{no_benders_iteration}{0.8\textwidth}{0.6\textheight}{Time {[s]}}{\# of LBBD iterations}{}\hfill
+	\ref{legend:cumuldistr-csv/avionics20_inst20-no_benders_iteration}
+\end{frame}
+
+\begin{frame}{Results: Bounds over Time}
+	\centering
+	\includegraphics[width=10cm]{graphics/results-bounds.png}\hfill
+	\ref{legend:cumuldistr-csv/avionics20_inst20-no_benders_iteration}
+\end{frame}
+
+\begin{frame}{Results: Out-of-Distribution Usage of GNNs}
+	\centering
+	25 Tasks\\
+	\includegraphics[width=15cm]{graphics/results-extrapolation.png}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}
+	\frametitle{Conclusion and Future Work}
+	\begin{itemize}
+	\itemsep1.5ex
+	\item \important{GNN} to \important{guide cut strengthening} in Logic-based Benders Decomposition
+	\item Reduced \# subproblems to be solved by $\approx 70\%$
+	\item Reduced runtime by $\approx 50\%$
+	\item Promising future work
+		\begin{itemize}
+		\item Application to other/more complex problems
+		\item Deeper analysis of importance of features, GNN structure
+		\item Curriculum learning
+		\item Reinforcement learning
+		\end{itemize}
+	\end{itemize}
+\end{frame}
 
 
 
