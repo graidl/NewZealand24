@@ -1,0 +1,1465 @@
+\documentclass[aspectratio=1610]{beamer}
+\setbeamersize{text margin left=7mm,text margin right=5mm}
+\usefonttheme[onlymath]{serif}
+\usetheme{default}
+\usefonttheme{professionalfonts}
+%\setbeamertemplate{navigation symbols}{} 
+\beamertemplatenavigationsymbolsempty
+\addtobeamertemplate{navigation symbols}{}{
+    \usebeamerfont{footline}
+    \usebeamercolor[fg]{footline}
+    %\hspace{1em}
+    \footnotesize\insertframenumber\,%/\inserttotalframenumber
+}
+
+% cSpell:disable
+\definecolor{rcomment}{rgb}{0.3, 0.3, 0.3}  % darkgrey
+\definecolor{rred}{rgb}{0.7,0.2,0.2}        % red
+\definecolor{rblue}{rgb}{0.2,0.2,0.7}       % blue (blended blue of beamer)
+\definecolor{rpurple}{rgb}{0.45, 0.0, 0.9}  % violett
+\definecolor{rpink}{rgb}{0.8, 0.0, 0.4}     % pink
+\definecolor{rgreen}{rgb}{0.1, 0.5, 0.1}    % darkgreen
+\definecolor{rorange}{rgb}{0.8, 0.4,0}      % orange
+\definecolor{rblack}{rgb}{0, 0, 0}          % black
+\definecolor{deeptuerkis}{rgb}{0, 0.5, 0.5} % Türkis
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{blendedblue}{rgb}{0.2,0.2,0.7}
+\newcommand{\important}[1]{{\color{green!60!black}#1}}
+
+% \documentclass{beamer}
+% \mode<presentation> {
+%   \usetheme{Singapore}
+%   \setbeamertemplate{navigation symbols}{}
+%   \setbeamertemplate{footline}[frame number]
+% }
+
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{nicefrac}
+\usepackage{varwidth}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage[linesnumbered, ruled, noend]{algorithm2e}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+
+\usepackage{natbib}
+% \usepackage[backend=bibtex,style=authoryear-comp]{biblatex}
+% \bibliography{bibliography}
+
+\usepackage[draft,nomargin,inline]{fixme}  % add final for disabling remarks
+\fxsetface{inline}{\itshape}
+\fxsetface{env}{\itshape}
+%\fxuselayouts{margin}
+%\fxuselayouts{inline}
+\fxusetheme{color}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{calc, decorations.markings}
+\tikzset{vertex/.style={circle, draw=black}}
+\tikzset{tr/.style={draw=white, fill=white, sloped}}
+\tikzset{del/.style={draw=red, text=red}}
+\tikzset{layer/.style={rectangle, draw=black, minimum width=1.5cm, minimum height=0.75cm}}
+\tikzset{plus/.style={
+  circle, draw=black, minimum width=0.3cm, inner sep=0cm, outer sep=0cm,
+  path picture={
+    \draw[black] (path picture bounding box.south) -- (path picture bounding box.north)
+                 (path picture bounding box.west) -- (path picture bounding box.east);
+  }
+}}
+\tikzset{buswidth/.style={decoration={
+  markings,
+  mark=at position 0.5 with {\node[font=\footnotesize] {/};\node[below=3pt] {\tiny #1};}
+}, postaction={decorate}}}
+
+\pgfplotsset{compat=1.18}
+
+
+\newcommand{\tmax}{\ensuremath{t^\mathrm{max}}}
+\newcommand{\plim}{\ensuremath{p^\mathrm{lim}}}
+\newcommand{\ILP}{\ensuremath{\mathrm{ILP}}}
+\newcommand{\ppath}{\ensuremath{p^\mathrm{path}}}
+\newcommand{\Tavail}{T^\mathrm{avail}}
+\newcommand{\Irej}{I^\mathrm{rej}}
+\newcommand{\Greedy}{\textsc{Greedy}}
+\newcommand{\Markov}{\textsc{Markov}}
+
+% \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+% cSpell:enable
+
+\title{ML-Based Approaches to Combinatorial Optimization:\\
+Some Personal Experiences}
+
+\author{Günther R.\ Raidl}
+\date{Workshop on AI for Optimisation and Decision Making 2026\\ Victoria University of Wellington, NZ\\February 24, 2026}
+\titlegraphic{\includegraphics[height=7mm]{graphics/logo-tuwien-informatics.png}\quad
+	\includegraphics[height=7mm]{graphics/AClongColor.pdf}}
+
+\institute[]{\normalsize Algorithms and Complexity Group, TU Wien, Austria,\\
+    \texttt{raidl@ac.tuwien.ac.at}\\[1ex]
+}
+
+\logo{\includegraphics[height=15pt]{graphics/logo.pdf}\vspace{245pt}} % Logo on top right
+
+% cSpell:disable
+\definecolor{rred}{rgb}{0.7,0.2,0.2}         % red
+\newcommand{\hl}[1]{\textcolor{rred}{#1}}    % highlight
+
+\definecolor{rgreen}{rgb}{0.216,0.784,0.216} % green
+\definecolor{rblue}{rgb}{0.216,0.443,0.784}  % blue
+\definecolor{rorange}{rgb}{1.0,0.4,0.0}      % orange
+
+\definecolor{orange}{RGB}{255,100,66}
+\definecolor{seaborn0}{HTML}{1f77b4}
+\definecolor{seaborn1}{HTML}{ff7f0e}
+\definecolor{seaborn2}{HTML}{2ca02c}
+\definecolor{seaborn3}{HTML}{d62728}
+\definecolor{seaborn4}{HTML}{9467bd}
+\definecolor{seaborn5}{HTML}{8c564b}
+\definecolor{seaborn6}{HTML}{e377c2}
+\definecolor{seaborn7}{HTML}{7f7f7f}
+\definecolor{seaborn8}{HTML}{bcbd22}
+\definecolor{seaborn9}{HTML}{17becf}
+
+\newbool{printlegend}
+
+\newcommand{\cumuldistr}[7]{ % Arguments: source directory, data series, width, height, x label, y label, title
+  \begin{tikzpicture}
+    \begin{semilogxaxis}[%
+          width={#3},
+          height={#4},
+          title style={align=center},
+          title={\large #7},
+          xlabel style={at={(axis description cs:0.5,0.05)},anchor=north},
+          xlabel=#5,
+          ylabel style={align=center},
+          ylabel=#6,
+          every axis plot post/.append style={mark=none},
+          every axis plot/.append style={thick},
+          legend entries={GNN,Random,Sorted,Hooker},
+          \ifbool{printlegend}{
+            legend columns=1,
+            legend pos=south east,
+          }{
+            legend to name=legend:cumuldistr-#1-#2,
+            legend columns=-1,
+          }
+          ]
+      \addplot+[seaborn0, solid]  table [x=#2, y=no_instances, col sep=comma, mark=none] {#1/pgdeletion_#2.csv};
+      \addplot+[seaborn1, dashed] table [x=#2, y=no_instances, col sep=comma, mark=none] {#1/deletion_#2.csv};
+      \addplot+[seaborn2, dashed] table [x=#2, y=no_instances, col sep=comma, mark=none] {#1/sdeletion_#2.csv};
+      \addplot+[seaborn3, dashed] table [x=#2, y=no_instances, col sep=comma, mark=none] {#1/hdeletion_#2.csv};
+    \end{semilogxaxis}
+  \end{tikzpicture}
+}
+% cSpell:enable
+\renewcommand{\footnotesize}{\scriptsize}
+
+\begin{document}{}
+
+
+\part{Main}
+
+\begin{frame}
+  \titlepage
+\end{frame} 
+
+
+\begin{frame}{Main Research Interests of G.R.}
+
+
+\medskip 
+\begin{minipage}{0.45\textwidth}
+  \begin{itemize}
+      \item Combinatorial optimization (COP)
+      \item Metaheuristics
+      \item Mathematical programming
+      \item Constraint programming
+      \item Machine learning
+      \item \important{\bf Hybrid approaches} incl.\ matheuristics, learning + classical algorithms for COP
+  \end{itemize}
+\end{minipage}\qquad
+\begin{minipage}{0.4\textwidth}
+    \structure{Application areas}
+    \begin{itemize}
+      \item Transport optimization
+      \item Scheduling
+      \item Network design
+      \item Problems in bioinformatics
+      \item Cutting and packing
+    \end{itemize}
+  \end{minipage}
+
+  \bigskip
+  \includegraphics[width=\textwidth]{graphics/AC-TU-Wien.jpg}
+\end{frame}
+
+\end{document}
+
+\begin{frame}{Selected Ongoing Projects}
+\begin{itemize}
+  \itemsep3.5ex
+  \item \structure{Dynamic Vehicle Routing Problems with Focus on E-mobility \& Learning}
+  \begin{itemize}
+    \item with T.~Rodemann et al., Honda Research Institute Europe
+    \item with Y. Mei, Victoria University of Wellington, NZ
+  \end{itemize}
+
+  \includegraphics[width=0.8\textwidth]{graphics/darp-bss-example.jpg}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Selected Ongoing Projects (contd.)}
+\begin{itemize}
+	\itemsep3.5ex
+	\item \structure{Cooperative Personnel Scheduling}
+	\begin{itemize}
+	\item with S.~Limmer et al., Honda Research Institute Europe
+	\end{itemize}
+
+	\includegraphics[width=0.6\textwidth]{graphics/coopsched.png}
+\end{itemize}
+\end{frame}
+	
+\begin{frame}{Selected Ongoing Projects (contd.)}
+	\begin{itemize}
+	  \itemsep3.5ex
+	  \item \structure{Roman Domination Problems, Influence Maximization Problems, and Variants}
+	  \begin{itemize}
+		\item with M. Djukanovic et al., Univ.\ of Banja Luka, Bosnia and Herzegovina
+	  \end{itemize}
+
+	  \bigskip
+	  \includegraphics[width=0.7\textwidth]{graphics/influence_maximization.png}
+	\end{itemize}
+\end{frame}
+	
+\begin{frame}{Selected Ongoing Projects (contd.)}
+	\begin{itemize}
+	  \itemsep3.5ex
+	  \item Doctoral College Vienna Graduate School on Computational Optimization
+	  \begin{itemize}
+		\item with University of Vienna, IST Austria, Vienna University of Economics and Business
+	  \end{itemize}
+
+	  \includegraphics[width=0.5\textwidth]{graphics/vgsco.png}
+	\end{itemize}
+\end{frame}
+	
+
+\begin{frame}{Recent Industry Colloaborations}
+\begin{itemize}
+\itemsep3.5ex
+	\item \structure{Minimizing waste in cutting glass, wood, and steel}
+	\begin{itemize}
+	\item with Lodestar Inc., Eurosoft GmbH.
+	\end{itemize} 
+
+	\bigskip
+	\includegraphics[width=0.34\textwidth, angle=90]{graphics/cutting_example.png}
+\end{itemize}  
+\end{frame}
+
+
+\begin{frame}{Recent Industry Colloaborations (contd.)}
+	\begin{itemize}
+	\itemsep3.5ex
+		\item \structure{Public Bike Sharing Station Planning and Rebalancing}
+		\begin{itemize}
+		\item with City Bike Wien, NextBike, Austrian Institute of Technology
+		\end{itemize} 
+	
+		\bigskip
+		\includegraphics[width=0.8\textwidth]{graphics/BBSS.jpg}
+	\end{itemize}  
+\end{frame}
+	
+
+\begin{frame}{Recent Industry Colloaborations (contd.)}
+	\begin{itemize}
+	\itemsep3.5ex
+		\item \structure{Planning Battery Exchange Stations for Electric Scooters}
+		\begin{itemize}
+		\item with Honda Japan, Honda Research Institute Europe
+		\end{itemize} 
+	
+		\bigskip
+		\includegraphics[width=0.6\textwidth]{graphics/bex.png}
+	\end{itemize}  
+\end{frame}
+
+
+\begin{frame}{Recent Industry Colloaborations (contd.)}
+	\begin{itemize}
+	\itemsep3.5ex
+		\item \structure{Transport Optimization for an Online Supermarket with Within-the-Hour Delivery}
+		\begin{itemize}
+		\item with Alfies GmbH
+		\end{itemize} 
+	
+		\bigskip
+		\includegraphics[width=0.6\textwidth]{graphics/alfies.jpg}
+	\end{itemize}  
+\end{frame}
+
+
+	
+% --------------------------------------------------------
+
+\begin{frame}{Combinatorial Optimization and AI/Machine Learning}
+	\begin{itemize}
+		\itemsep2.5ex
+		\item \important{AI/machine learning boom} also hit the area of \important{combinatorial optimization}
+		\item This in many different ways
+		\begin{center}
+			\centering
+			\includegraphics[width=0.85\linewidth]{graphics/mh-ml}
+		\end{center}
+		\item \structure{Focus here:} utilize learning to better solve \important{combinatorial optimization problems (COPs)}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Learning to Better Optimize}
+	\begin{center}
+		\includegraphics[width=0.80\linewidth]{graphics/talbi-data-driven-mhs}\\[2ex]
+    \footnotesize{From \citet{talbi-21}: Machine Learning into Metaheuristics: A Survey and Taxonomy}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}{Some Classical Metaheuristics Involving Learning}
+
+  \important{Basic idea of learning in (meta-)heuristics not new:}
+
+  \bigskip
+  \begin{itemize}
+  \itemsep2.5ex
+	%\item Simulated Annealing with self-adaptive temperature
+	
+	\item Reactive tabu search
+	\item Evolution Strategies
+	\item Guided Local Search 
+	\item Variable Neighborhood Search, \\
+	Adaptive Large Neighborhood Search
+	\begin{itemize}
+		\item self-adaptive selection of neighborhood structures/operators
+	\end{itemize}
+	\item Hyper-heuristics
+	%\item<2> \important{Monte Carlo Tree Search}
+	\item Ant Colony Optimization
+	\item Genetic Programming
+  \end{itemize}
+\end{frame}
+
+
+% \begin{frame}{Idea of Ant Colony Optimization}
+% 	\begin{itemize}
+% 		\item Iteratively construct solutions in a randomized greedy fashion
+% 		\item Additionally consider \important{pheromone values}:
+% 		\item Decisions in good solutions are \important{reinforced} by increasing their pheromone values while other values are reduced by ``evaporation''
+% 	\end{itemize}
+% 	\begin{center}
+% 		\includegraphics[width=0.4\linewidth]{graphics/aco} \\
+% 		{\footnotesize (from Dr\'eo, 2006)}
+
+%     % \bigskip
+%     % \important{\bf $\rightarrow$ Similarities with Reinforcement Learning!}
+% 	\end{center}
+% \end{frame}
+
+% \begin{frame}{Some Classical (Meta)heuristics Involving Learning}
+% 	\begin{itemize}
+% 		\itemsep2.5ex
+% 		%\item Simulated Annealing with self-adaptive temperature
+% 		\item Variable Neighborhood Search, \\
+% 		Adaptive Large Neighborhood Search
+% 		\item Evolution Strategies
+% 		\begin{itemize}
+% 			\item self-adaptive selection of neighborhood structures/operators
+% 		\end{itemize}
+% 		\item Guided Local Search 
+% 		\item Reactive Tabu Search
+
+% 		\item Ant Colony Optimization
+% 		% \item Hyper-heuristics
+% 	\end{itemize}
+% \end{frame}
+
+
+
+
+
+% \begin{frame}{Idea of Monte Carlo Tree Search (MCTS)}
+% 	\begin{itemize}
+% 	\item Originates from playing board games, e.g., Go, Chess
+% 	\item Info stored in nodes: \important{\# of wins / \# of visits}
+% 	\item Four phases, repeated as long as there is time left:
+% 	\end{itemize}
+% 	\begin{center}
+% 		\includegraphics[width=0.9\linewidth]{graphics/MCTS2.pdf}
+% 	\end{center}
+% 	\vspace{-3ex}
+% 	\begin{itemize}
+% 	\item\only<1>{\important{Selection}: 
+% 	\begin{itemize}
+% 		\item traverse tree from the root until leaf reached
+% 		\item always select successor that maximizes e.g.\ the UCT criterion: 
+% 			$\mathit{UCT}_j = \frac{\#\mathit{wins}_j}{\#\mathit{visits}_j} + c\cdot\sqrt{\frac{\ln \#\mathit{visits}_{i}}{\#\mathit{visits}_j}}$ for successor $j$ of node $i$
+% 	\end{itemize}}
+% 	\only<2>{\important{Expansion}:
+% 		\begin{itemize}
+% 			\item add new leaf node
+% 		\end{itemize}}
+% 	\only<3>{\important{Simulation}: 
+% 		\begin{itemize}
+% 			\item perform self-play until end of game, e.g., by random rollout
+% 			\item result is either 1, 0, or -1
+% 		\end{itemize}}
+% 	\only<4>{\important{Backpropagation}: 
+% 		\begin{itemize}
+% 			\item Update visit and win counters on all nodes up to the root
+% 		\end{itemize}}
+% 	\end{itemize}
+	
+% \end{frame}
+
+% \begin{frame}{Survey Articles}
+% 	\begin{itemize}
+% 		\itemsep2ex
+% 		\item M.~Karimi-Mamaghan et al.: \emph{Machine Learning at the Service of Metaheuristics for solving COPs: A State-of-the Art}; EJOR, 2021
+% 		\item E.-G.~Talbi: \emph{Machine Learning into Metaheuristics: A Survey and Taxonomy}; ACM Computing Surveys, 2021
+% 		\item N.~Mazyavkina et al.: \emph{Reinforcement Learning for Combinatorial Optimization: A Survey}; COR, 2021
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{Learning to Better Optimize}
+% 	\begin{center}
+% 		\includegraphics[width=0.75\linewidth]{graphics/talbi-data-driven-mhs}\\[2ex]
+% 		\footnotesize{From \citet{talbi-21}: Machine Learning into Metaheuristics: A Survey and Taxonomy}
+% 	\end{center}
+% \end{frame}
+
+% \begin{frame}{High-Level Data Driven Metaheuristics}
+% %Idea of \textbf{using some kind of \important{learning} to better solve an optimization problem} at hand is not new.
+
+% %\medskip
+% % Well established are also:
+
+% \medskip
+% \begin{itemize}
+% 	\itemsep2ex
+% 	\item \structure{Automated Algorithm Selection}
+% 	\begin{itemize}
+% 		\item From an algorithm portfolio, select for a given problem instance a best suited algorithm based on features of the instance
+% 		\begin{center}
+% 			\includegraphics[width=0.7\linewidth]{graphics/alg-selection}
+% 		\end{center}
+		
+% 	\end{itemize}
+% 	\item \structure{Automated Algorithm Configuration}
+% 		\begin{itemize}
+% 		\item Select components and parameters of an algorithm based on instance features
+% 	\end{itemize}
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Learning to Better Optimize}
+% \begin{center}
+% 	\includegraphics[width=0.95\linewidth]{graphics/talbi-data-driven-mhs}\\[2ex]
+% 	\footnotesize{(from Talbi, 2020: Machine Learning in Metaheuristics)}
+% \end{center}
+% \end{frame}
+
+% \begin{frame}{Learning to Better Optimize}
+% 	\begin{center}
+% 		\includegraphics[width=0.95\linewidth]{graphics/talbi-data-driven-objective-functions}\\[2ex]
+% 		\footnotesize{(from Talbi, 2020: Machine Learning in Metaheuristics)}
+% 	\end{center}
+% \end{frame}
+
+% \begin{frame}{Learning to Better Optimize}
+% 	\begin{center}
+% 		\includegraphics[width=0.95\linewidth]{graphics/talbi-data-driven-constraints}\\[2ex]
+% 		\footnotesize{(from Talbi, 2020: Machine Learning in Metaheuristics)}
+% 	\end{center}
+% \end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Encoding of Problems in Neural Networks}
+
+\begin{itemize}
+	\itemsep1.3ex
+	\item in general highly problem-specific
+	\item recurrent neural networks, e.g., LSTMs
+	% \item attention models
+	\item \structure{pointer networks} \citep{vinyals-2015}
+	\item variants of \important{\bf Graph Neural Networks} \citep{scarselli2008graph}, e.g.,
+	\begin{itemize}
+		\item Structure-to-Vector Network (Dai et al., 2016)
+		\item Graph Convolutional Network (Kipf and Welling, 2017)
+		\item Graph Isomorphism Network (Xu et al., 2019)
+		\item Graph Attention Network (Kool et al., 2019; Joshi et al., 2021)
+		\item Anisotropic Graph Neural Network (Hudson et al., 2022)
+	\end{itemize}
+
+	\medskip
+	{\includegraphics[width=0.7\linewidth, page=3]{graphics/graphics.pdf}}\\[2ex]
+	% learn \important{embedding of nodes} by looking at nearby nodes
+\end{itemize} 
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Simplest Approach: Learning Heatmaps}
+
+	\begin{itemize}
+		\itemsep2ex
+		\item Learn model indicating likelihood for
+		\begin{itemize}
+			\item components, e.g., edges in TSP, nodes in MISP, MaxCut,
+			\item to appear in (close to) optimal solutions
+		\end{itemize}
+		\includegraphics[width=0.25\textwidth]{graphics/heatmap.jpg}
+		\item Actual solution(s) obtained by, e.g., greedy decoder or more advanced heuristic search
+		\item Training
+		\begin{itemize}
+			\item Supervised based on (close to) optimally solved instances
+			\item Reinforcement learning
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Potential Issue of Heatmaps: Unimodality}
+
+	\structure{Example:} \important{Maximum independent set problem} on $K_{3,3}$ has two optimal solutions:
+
+	\bigskip
+	\begin{center}
+	\begin{tikzpicture}
+			\node[draw, circle, fill=green] (n1) at (0,0) {1};
+			\node[draw, circle, fill=green] (n2) at (0,-1.5) {2};
+			\node[draw, circle, fill=green] (n3) at (0,-3) {3};
+			\node[draw, circle] (n4) at (2,0) {4};
+			\node[draw, circle] (n5) at (2,-1.5) {5};
+			\node[draw, circle] (n6) at (2,-3) {6};
+			\draw (n1) -- (n4);
+			\draw (n1) -- (n5);
+			\draw (n1) -- (n6);
+			\draw (n2) -- (n4);
+			\draw (n2) -- (n5);
+			\draw (n2) -- (n6);
+			\draw (n3) -- (n4);
+			\draw (n3) -- (n5);
+			\draw (n3) -- (n6);
+	\end{tikzpicture}
+	\qquad
+	\begin{tikzpicture}
+		\node[draw, circle] (n1) at (0,0) {1};
+		\node[draw, circle] (n2) at (0,-1.5) {2};
+		\node[draw, circle] (n3) at (0,-3) {3};
+		\node[draw, circle, fill=green] (n4) at (2,0) {4};
+		\node[draw, circle, fill=green] (n5) at (2,-1.5) {5};
+		\node[draw, circle, fill=green] (n6) at (2,-3) {6};
+		\draw (n1) -- (n4);
+		\draw (n1) -- (n5);
+		\draw (n1) -- (n6);
+		\draw (n2) -- (n4);
+		\draw (n2) -- (n5);
+		\draw (n2) -- (n6);
+		\draw (n3) -- (n4);
+		\draw (n3) -- (n5);
+		\draw (n3) -- (n6);
+\end{tikzpicture}
+\end{center}
+
+\structure{Heatmap:} \alert{all nodes are equally likely} in an optimal solution.
+
+\bigskip
+$\rightarrow$ no meaningful information
+
+\bigskip
+\alert{More generally, symmetries and different (close to) optimal solutions often cause problems.}
+
+\end{frame}
+
+
+\begin{frame}{Reinforcement Learning (RL)}
+	\begin{itemize}
+		\item A sub-discipline of machine learning
+		\item Environment is usually considered a \structure{Markov decision process}
+		%\item Received much attention in broader public by DeepMind's successes in agents for Go, chess, and diverse video games
+		\item Framework:\\
+		\begin{minipage}[c]{0.42\textwidth}
+			\includegraphics[width=\linewidth]{graphics/reinforcement_learning}
+		\end{minipage} \hfill
+		\begin{minipage}[c]{0.19\textwidth}
+		% \begin{textblock}{20}(40,20)
+			\includegraphics[width=\linewidth]{graphics/cartpole.png}\\[1cm]
+			%\includegraphics[width=3cm]{graphics/compgames.jpg}\\
+			\includegraphics[width=\linewidth]{graphics/alphazero.png}
+		\end{minipage}
+		\begin{minipage}[c]{0.19\textwidth}
+			% \begin{textblock}{20}(40,20)
+				\includegraphics[width=\linewidth]{graphics/compgames.jpg}
+			\end{minipage}
+			
+		\vspace{2ex}
+		\important{Constructing a solution to a COP can be seen as an episode in an environment, objective value $\hat=$ reward;
+		\textbf{$\rightarrow$ autoregressive solution construction}}
+	\end{itemize}
+\end{frame}
+
+
+% \begin{frame}
+% 	\frametitle{Reinforcement Learning (RL) - Classification}
+% 	\begin{center}
+% 		\includegraphics[width=0.72\textwidth]{graphics/rlmethods.jpg}
+
+% 		\bigskip
+% 		\footnotesize{(from \citet{mazyavkina-21b})}
+% 	\end{center}
+% \end{frame}
+
+
+% \begin{frame}{Q-Learning \citep{watkins1992q}}
+% 	\begin{itemize}
+% 		\itemsep2ex
+% 		\item model-free, for discrete state and action spaces, off-policy
+% 		\item \structure{Goal:} max.\ weighted sum of expected rewards for all future steps
+		
+% 		\item Table with \important{Q-value $Q(s,a)$} for each state/action pair $(s,a)$:\\
+% 		approximates expected weighted sum of rewards to receive from state $s$ onward when performing action $a$
+% 		\item Update of initially random $Q(s,a)$ values by\\
+% 		\begin{center}
+% 			\includegraphics[width=1\linewidth]{graphics/q-learning-equation}
+% 		\end{center}
+% 		% $Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha \left( R_{t+1} + \gamma\max_{a} Q(s_{t+1},a) - Q(s_t,a_t)\right)$
+% 		\item<2->{\important{Compare Q-Learning and Ant Colony Optimization!}}
+% 		\item<3-> Frequently too many states $\rightarrow$ approximate $Q(s,a)$ by a (deep) neural network $\rightarrow$ \important{Deep Q Network} (DQN, Mnih et al., 2013)
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{Reinforcement Learning (RL)}
+% 	\begin{itemize}
+% 		\itemsep1.5ex
+% 		% \item Ant colony optimization, MCTS can be said to be RL agents
+% 		\item Many different RL agents have been proposed in recent years
+% 		\item Agents differ in
+% 		\begin{itemize}
+% 			\item state space (discrete/continuous)
+% 			\item action space (discrete/continuous)
+% 			\item on-policy/off-policy
+% 			\item model-free/model-based
+% 		\end{itemize}
+% 		\important{Deep} RL: uses deep neural networks
+% cSpell:disable-next-line
+% 		\item Examples of agents: Q-Learning, SARSA, DQN, DDPG, A3C, TRPO, PPO, SAC, \ldots 
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{RL for Combinatorial Optimization -- Classification}
+
+% 	according to \citet{mazyavkina-21b}:
+
+% 	\vspace{1cm}
+% 	\begin{itemize}
+% 	 	\itemsep2ex
+% 		\item \structure{Principal learning:}\\ agent makes direct decisions to construct solution
+% 		\begin{itemize}
+% 			\item ``end-to-end'' learning
+% 			\item usually far from competitive to classical state-of-the art methods in combinatorial optimization
+% 		\end{itemize}
+% 		\item \structure{Joint approach:}\\ agent works jointly with some classical solver/algorithm
+% 		\begin{itemize}
+% 			\item agent ``helps/guides'' classical solver in some way
+% 			\item agent learns from classical solver (\important{imitation learning})
+% 		\end{itemize}
+% 		\vspace{8mm}
+% 		\item \structure{Construction based} vs.\ \structure{improvement based}
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{Learning to Solve Graph Problems}
+	\begin{itemize}
+		\itemsep2ex
+		\item \structure{\citet{dai-17}}: \important{S2V-DQN}
+		\item min vertex cover, max cut, TSP considered 
+		\item graph embedding network \important{structure2vec} used to ``featurize'' nodes
+		\item variant of Q-learning used to obtain a policy for greedily constructing solutions
+		\begin{center}
+			\includegraphics[width=1\linewidth]{graphics/dai}
+		\end{center}
+	\end{itemize}
+\end{frame}
+
+% \begin{frame}{Learning to Solve Graph Problems (cont.)}
+% 	\begin{itemize}
+% 		\itemsep1.5ex
+% 		\item \structure{\citet{mittal-19}}: \important{GCOMB}
+% 		\item focus on scalability to graphs with millions of nodes\\ max influence, max vertex cover, max coverage problems considered
+% 		\item \important{GCN} trained in supervised fashion to predict likelihood of each node to be part of a solution
+% 		\item \important{Q-learning} finds combination of most promising nodes\\
+% 		$Q(S,v)$: long-term reward for adding node $v$ to solution $S$\\ approximated by a comparatively simple neural net
+% 		\begin{center}
+% 			\includegraphics[width=1\linewidth]{graphics/mittal}
+% 		\end{center}
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{Learning to Solve Graph Problems (cont.)}
+	\begin{itemize}
+		\item \structure{\citet{kool-19a}}
+		\item Autoregressive multi-head attention-based encoder/decoder GNN
+		\item for TSP, VRP
+		\begin{center}
+			\includegraphics[width=0.7\linewidth]{graphics/MHA-encoder.jpg}
+		\end{center}
+		\begin{center}
+			\includegraphics[width=0.7\linewidth]{graphics/MHA-decoder.jpg}
+		\end{center}
+		\item Trained with REINFORCE
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Learning to Solve Graph Problems (cont.)}
+\begin{itemize}
+	\itemsep1ex
+	\item \structure{\citet{li-18}}
+	\item max independent set, min vertex cover, max clique, SAT considered
+	\item \important{Graph Convolutional Network (GCN)} used to predict likelihood of each node to be part of a solution
+	\item GCN yields \important{multiple probability maps} to account for the fact that multiple optimal solutions may exist
+	\item \important{heuristic tree search} utilizing multiple maps,\\ \important{graph reduction, basic local search} applied
+	\item \important{supervised learning} instead of reinforcement learning
+	\item results competitive to state-of-the-art solvers reported 
+	\medskip
+	\begin{center}
+		\includegraphics[width=1\linewidth]{graphics/li}
+	\end{center}
+\end{itemize}
+\end{frame}
+
+
+% \begin{frame}{Basic Idea of AlphaGoZero \citep{silver-18}}
+% 	\begin{itemize}
+% 		\item Superhuman agent for Go, successor of AlphaGo
+% 		\item Learns only by \important{iterated selfplay}:\\
+% 		%\begin{center}
+% 			\includegraphics[width=0.9\linewidth]{graphics/alpha-zero-selfplay}
+% 		%\end{center}
+% 		\item \important{Monte Carlo Tree Search (MCTS)} is applied to obtain a policy and select a move
+% 		\item \important{In the MCTS new states are evaluated by a deep neural net}:
+% 		\begin{itemize}
+% 			\item input: board state
+% 			\item output: \important{policy}, i.e., probabilities for all positions; \important{value}, i.e., probability to win
+% 		\end{itemize}
+% 		\item \important{Neural net output is \textbf{boosted} by MCTS!}
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{Basic Idea of AlphaGoZero \citep{silver-18}}
+% 	\begin{center}
+% 	\includegraphics[width=1\linewidth]{graphics/alpha-zero-training}
+% 	\end{center}
+% 	\begin{itemize}
+% 		\item selfplay games are logged with results in a \important{replay buffer}
+% 		\item neural net continuously trained with samples from replay buffer
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{Learning to Solve Graph Problems}
+	\begin{itemize}
+		\itemsep1.1ex
+		\item \structure{\citet{abe-20}}: \important{CombOptZero}
+		\item min vertex cover, max cut, max clique problems considered
+		\item based on the principles of \important{AlphaGo, combines Monte Carlo Tree Search with a GNN}
+		\item \important{different graph neural networks} tested, including GCN
+		\item special reward normalization applied
+		\item outperforms S2V-DQN, results close to state-of-the-art reported
+		
+		\includegraphics[width=0.6\textwidth]{graphics/alpha-zero-selfplay.png}
+		
+		% \vspace{3ex}
+		% \item \structure{\citet{huang-19}}: similar approach for \important{coloring large graphs} with millions of nodes
+		% \item special \important{FastColorNet} neural network architecture
+		% \item claimed to yield new state-of-the-art results
+	\end{itemize}
+\end{frame}
+
+
+% -----------------------------------------------------
+
+
+
+% \begin{frame}
+% 	\frametitle{Learning Beam Search \citep{huber-21}}
+% 	\medskip
+% 	\structure{Beam Search (BS)}: Breadth-First-Search, in which at each level only $\beta$ most promising nodes are kept; $\beta$: beam width
+
+% 	\bigskip
+% 	\onslide<1>{
+% 	\structure{Learning Beam Search (LBS)}
+% 	\begin{itemize}
+% 		\itemsep2ex
+% 		\item Initialize ML model \important{$h_{\Theta}(v)$} for the value of evaluating nodes $v$ randomly
+% 		\item Iterate:
+% 		\begin{itemize}
+% 			\itemsep1.5ex
+% 			\item Create a random problem instance
+% 			\item Perform a BS, guided by the ML model
+% 				\begin{itemize}
+% 					\item From each non-terminal node $v$ with small probability:
+% 					\item[\qquad--] Perform a \important{Nested BS (NBS)} to obtain a training sample
+% 					\item[\qquad--] Store training sample in a limited size FIFO \important{replay buffer}
+% 				\end{itemize}
+% 			\item (Re-)train ML model on samples from replay buffer.
+% 		\end{itemize}
+% 	\end{itemize}}
+% 	% \begin{enumerate}
+% 	% 	\item , where \medskip
+% 	% 		\begin{itemize}
+% 	% 			\item Input: Problem-specific feature vector that captures relevant information from the state of a node $v$ and the problem instance.
+% 	% 				\medskip
+% 	% 			\item Output: $h(v)$ = estimated further length to go from $v$.
+									
+% 	% 		\end{itemize}
+
+% 	% 	\item Repeat steps 2-4 until a stopping criterion is fulfilled.
+% 	% \end{enumerate} 
+% \end{frame}
+
+	
+\begin{frame}
+\frametitle{Learning Beam Search \citep{huber-21}}
+	\begin{center}
+		\includegraphics[height=225pt]{graphics/lbsProcedure.png}
+	\end{center}
+\end{frame}
+	
+\begin{frame}%[t,c,b,plain]
+	\frametitle{Longest Common Subsequence Problem}
+	
+	\medskip
+	
+	\structure{Given:} set of $m$ input strings $S = \{s_1 , \ldots, s_m \}$ over alphabet $\Sigma$.
+	
+	\medskip
+	
+	\begin{itemize}
+		\item \structure{Longest Common Subsequence (LCS):} find a longest string that appears as subsequence in any string of $S$.\\ \medskip
+		Example: $m=2$, $|\Sigma|=3$
+	\end{itemize}
+	\begin{center}
+	\begin{tabular}{ccc}
+		$s_1$: AB\textcolor{gray}{B}A & \multirow{2}{*}{$\Rightarrow$ \textcolor{red}{ABA}.}\\
+		$s_2$: \textcolor{gray}{C}ABA
+	\end{tabular}
+	\end{center}
+	
+	% \begin{itemize}
+	% 	\item \structure{Constrained Longest Common Subsequence (CLCS):} additionally, a pattern string $P$ must appear as subsequence. \\ \medskip
+	% 	Example: P=\textcolor{darkgreen}{AB}
+	% \end{itemize}
+	% \begin{center}
+	% \begin{tabular}{ccc}
+	% 	$s_1$: AB\textcolor{gray}{B}A & \multirow{2}{*}{$\Rightarrow$ \textcolor{darkgreen}{AB}A.}\\
+	% 	$s_2$: \textcolor{gray}{C}ABA
+	% \end{tabular}
+	% \end{center}
+
+	\bigskip
+	\structure{State-of-the-art:} BS with theoretically derived guidance functions EX\\ \citep{djukanovic-19b}
+\end{frame}
+
+\begin{frame}
+	\frametitle{LBS Experiments: Approximation of Real LCS Length}
+	% \bigskip
+	% \textbf{How well does a NN trained by LBS predict the real LCS length?}
+	% \medskip
+	% \begin{itemize}
+	% 	\item Approximate exact LCS lengths by applying the so far leading BS with EX guidance function~\citep{djukanovic-19b}.
+	% \end{itemize}
+	
+	The learned network of LBS approximates the real expected LCS lengths better than EX:
+
+	\bigskip
+	\begin{center}
+		% \makebox[\linewidth]{
+		\input{graphics/nn-vs-ael-buffer-mae.pgf}
+	\end{center}
+	
+	
+\end{frame}
+	
+	
+\begin{frame}
+	\frametitle{LBS Experiments: Results}
+	\medskip
+	Results on \texttt{rat} and \texttt{BB} LCS benchmark instances:
+	\medskip
+	\begin{itemize}
+		\item \structure{NN:} MLP with 20+20 hidden nodes
+		\item \structure{Features:} remaining input string lengths, remaining min.\ letter occurrences
+		\item \structure{Beam width:}
+		\begin{itemize}
+			\item[--] LBS training done with $\beta=50$
+			\item[--] Low computation time tests with $\beta=50$
+			\item[--] High quality tests with $\beta=600$
+		\end{itemize}
+	\end{itemize}
+	\medskip
+	\structure{LBS achieved \important{new best results} in}
+	\begin{itemize}
+		\item low time experiments: \important{13 out of 28}
+		\item high quality experiments: \important{7 out of 28}
+	\end{itemize}
+	and matched most others.
+
+	\bigskip
+	\structure{Also successfully considered:}\\
+	Constrained LCS, shortest common supersequence problem
+	no-wait flow shop problem\\
+	\citep{djukanovic-24}: restricted LCS
+	%\structure{CLCS results:} in \important{10 out of 36 cases new best results}, worse only in 2
+
+	% \bigskip
+	% Runtimes are roughly comparable.
+\end{frame}
+
+
+% \begin{frame}
+% 	\frametitle{Experimens: CLCS Benchmark Instances and Results}
+% 	\medskip
+	
+% 	\textbf{Benchmark set:} \medskip
+% 			\begin{itemize}
+% 				\item Ten instances for each combination of \medskip
+% 				\begin{itemize}
+% 					\item[--] $n\in\{100,500,1000\}$ \smallskip
+% 					\item[--] $m\in\{10,50,100\}$ \smallskip
+% 					\item[--] $|\Sigma|\in\{4,20\}$ \smallskip
+% 					\item[--] $\frac{n}{|P|}\in\{4,10\}$, where $P$ denotes the pattern string.
+% 				\end{itemize} \medskip
+% 				%\item Pattern string appears in the input strings through the way the instances were created.
+% 			\end{itemize} 
+	
+% 	\bigskip
+% 	\textbf{CLCS Results:}\medskip
+	
+% 	\begin{itemize}
+% 		\item All training with LBS was done with $\beta=50$
+% 		\item For tests on the benchmark instances $\beta = 2000$ was used.
+% 	\end{itemize}
+% 	\medskip
+% 	\begin{center}
+% 	\textbf{\textcolor{darkgreen}{Achieved new best results in ten out of 36 cases \\ Scores worse in only two out of 36 cases.}}
+% 	\end{center}
+	
+% \end{frame}
+
+% -----------------------------------------------------
+
+
+\begin{frame}{Generative Flow Networks (GFlowNets)}
+
+	\citet{bengio-21a}
+	
+	\begin{itemize}
+		\item \important{stochastic policy} (generative model),
+		\item trained such that it samples objects $x$ through a sequence of construction steps
+		\item with probability \important{proportional to a reward function $R(x)$}
+
+	\includegraphics[width=0.6\textwidth]{graphics/gflownet_anim.png}\\
+	{\footnotesize (image from \url{https://yoshuabengio.org/2022/03/05/generative-flow-networks})}
+
+	\item related to, but different from classical RL approaches
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Generative Flow Networks (GFlowNets, contd.)}
+	\structure{Advantages}
+	\bigskip
+		\begin{itemize}
+			\itemsep2ex
+			\item Able to generate \important{diverse} solutions
+			\item Possibly \important{more robust training} than classical RL
+			\begin{itemize}
+				\item Can be trained off-policy/offline
+				\item Does not (necessarily) rely on intermediate rewards
+				\item Models symmetries more efficiently
+				\item Does not get so easily trapped in solutions reachable by many trajectories
+			\end{itemize}
+			\item $\approx 60$ papers published on GFlowNets since 2021
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Generative Flow Networks (GFlowNets, contd.)}
+	Ongoing work with L.~Tomandl, J.~Peng:
+	
+	\bigskip
+	Utilizing GFlowNets for
+	
+	\medskip
+	\begin{itemize}
+		\itemsep2ex
+		\item destroy set generation in Large Neighborhood Search (LNS)
+		\item as hyper-heuristic to schedule lower-level heuristics
+	\end{itemize}
+\end{frame}
+
+
+	
+% -----------------------------------------------------	
+
+\begin{frame}{Denoising Diffusion Models (DDMs)}
+	\begin{itemize}
+		\item State-of-the-art in many generative AI applications,\\
+		in particular the creation of realistically-looking images
+	
+		\medskip
+		\includegraphics[width=0.9\textwidth]{graphics/diffusion.png}
+	
+		\bigskip
+		\item \structure{Training}
+		\begin{itemize}
+			\item Gaussian noise step-wise added to original images
+			\item Neural network trained to predict noise added in each step
+		\end{itemize}
+		\item \structure{Inference}
+		\begin{itemize}
+			\item Starts from pure random noise
+			\item Stepwise remove noise via neural network
+		\end{itemize}
+		\item DDMs can be conditioned on additional input
+		\item \important{Concept can also be applied to graph neural networks!}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.} 
+	
+	\citep{sun-23}
+
+	\bigskip
+	\begin{itemize}
+		\itemsep1ex
+		\item TSP and maximum independent set problem (MISP) considered
+		\item utilizes an anisotropic \important{graph neural network} with edge gating
+		\item \important{discrete diffusion} based on Bernoulli noise
+		\item trained on many small instances + (close to) optimal solutions
+		\item used to create \important{diverse heatmaps} 
+		\item greedy heuristics and MCTS used as decoder
+	\end{itemize}
+
+	\bigskip
+	\only<1>{\centering \includegraphics[width=0.4\textwidth]{graphics/graphdiff.png}}
+	\only<2>{\begin{itemize}
+		\item<2> \structure{Advantages}
+		\begin{itemize}
+			\item \important{multi-modality of solution space is considered}
+			\item \important{faster} than auto-regressive models
+			\item \important{outperforms earlier approaches} by a large margin in their tests
+			\item \important{better scaling behavior} to larger instances
+		\end{itemize}
+	\end{itemize}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{graphics/difusco1.jpg}
+		(from \citet{sun-23})
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{graphics/difusco2.jpg}
+		(from \citet{sun-23})
+	\end{center}
+\end{frame}
+
+	
+\begin{frame}
+	\frametitle{Denoising Diffusion Based Evolutionary Algorighm}
+
+	Ongoing work with J.~Salva Soler, M.~Wustinger, E.~Iurlano
+
+	\bigskip
+	\begin{center}
+	\includegraphics[width=0.33\textwidth]{graphics/ea.jpg}
+	\end{center}
+
+	\only<1>{
+	\begin{itemize}
+		\itemsep2ex
+		\item Utilize DIFUSCO to create diverse initial population
+		\item \important{Intelligent recombination} 
+		\begin{itemize}
+			\item \important{Second DDM} trained to derive a best solution\\ \important{conditioned by a given set of parental solutions},\\
+			i.e., mostly using only their solution components
+		\end{itemize}
+		\item Labeled offline-training data derived by MILPs
+		\item Under investigation for TSP, MISP, $\alpha$-domination problem, graph burning problem
+	\end{itemize}
+	}
+	\only<2->{
+	\begin{itemize}
+		\itemsep2ex
+		\item \structure{Advantages}
+		\begin{itemize}
+			\item Depending on problem, the \important{whole population can be kept completely on the GPU}
+			\item Scales favorably: \important{runtime in principle almost independent of instance size!}
+		\end{itemize} 
+		\item<3> \structure{Open Question}
+		\begin{itemize}
+			\item Unsupervised learning possible by RL principles?
+		\end{itemize}
+	\end{itemize}
+	}
+\end{frame}
+
+	
+
+
+% -----------------------------------------------------
+
+% \begin{frame}
+% 	\vspace*{2cm}
+% 	{\Large{\structure{A Learning Large Neighborhood Search for the Staff Rerostering Problem}}}
+
+% 	\medskip
+% 	F.~Oberweger, G.~Raidl, E.~Rönnberg, and M.~Huber\\CPAIOR~22
+% \end{frame}
+
+% \begin{frame}{Related Work}
+% 	\begin{itemize}
+% 		\itemsep2ex
+% 		\item Large Neighborhood Search (LNS)\\  \citep{pisinger2010large}
+% 		\item Decomposition-based learning LNS\\ \citep{song2020general}
+% 		\item Neural LNS\\ \citep{addanki2020neural}
+% 		\item Neural Neighborhood Selection (NNS)\\ \citep{sonnerat2021learning}
+% 		\bigskip
+% 		\item Our approach \important{builds on NNS}
+% 	\end{itemize}
+% \end{frame}
+
+% % \begin{frame}{Staff Rerostering Problem (SRRP)}
+% %     \begin{itemize}
+% %         \item Extension of the classical \important{nurse scheduling problem}
+% %         \item Deals with \important{disruptions} to an existing (optimized) schedule
+% %         \item \important{Employee-based} disruptions, e.g.,
+% %         \begin{itemize}
+% %             \item illness
+% %             \item childcare obligations
+% %             \item medical appointments
+% %         \end{itemize}
+% %         \item \important{Demand} disruptions, e.g.,
+% %          \begin{itemize}
+% %         	\item more orders
+% %         	\item pandemic
+% %         \end{itemize}
+% %     \end{itemize}
+% %     \begin{figure}
+% %         \centering
+% %         \includegraphics[width=0.5\textwidth, page=8]{graphics/graphics.pdf}
+% %         \caption{Example schedule with employee-based disruptions: E~... early shift, D~... day shift, N ... night shift, F ... off-day.}
+% %     \end{figure}
+% % \end{frame}
+
+
+
+% \begin{frame}{Staff Rerostering Problem (SRRP)}
+% 	\begin{itemize}
+% 		\item \textbf{Given:} \important{old schedule, disruptions, demand to be met}
+% 		\item \textbf{Goal:} create new schedule
+% 		\begin{itemize}
+% 			\item meeting new \important{demand} as best as possible (soft)
+% 			\item having as few \important{changes} to old schedule as possible (soft)
+% 			\item meeting all hard constraints, e.g., work regulations
+% 		\end{itemize}
+% 	\end{itemize}
+% 	\begin{figure}
+% 		\centering
+% 		\includegraphics[width=\textwidth, page=7]{graphics/graphics.pdf}
+% 		\caption{Overview of hard constraints.}
+% 	\end{figure}
+% \end{frame}
+
+
+% \begin{frame}{MILP-Based Large Neighborhood Search (LNS)}
+% 	\begin{itemize}
+% 		\item Initial solution from a simple construction heuristic
+% 		\item Repeated application of a \important{destroy} and a \important{repair} operators
+% 		% \item \structure{Destroy:} Unassign some variables $\rightarrow$ partial solution
+% 	\end{itemize}
+% 	\begin{figure}
+% 		\begin{overprint}
+% 			%\onslide<1>\centering\includegraphics[width=\textwidth, page=11]{graphics/graphics.pdf}
+% 			\onslide<1>\centering\includegraphics[width=\textwidth, page=10]{graphics/graphics.pdf}
+% 			\onslide<2>\centering\includegraphics[width=\textwidth, page=9]{graphics/graphics.pdf}
+% 		\end{overprint}
+% 		%\caption{Simplified representation of an LNS on an SRRP instance.}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item \structure{Repair:} Mixed Integer Linear Programming (MILP) solver applied
+% 		\item<2> Aiming to create a \important{learning-based destroy operator}
+% 	\end{itemize}
+% \end{frame}
+
+% % \begin{frame}{Repair Operator}
+	
+% % 	\begin{itemize}
+% % 		\itemsep2ex
+% % 		\item Regular MILP for \important{feasible} solutions
+% % 		\item MILP with \important{relaxed} hard constraints for \important{infeasible} solutions
+% % 		\begin{itemize}
+% % 			\item Hard constraint violations are \important{penalized} 
+% % 			\item Objective value always \important{worse} for infeasible solution
+% % 		\end{itemize}
+% % 		%\item $x_{nds} = 1$ iff employee $n \in N$ is scheduled to work shift $s \in S$ on day $d \in D$
+% % 	\end{itemize}
+% % \end{frame}
+
+% \begin{frame}{Classical Randomized Destroy Operator}
+% 	\begin{itemize}
+% 		\item<1-2> \important{Randomly} choose employee-day pairs
+% 		\item<1-2> Destroy all variables associated with \important{employee-day pairs}
+% 		\item<3-> \important{Consecutive day constraints}: selecting consecutive days unlikely
+% 		\item<3-> Better select and destroy \important{random sequences} of days!
+% 	\end{itemize}
+% 	\begin{figure}
+% 		\begin{overprint}
+% 			\onslide<1>\centering\includegraphics[width=0.75\textwidth, page=13]{graphics/graphics.pdf}
+% 			\onslide<2>\centering\includegraphics[width=0.75\textwidth, page=14]{graphics/graphics.pdf}
+% 			\onslide<3>\centering\includegraphics[width=0.75\textwidth, page=15]{graphics/graphics.pdf}
+% 			\onslide<4>\centering\includegraphics[width=0.75\textwidth, page=16]{graphics/graphics.pdf}
+% 		\end{overprint}
+% 		\caption{Destroy operator applied on an example SRRP instance.}
+% 	\end{figure}
+% \end{frame}
+
+% \begin{frame}{Learning-Based Destroy Operator}
+%     \framesubtitle{Destroy Set Model}
+%     \begin{itemize}
+%     	\item Model current solution as a \important{graph} in each state of LNS
+%     	\item Use \important{Graph Neural Network (GNN)} \cite{scarselli2008graph}
+%     	%\item\important{Imitation learning} to mimic expert policy
+% 		\item Predict \important{probability} of each employee-day pair to \important{belong to destroy set yielding highest improvement}
+% 		\item Select with randomized sampling procedure enforcing selection of segments
+% 	\end{itemize}
+
+% 	\begin{figure}
+%     	\begin{overprint}
+%     		\onslide<1>\centering\scalebox{0.8}{\begin{tikzpicture}[
+%     				annot/.style={text width=3em, text centered},
+%     				neuron/.style={circle, draw, minimum size=12mm}]
+%     				% employee nodes
+%     				\node[neuron] (n1) at (4, 0) {$N_1$};
+%     				\node[neuron] (n2) at (7.5, 0) {$N_2$};
+%     				\node[neuron] (n3) at (11, 0) {$N_3$};
+%     				% assignment nodes
+%     				\node[neuron] (n1d1) at (1, -3) {\tiny $(N_1,D_1)$};
+%     				\node[neuron] (n2d1) at (2.5, -3) {\tiny $(N_2,D_1)$};
+%     				\node[neuron] (n3d1) at (4, -3) {\tiny $(N_3,D_1)$};
+%     				\node[neuron] (n1d2) at (6, -3) {\tiny $(N_1,D_2)$};
+%     				\node[neuron] (n2d2) at (7.5, -3) {\tiny $(N_2,D_2)$};
+%     				\node[neuron] (n3d2) at (9, -3) {\tiny $(N_3,D_2)$};
+%     				\node[neuron] (n1d3) at (11, -3) {\tiny $(N_1,D_3)$};
+%     				\node[neuron] (n2d3) at (12.5, -3) {\tiny $(N_2,D_3)$};
+%     				\node[neuron] (n3d3) at (14, -3) {\tiny $(N_3,D_3)$};
+%     				% day nodes
+%     				\node[neuron] (d1) at (2.5, -5) {$D_1$};
+%     				\node[neuron] (d2) at (7.5, -5) {$D_2$};
+%     				\node[neuron] (d3) at (12.5, -5) {$D_3$};
+%     				% assigned to relations
+%     				\draw (n1) -- (n1d1);
+%     				\draw (n1) -- (n1d2);
+%     				\draw (n1) -- (n1d3);
+%     				\draw (n2) -- (n2d1);
+%     				\draw (n2) -- (n2d2);
+%     				\draw (n2) -- (n2d3);
+%     				\draw (n3) -- (n3d1);
+%     				\draw (n3) -- (n3d2);
+%     				\draw (n3) -- (n3d3);
+%     				% on day relations
+%     				\draw (d1) -- (n1d1);
+%     				\draw (d2) -- (n1d2);
+%     				\draw (d3) -- (n1d3);
+%     				\draw (d1) -- (n2d1);
+%     				\draw (d2) -- (n2d2);
+%     				\draw (d3) -- (n2d3);
+%     				\draw (d1) -- (n3d1);
+%     				\draw (d2) -- (n3d2);
+%     				\draw (d3) -- (n3d3);
+%     				% is before relation
+%     				\draw (d1) -- (d2);
+%     				\draw (d2) -- (d3);
+%     		\end{tikzpicture}}
+%     	\onslide<2>\centering \includegraphics[width=\linewidth, page=3]{graphics/graphics.pdf}
+%     	\end{overprint}
+%     	%\caption{Simplified representation of the destroy set model architecture.}
+%     \end{figure}
+% \end{frame}
+
+
+% % \begin{frame}{Learning-Based Destroy Operator}
+% % 	\framesubtitle{Destroy Set Sampling Strategy}
+% % 	\begin{itemize}
+% % 		\item Based on \important{consecutive day} observation
+% % 		\item Use \important{GNN} outputs $\mu_{nd}$ $\forall n \in N, d \in D$ for refined sampling
+% % 	\end{itemize}
+% % 	\begin{figure}
+% % 		\begin{overprint}
+% % 			\onslide<1>\centering\includegraphics[width=\textwidth, page=17]{graphics/graphics.pdf}
+% % 			\onslide<2>\centering\includegraphics[width=\textwidth, page=18]{graphics/graphics.pdf}
+% % 			\onslide<3>\centering\includegraphics[width=\textwidth, page=19]{graphics/graphics.pdf}
+% % 			\onslide<4>\centering\includegraphics[width=\textwidth, page=20]{graphics/graphics.pdf}
+% % 			\onslide<5>\centering\includegraphics[width=\textwidth, page=21]{graphics/graphics.pdf}
+% % 			\onslide<6>\centering\includegraphics[width=\textwidth, page=22]{graphics/graphics.pdf}
+% % 			\onslide<7>\centering\includegraphics[width=\textwidth, page=23]{graphics/graphics.pdf}
+% % 			\onslide<8,9>\centering\includegraphics[width=\textwidth, page=24]{graphics/graphics.pdf}
+% % 			%\onslide<10>\centering\includegraphics[width=\textwidth, page=25]{graphics/graphics.pdf}
+% % 		\end{overprint}
+% % 		\caption{Destroy set sampling strategy.}
+% % 	\end{figure}
+% % 	\onslide<9->\begin{itemize}
+% % 		\item Regulate \important{influence} of GNN with \important{temperature} $\tau$
+% % 		\begin{itemize}
+% % 			\item Such that $\mu_{nd}^\frac{1}{\tau}$ $\forall n \in N, d \in D$
+% % 			\item So far $\tau=1$
+% % 		\end{itemize}
+% % 	\end{itemize}
+% % \end{frame}
+
+% % \begin{frame}{Learning-Based Destroy Operator}
+% % 	\framesubtitle{Temperature Model}
+% % 	\begin{itemize}
+% % 		\item \important{Learn} temperature $\tau$ for each state with a GNN
+% % 		\item \textbf{Input:} 
+% % 		\begin{itemize}
+% % 			\item graph representation of \important{current solution}
+% % 			\item destroy set model \important{outputs}
+% % 		\end{itemize}
+% % 		%graph representation of current solution,  destroy set model outputs
+% % 		\item \textbf{Output:} \important{probabilities} for selecting temperature in $\mathcal{T} = \{ 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 3, 5 \}$
+% % 	\end{itemize}
+% % 	\begin{figure}
+% % 		\centering\includegraphics[width=\textwidth, page=5]{graphics/graphics.pdf}
+% % 		\caption{Simplified representation of  the temperature model architecture.}
+% % 	\end{figure}
+% % \end{frame}
+
+% \begin{frame}{Learning-Based Destroy Operator}
+%     \framesubtitle{Training}
+% 	\begin{itemize}
+% 		\itemsep 2ex
+% 		\item Offline with representative problem instances via \important{imitation learning}
+% 		\item \important{Expert policy:}\\
+% 		MILP with local branching constraint to determine optimal destroy set\\(very slow)
+% 		\item \important{Loss function}: log-likelihood of expert actions,
+% 		cross-entropy for temperature
+% 		\item \important{DAGGER \citep{ross2011reduction}}:\\
+% 		Trajectories are first created with expert strategy,\\
+% 		later with learned model
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{Computational Results}
+% 	\begin{itemize}
+% 		\item Model trained with $|N| = 110$ employees
+% 		%\item LNS time limit of \structure{$15$ minutes}
+% 		\item \structure{MILP + Gurobi} optimality gap between \textbf{26\%} and \textbf{34\%}
+% 	\end{itemize}
+% 	\begin{figure}
+% 		\scalebox{1}{\includegraphics[width=0.45\textwidth]{graphics/generalization-box.pdf}\includegraphics[width=0.45\textwidth]{graphics/generalization-line.pdf}}
+% 		\caption{Comparison of LNS\_RND and LNS\_NN optimality gaps. $15$ minutes running time.\\ Lower bounds from solving MILP for three hours.}
+% 	\end{figure}
+% \end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Conclusions}
+	\begin{itemize}
+		\itemsep2.5ex
+		\item End-to-end ML-based approaches to COPs usually not competitive to well-designed classical methods
+		\item Many possibilities for enhancing classical methods with ML-based approaches
+		\item Learning: Supervised from expert solutions vs.\ unsupervised, e.g., by RL
+		\item Generalization to out of distribution instances often challenging
+		\item Combinations with tree search, local search and problem-specific heuristics can boost performance substantially!
+		\item Also keep in mind: 
+		\begin{itemize}
+			\item (deep) neural networks not always necessary,\\
+			e.g., other ML models may be faster \& more robust
+			\item deep RL can be tricky;\\ GFlowNets might be a promising alternative
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\footnotesize
+	%\nocite{*} 
+	% \bibliographystyle{abbrv}
+	\bibliographystyle{apalike}
+	\bibliography{lit.bib}
+\end{frame}
+
+
+% \begin{frame}{Features for Learning-Based Destroy Operator}
+% 	\footnotesize
+% 	\structure{For each assignment $(n, d)$}
+% 	\begin{itemize}
+% 		\item flag indicating whether employee $n$ is assigned to shift $s \in S$ on day $d$  
+% 		\item flag indicating whether employee $n$ is assigned to shift $s \in S$ on day $d$ in the original roster 
+% 		\item flag indicating whether employee $n$ is absent on shift $s \in S$ on day $d$  
+% 		\item flag indicating whether the minimum number of consecutive working days constraint is violated for employee $n$ on day $d$
+% 		\item flag indicating whether the maximum number of consecutive working days constraint is violated for employee $n$ on day $d$  
+% 		\item flag indicating whether the minimum number of consecutive assignment constraint is violated for employee $n$ on day $d$ and shift $s \in S$  
+% 		\item flag indicating whether the maximum number of consecutive assignment constraint is violated for employee $n$ on day $d$ and shift $s \in S$  
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{Features for Learning-Based Destroy Operator}
+% 	\footnotesize
+% 	\structure{For each employee $n$}
+% 	\begin{itemize}
+% 		\item total number of working assignments of employee $n$  
+% 		\item total number of working assignments of employee $n$ minus minimum number of working days in the planning horizon ($\alpha_{\min}$) 
+% 		\item maximum number of working days in the planning horizon ($\alpha_{\max}$) minus total number of working assignments of employee $n$ 
+% 		\item total number of assignments to shift $s \in S$ of employee $n$ 
+% 		\item total number of assignments to shift $s \in S$ of employee $n$ minus minimum allowed number of assignments to this shift $s$ ($\gamma^{\min}_s$)  
+% 		\item maximum allowed number of assignments to shift $s \in S$ ($\gamma^{\max}_s$) minus total number of assignments to this shift $s$ of employee $n$  
+% 		\item total number of whole day absences of employee $n$
+% 		\item total number of absences per shift $s \in S$ of employee $n$  
+% 	\end{itemize}
+
+% 	\medskip
+% 	\structure{For each Day $d$}
+% 	\footnotesize
+% 	\begin{itemize}
+% 		\item total number of assignments to each shift $s \in S$ on day $d$  
+% 		\item total number of assignments to each shift $s \in S$ on day $d$ minus cover requirements for this shift $s$ on day $d$ ($R^\text{c}_{ds}$)  
+% 	\end{itemize}
+% \end{frame}
+
+
+
+\end{document}
