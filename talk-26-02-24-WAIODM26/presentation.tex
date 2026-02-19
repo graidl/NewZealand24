@@ -45,6 +45,7 @@
 \usepackage{appendixnumberbeamer}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{multimedia}
 
 
 \usepackage{natbib}
@@ -92,7 +93,7 @@
 % \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 % cSpell:enable
 
-\title{ML-Based Approaches to Combinatorial Optimization:\\
+\title{Generative AI for Combinatorial Optimization:\\
 Some Personal Experiences}
 
 \author{Günther R.\ Raidl}
@@ -170,7 +171,7 @@ Some Personal Experiences}
 \end{frame} 
 
 
-\begin{frame}{Main Research Interests of G.R.}
+\begin{frame}{Main Research Interests of G.~R.}
 
 
 \medskip 
@@ -199,132 +200,388 @@ Some Personal Experiences}
   \includegraphics[width=\textwidth]{graphics/AC-TU-Wien.jpg}
 \end{frame}
 
-\end{document}
 
-\begin{frame}{Selected Ongoing Projects}
-\begin{itemize}
-  \itemsep3.5ex
-  \item \structure{Dynamic Vehicle Routing Problems with Focus on E-mobility \& Learning}
-  \begin{itemize}
-    \item with T.~Rodemann et al., Honda Research Institute Europe
-    \item with Y. Mei, Victoria University of Wellington, NZ
-  \end{itemize}
+% \begin{frame}{Selected Ongoing Projects}
+% \begin{itemize}
+%   \itemsep3.5ex
+%   \item \structure{Dynamic Vehicle Routing Problems with Focus on E-mobility \& Learning}
+%   \begin{itemize}
+%     \item with T.~Rodemann et al., Honda Research Institute Europe
+%     \item with Y. Mei, Victoria University of Wellington, NZ
+%   \end{itemize}
 
-  \includegraphics[width=0.8\textwidth]{graphics/darp-bss-example.jpg}
-\end{itemize}
-\end{frame}
+%   \includegraphics[width=0.8\textwidth]{graphics/darp-bss-example.jpg}
+% \end{itemize}
+% \end{frame}
 
 
-\begin{frame}{Selected Ongoing Projects (contd.)}
-\begin{itemize}
-	\itemsep3.5ex
-	\item \structure{Cooperative Personnel Scheduling}
-	\begin{itemize}
-	\item with S.~Limmer et al., Honda Research Institute Europe
-	\end{itemize}
+% \begin{frame}{Selected Ongoing Projects (contd.)}
+% \begin{itemize}
+% 	\itemsep3.5ex
+% 	\item \structure{Cooperative Personnel Scheduling}
+% 	\begin{itemize}
+% 	\item with S.~Limmer et al., Honda Research Institute Europe
+% 	\end{itemize}
 
-	\includegraphics[width=0.6\textwidth]{graphics/coopsched.png}
-\end{itemize}
-\end{frame}
+% 	\includegraphics[width=0.6\textwidth]{graphics/coopsched.png}
+% \end{itemize}
+% \end{frame}
 	
-\begin{frame}{Selected Ongoing Projects (contd.)}
-	\begin{itemize}
-	  \itemsep3.5ex
-	  \item \structure{Roman Domination Problems, Influence Maximization Problems, and Variants}
-	  \begin{itemize}
-		\item with M. Djukanovic et al., Univ.\ of Banja Luka, Bosnia and Herzegovina
-	  \end{itemize}
+% \begin{frame}{Selected Ongoing Projects (contd.)}
+% 	\begin{itemize}
+% 	  \itemsep3.5ex
+% 	  \item \structure{Roman Domination Problems, Influence Maximization Problems, and Variants}
+% 	  \begin{itemize}
+% 		\item with M. Djukanovic et al., Univ.\ of Banja Luka, Bosnia and Herzegovina
+% 	  \end{itemize}
 
-	  \bigskip
-	  \includegraphics[width=0.7\textwidth]{graphics/influence_maximization.png}
-	\end{itemize}
-\end{frame}
+% 	  \bigskip
+% 	  \includegraphics[width=0.7\textwidth]{graphics/influence_maximization.png}
+% 	\end{itemize}
+% \end{frame}
 	
-\begin{frame}{Selected Ongoing Projects (contd.)}
-	\begin{itemize}
-	  \itemsep3.5ex
-	  \item Doctoral College Vienna Graduate School on Computational Optimization
-	  \begin{itemize}
-		\item with University of Vienna, IST Austria, Vienna University of Economics and Business
-	  \end{itemize}
+% \begin{frame}{Selected Ongoing Projects (contd.)}
+% 	\begin{itemize}
+% 	  \itemsep3.5ex
+% 	  \item Doctoral College Vienna Graduate School on Computational Optimization
+% 	  \begin{itemize}
+% 		\item with University of Vienna, IST Austria, Vienna University of Economics and Business
+% 	  \end{itemize}
 
-	  \includegraphics[width=0.5\textwidth]{graphics/vgsco.png}
-	\end{itemize}
-\end{frame}
-	
-
-\begin{frame}{Recent Industry Colloaborations}
-\begin{itemize}
-\itemsep3.5ex
-	\item \structure{Minimizing waste in cutting glass, wood, and steel}
-	\begin{itemize}
-	\item with Lodestar Inc., Eurosoft GmbH.
-	\end{itemize} 
-
-	\bigskip
-	\includegraphics[width=0.34\textwidth, angle=90]{graphics/cutting_example.png}
-\end{itemize}  
-\end{frame}
-
-
-\begin{frame}{Recent Industry Colloaborations (contd.)}
-	\begin{itemize}
-	\itemsep3.5ex
-		\item \structure{Public Bike Sharing Station Planning and Rebalancing}
-		\begin{itemize}
-		\item with City Bike Wien, NextBike, Austrian Institute of Technology
-		\end{itemize} 
-	
-		\bigskip
-		\includegraphics[width=0.8\textwidth]{graphics/BBSS.jpg}
-	\end{itemize}  
-\end{frame}
+% 	  \includegraphics[width=0.5\textwidth]{graphics/vgsco.png}
+% 	\end{itemize}
+% \end{frame}
 	
 
-\begin{frame}{Recent Industry Colloaborations (contd.)}
-	\begin{itemize}
-	\itemsep3.5ex
-		\item \structure{Planning Battery Exchange Stations for Electric Scooters}
-		\begin{itemize}
-		\item with Honda Japan, Honda Research Institute Europe
-		\end{itemize} 
+% \begin{frame}{Recent Industry Colloaborations}
+% \begin{itemize}
+% \itemsep3.5ex
+% 	\item \structure{Minimizing waste in cutting glass, wood, and steel}
+% 	\begin{itemize}
+% 	\item with Lodestar Inc., Eurosoft GmbH.
+% 	\end{itemize} 
+
+% 	\bigskip
+% 	\includegraphics[width=0.34\textwidth, angle=90]{graphics/cutting_example.png}
+% \end{itemize}  
+% \end{frame}
+
+
+% \begin{frame}{Recent Industry Colloaborations (contd.)}
+% 	\begin{itemize}
+% 	\itemsep3.5ex
+% 		\item \structure{Public Bike Sharing Station Planning and Rebalancing}
+% 		\begin{itemize}
+% 		\item with City Bike Wien, NextBike, Austrian Institute of Technology
+% 		\end{itemize} 
 	
-		\bigskip
-		\includegraphics[width=0.6\textwidth]{graphics/bex.png}
-	\end{itemize}  
-\end{frame}
-
-
-\begin{frame}{Recent Industry Colloaborations (contd.)}
-	\begin{itemize}
-	\itemsep3.5ex
-		\item \structure{Transport Optimization for an Online Supermarket with Within-the-Hour Delivery}
-		\begin{itemize}
-		\item with Alfies GmbH
-		\end{itemize} 
+% 		\bigskip
+% 		\includegraphics[width=0.8\textwidth]{graphics/BBSS.jpg}
+% 	\end{itemize}  
+% \end{frame}
 	
-		\bigskip
-		\includegraphics[width=0.6\textwidth]{graphics/alfies.jpg}
-	\end{itemize}  
-\end{frame}
+
+% \begin{frame}{Recent Industry Colloaborations (contd.)}
+% 	\begin{itemize}
+% 	\itemsep3.5ex
+% 		\item \structure{Planning Battery Exchange Stations for Electric Scooters}
+% 		\begin{itemize}
+% 		\item with Honda Japan, Honda Research Institute Europe
+% 		\end{itemize} 
+	
+% 		\bigskip
+% 		\includegraphics[width=0.6\textwidth]{graphics/bex.png}
+% 	\end{itemize}  
+% \end{frame}
 
 
+% \begin{frame}{Recent Industry Colloaborations (contd.)}
+% 	\begin{itemize}
+% 	\itemsep3.5ex
+% 		\item \structure{Transport Optimization for an Online Supermarket with Within-the-Hour Delivery}
+% 		\begin{itemize}
+% 		\item with Alfies GmbH
+% 		\end{itemize} 
+	
+% 		\bigskip
+% 		\includegraphics[width=0.6\textwidth]{graphics/alfies.jpg}
+% 	\end{itemize}  
+% \end{frame}
 	
 % --------------------------------------------------------
 
-\begin{frame}{Combinatorial Optimization and AI/Machine Learning}
+\begin{frame}{Outline}
 	\begin{itemize}
-		\itemsep2.5ex
-		\item \important{AI/machine learning boom} also hit the area of \important{combinatorial optimization}
-		\item This in many different ways
-		\begin{center}
-			\centering
-			\includegraphics[width=0.85\linewidth]{graphics/mh-ml}
-		\end{center}
-		\item \structure{Focus here:} utilize learning to better solve \important{combinatorial optimization problems (COPs)}
+		\itemsep4ex
+		\item Few words on Large Language Models (LLMs) for Comb.~Opt.
+		\item Generative Flow Networks (GFlowNets) for Comb.~Opt.
+		\item Denoising Diffusion Models (DDMs) for Comb.~Opt.
+		\item Conclusions and Outlook
 	\end{itemize}
 \end{frame}
 
+% -------------------------------------------------
+
+\begin{frame}[plain]
+	\centering
+	\vfill
+	{\huge\structure{Large Language Models (LLMs)\\ for Combinatorial Optimization}}
+	\vfill
+\end{frame}
+
+\begin{frame}{Large Language Models (LLMs) for Combinatorial Optimization}
+	\begin{itemize}
+		\itemsep4ex
+		\item Directly throwing a LLM at a hard COP rarely works due to the structural complexities
+		\pause
+		\item Approaches where LLMs generate code for solving COPs 
+		%\item Approaches where LLMs utilize existing solvers
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{FunSearch: Searching in the Function Space}
+
+\vspace*{1ex}
+\structure{\it Romera-Paredes, B. et al., 2024. Mathematical discoveries from program search with large language models. Nature 625, 468--475.}
+\begin{center}
+	\includegraphics[width=0.6\linewidth]{graphics/funsearch}
+
+\end{center}
+\begin{itemize}
+	\item Evolutionary algorithm
+	\item based on LLM paired with a systematic evaluator
+	\item applied to cap set problem (in extremal combinatorics) and \movie[externalviewer]{online bin packing example}{graphics/binpack_animation.mp4} %https://storage.googleapis.com/gdm-deepmind-com-prod-public/media/media/binpack_animation_v3_DcLQBh5.mp4}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Large Language Models (LLMs) and Combinatorial Optimization}
+	\begin{itemize}
+		\itemsep4ex
+		\item Directly throwing a LLM at a hard COP rarely works due to the structural complexities
+		\item Approaches where LLMs generate code for solving COPs 
+		\item Using LLMs as front-end to dedicated solvers
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Using LLMs as Front-End to Existing Solvers}
+
+Example:
+
+\bigskip
+\begin{itemize}
+	\itemsep2ex
+	\item \important{Gurobi}: a state-of-the-art mixed integer linear programming (MILP) solver
+	\item Modeling problems as MILPs is often considered an ``art''
+	\item Let LLM translate a natural-language problem description into a MILP formulation
+	\begin{itemize}
+		\item Gurobot: Specialized LLM
+		\item Gurobi AI Assistant
+	\end{itemize}
+	\item Gurobi MCP server: allows an LLM to actually \emph{use} Gurobi as backend
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+  % Nodes
+  \node[draw, rounded corners, align=center, minimum width=1.6cm, minimum height=1.0cm] (nl) at (0,0)
+    {Natural-\\language\\problem \\description};
+
+  \node[draw, rounded corners, align=center, minimum width=2.8cm, minimum height=1.0cm, fill=blue!8] (llm) at (4.2,0)
+    {LLM\\(Gurobot /\\Gurobi AI Assistant)};
+
+  \node[draw, rounded corners, align=center, minimum width=2.8cm, minimum height=1.0cm] (milp) at (8.2,0)
+    {MILP\\formulation};
+
+  \node[draw, rounded corners, align=center, minimum width=2.8cm, minimum height=1.0cm, fill=green!10] (grb) at (12.2,0)
+    {Gurobi\\solver};
+
+  % Main flow
+  \draw[->, thick] (nl) -- node[above] {translate} (llm);
+  \draw[->, thick] (llm) -- (milp);
+  \draw[->, thick] (milp) -- node[above] {solve} (grb);
+
+  % MCP link
+  \draw[->, thick, dashed] (llm.south) .. controls +(0,-1.0) and +(0,-1.0) .. node[midway, below] {MCP server} (grb.south);
+\end{tikzpicture}
+\end{center}
+
+Similar approaches exist/in development, e.g., for CP and SAT solvers.
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}[plain]
+	\centering
+	\vfill
+	{\huge\structure{Generative Flow Networks (GFlowNets)\\ for Combinatorial Optimization}}
+	\vfill
+\end{frame}
+
+
+
+\begin{frame}{Basic Autoregressive Models for Combinatorial Optimization}
+	\medskip
+	Example:\\
+	\structure{\it Dai, H. et al., 2017. Learning combinatorial optimization algorithms over graphs, in NeurIPS 2017, pp.\ 6348--6358.}
+
+	\bigskip
+	\begin{itemize}
+		\itemsep1ex
+		\item considered problems: min vertex cover, max cut, TSP
+		\item utilizes \important{graph neural network} (GNN) 
+		%\item graph embedding network \important{structure2vec} used to ``featurize'' nodes
+		\item trained with \important{reinforcement learning} (RL), here Q-learning
+		\begin{center}
+			\includegraphics[width=0.9\linewidth]{graphics/dai}
+		\end{center}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Frequent Issues with Autoregressive Models to Solve COPs}
+	\begin{itemize}
+		\itemsep2.5ex
+		\item RL \alert{training often highly challenging}, unstable
+		\begin{itemize}
+			\item alternative: \important{supervised learning}, but requires large amount of labeled data,\\ 
+			i.e., instances with known (close-to)-optimal solutions
+		\end{itemize}
+		\item \alert{latency}: the GNN must be inferenced many times to construct a solution
+		\item \alert{generalization} to large instances often limited
+		\item typically only able to \alert{produce one or few similar solutions},\\ despite there may be many (close-to)-optimal solutions
+		\item usually \alert{not competitive with state-of-the-art methods} outside the AI/ML domain!
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Generative Flow Networks (GFlowNets)}
+	\medskip
+	\structure{\it Bengio, E. et al., 2021. Flow Network based Generative Models for Non-Iterative Diverse Candidate Generation, in NeurIPS 2021, pp. 27381--27394.}
+
+	% \medskip
+	% \structure{\it Bengio, Y. et al., 2023. GFlowNet Foundations. J. Mach. Learn. Res. 24}
+
+	\medskip
+	\begin{itemize}
+		\item \important{stochastic policy} (generative model),
+		\item trained such that it samples objects $x$ through a sequence of construction steps
+		\item with probability \important{proportional to a reward function $R(x)$}
+
+	\includegraphics[width=0.5\textwidth]{graphics/gflownet_anim.png}\\[-1ex]
+	{\footnotesize (image from \url{https://yoshuabengio.org/2022/03/05/generative-flow-networks})}
+
+	\item related to RL, but \important{learn whole distributions}!
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GFlowNetsTraining Losses}
+\small
+
+% \begin{block}{1) Flow Matching (FM)}
+% \begin{itemize}
+%     \item Enforces conservation of flow at each non-terminal state.
+%     \item Intuition: incoming flow equals outgoing flow (plus reward at terminal states).
+% \end{itemize}
+% \[
+% \mathcal{L}_{\mathrm{FM}}
+% = \sum_{s}
+% \left(
+% \log\!\big(F_{\mathrm{in}}(s)+R(s)\big)
+% - \log F_{\mathrm{out}}(s)
+% \right)^2
+% \]
+%\end{block}
+\structure{Goal:} \important{Achieve flow consistency}
+
+\bigskip
+
+\begin{block}{Detailed Balance (DB)}
+\begin{itemize}
+    \item Enforces local consistency on each transition \(s \to s'\).
+    \item Matches forward and backward edge-wise flow.
+\end{itemize}
+\[
+\mathcal{L}_{\mathrm{DB}}
+= \sum_{t}
+\left[
+\log F(s_{t}; \Theta) + \log P_F(s_{t+1}|s_t; \Theta)
+- \log F(s_{t+1}; \Theta) - \log P_B(s_t|s_{t+1};\Theta)
+\right]^2
+\]
+\end{block}
+\begin{block}{Trajectory Balance (TB)}
+\begin{itemize}
+    \item Enforces global consistency over complete trajectories.
+    \item Commonly used in practice for stability and performance.
+\end{itemize}
+\[
+\mathcal{L}_{\mathrm{TB}}
+= \left[
+\log Z_\Theta + \sum_t \log P_F(s_{t+1}|s_t; \Theta)
+- \log R(x)
+- \sum_t \log P_B(s_t|s_{t+1};\Theta)
+\right]^2
+\]
+\end{block}
+
+\vspace{0.2em}
+\structure{Takeaway:} DB is edge-level, and TB is trajectory-level.
+\end{frame}
+
+
+\begin{frame}{Advantages of GFlowNets}
+	\bigskip
+	\begin{itemize}
+		\itemsep3ex
+		\item Able to generate \important{diverse different} objects in parallel as \important{whole distribution is learned}
+		\item Typically \important{more robust training} than classical RL
+		\begin{itemize}
+			\item Can be trained off-policy or on-policy
+			\item Does not (necessarily) rely on intermediate rewards
+		\end{itemize}
+		\item \important{Model symmetries more efficiently}
+		\item \important{Does not get so easily trapped in objects reachable by many trajectories}
+		\item $\approx 200$ papers published on GFlowNets since 2021
+		\pause
+		\item \alert{but also here: on their own, i.e., in an end-to-end fashion, usually not competitive\\ with state-of-the-art methods outside the AI/ML domain;}\\
+		\important{$\rightarrow$ promising as a component in hybrid approaches!}
+	\end{itemize}
+\end{frame}
+	
+	\begin{frame}{Generative Flow Networks (GFlowNets, contd.)}
+	Ongoing work with L.~Tomandl, J.~Peng:
+	
+	\bigskip
+	Utilizing GFlowNets for
+	
+	\medskip
+	\begin{itemize}
+		\itemsep2ex
+		\item destroy set generation in Large Neighborhood Search (LNS)
+		\item as hyper-heuristic to schedule lower-level heuristics
+	\end{itemize}
+\end{frame}
+
+
+% -------------------------------------------------
+
+\begin{frame}[plain]
+	\centering
+	\vfill
+	{\huge\structure{Denoising Diffusion Models\\ for Combinatorial Optimization}}
+	\vfill
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}[plain]
+	\centering
+	\vfill
+	{\huge\structure{Conclusions and Outlook}}
+	\vfill
+\end{frame}
+
+
+\end{document}
 
 \begin{frame}{Learning to Better Optimize}
 	\begin{center}
@@ -493,29 +750,29 @@ Some Personal Experiences}
 
 
 
-\begin{frame}
-	\frametitle{Encoding of Problems in Neural Networks}
+% \begin{frame}
+% 	\frametitle{Encoding of Problems in Neural Networks}
 
-\begin{itemize}
-	\itemsep1.3ex
-	\item in general highly problem-specific
-	\item recurrent neural networks, e.g., LSTMs
-	% \item attention models
-	\item \structure{pointer networks} \citep{vinyals-2015}
-	\item variants of \important{\bf Graph Neural Networks} \citep{scarselli2008graph}, e.g.,
-	\begin{itemize}
-		\item Structure-to-Vector Network (Dai et al., 2016)
-		\item Graph Convolutional Network (Kipf and Welling, 2017)
-		\item Graph Isomorphism Network (Xu et al., 2019)
-		\item Graph Attention Network (Kool et al., 2019; Joshi et al., 2021)
-		\item Anisotropic Graph Neural Network (Hudson et al., 2022)
-	\end{itemize}
+% \begin{itemize}
+% 	\itemsep1.3ex
+% 	\item in general highly problem-specific
+% 	\item recurrent neural networks, e.g., LSTMs
+% 	% \item attention models
+% 	\item \structure{pointer networks} \citep{vinyals-2015}
+% 	\item variants of \important{\bf Graph Neural Networks} \citep{scarselli2008graph}, e.g.,
+% 	\begin{itemize}
+% 		\item Structure-to-Vector Network (Dai et al., 2016)
+% 		\item Graph Convolutional Network (Kipf and Welling, 2017)
+% 		\item Graph Isomorphism Network (Xu et al., 2019)
+% 		\item Graph Attention Network (Kool et al., 2019; Joshi et al., 2021)
+% 		\item Anisotropic Graph Neural Network (Hudson et al., 2022)
+% 	\end{itemize}
 
-	\medskip
-	{\includegraphics[width=0.7\linewidth, page=3]{graphics/graphics.pdf}}\\[2ex]
-	% learn \important{embedding of nodes} by looking at nearby nodes
-\end{itemize} 
-\end{frame}
+% 	\medskip
+% 	{\includegraphics[width=0.7\linewidth, page=3]{graphics/graphics.pdf}}\\[2ex]
+% 	% learn \important{embedding of nodes} by looking at nearby nodes
+% \end{itemize} 
+% \end{frame}
 
 
 \begin{frame}
@@ -969,56 +1226,6 @@ $\rightarrow$ no meaningful information
 % \end{frame}
 
 % -----------------------------------------------------
-
-
-\begin{frame}{Generative Flow Networks (GFlowNets)}
-
-	\citet{bengio-21a}
-	
-	\begin{itemize}
-		\item \important{stochastic policy} (generative model),
-		\item trained such that it samples objects $x$ through a sequence of construction steps
-		\item with probability \important{proportional to a reward function $R(x)$}
-
-	\includegraphics[width=0.6\textwidth]{graphics/gflownet_anim.png}\\
-	{\footnotesize (image from \url{https://yoshuabengio.org/2022/03/05/generative-flow-networks})}
-
-	\item related to, but different from classical RL approaches
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Generative Flow Networks (GFlowNets, contd.)}
-	\structure{Advantages}
-	\bigskip
-		\begin{itemize}
-			\itemsep2ex
-			\item Able to generate \important{diverse} solutions
-			\item Possibly \important{more robust training} than classical RL
-			\begin{itemize}
-				\item Can be trained off-policy/offline
-				\item Does not (necessarily) rely on intermediate rewards
-				\item Models symmetries more efficiently
-				\item Does not get so easily trapped in solutions reachable by many trajectories
-			\end{itemize}
-			\item $\approx 60$ papers published on GFlowNets since 2021
-		\end{itemize}
-	\end{frame}
-	
-	\begin{frame}{Generative Flow Networks (GFlowNets, contd.)}
-	Ongoing work with L.~Tomandl, J.~Peng:
-	
-	\bigskip
-	Utilizing GFlowNets for
-	
-	\medskip
-	\begin{itemize}
-		\itemsep2ex
-		\item destroy set generation in Large Neighborhood Search (LNS)
-		\item as hyper-heuristic to schedule lower-level heuristics
-	\end{itemize}
-\end{frame}
-
 
 	
 % -----------------------------------------------------	
