@@ -476,7 +476,7 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 \end{frame}
 
 \begin{frame}{GFlowNetsTraining Losses}
-\small
+%\small
 
 % \begin{block}{1) Flow Matching (FM)}
 % \begin{itemize}
@@ -492,6 +492,7 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 % \right)^2
 % \]
 %\end{block}
+\medskip
 \structure{Goal:} \important{Achieve flow consistency}
 
 \bigskip
@@ -549,18 +550,27 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 	\end{itemize}
 \end{frame}
 	
-	\begin{frame}{Generative Flow Networks (GFlowNets, contd.)}
-	Ongoing work with L.~Tomandl, J.~Peng:
-	
-	\bigskip
-	Utilizing GFlowNets for
+\begin{frame}{GFlowNets for Selecting Destroy Sets in Large Neighborhood Search}
+	\structure{\it Ongoing work with M.~Bresich, J.~Peng, L.~Tomandl}
 	
 	\medskip
 	\begin{itemize}
-		\itemsep2ex
-		\item destroy set generation in Large Neighborhood Search (LNS)
-		\item as hyper-heuristic to schedule lower-level heuristics
+		\itemsep1ex
+		\item \structure{Large neighborhood search:} iteratively \important{destroy} parts of a solution and \important{repair} them,\\ e.g., by an ILP or iterated greedy
+		\item GFlowNet trained to \important{select promising parts to destroy}
+		\item benchmarked on MISP, MaxCut, densest $k$-subgraph problems
+		\item GFlowNets are \alert{doing here particularly well}!
+		\begin{itemize}
+			\item able to produce \important{many different promising destroy sets}
+			\item other ML-methods tend to collapse into uni-modal trap
+		\end{itemize}
 	\end{itemize}
+
+	\medskip
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{graphics/gflownet4lns.png}
+	\end{center}
+
 \end{frame}
 
 
@@ -624,7 +634,6 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 
 	\begin{center}
 		\includegraphics[width=\textwidth]{graphics/difusco1.jpg}
-		(from \citet{sun-23})
 	\end{center}
 \end{frame}
 
@@ -636,7 +645,7 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 	\end{center}
 
 	\bigskip
-	$\rightarrow$ \important{post-processing} by, e.g., greedy heuristics, local search or Monte Carlo tree search (MCTS) 
+	$\rightarrow$ \important{post-processing} by, e.g., greedy heuristics, local search or Monte Carlo tree search 
 \end{frame}
 
 
@@ -764,15 +773,21 @@ fb-Harvard1     & 15126 & 109.0 & 6826 & 5263.2 & 16.2 & 5187.0 & 22.8 & 5148.4 
 
 \begin{frame}{Denoising Diffusion Based Evolutionary Algorighm}
 	\begin{itemize}
-		\itemsep2ex
+		\itemsep1ex
 		\item Labeled offline-training data derived by ILP
 		\item Tested on Maximum Independent Set Problem
 		\item \structure{Advantages}
 		\begin{itemize}
 			\item Depending on problem, the \important{whole population can be kept completely on the GPU}
-			\item Scales very well to large instances
+			\item Scales well to larger instances
 		\end{itemize} 
 	\end{itemize}
+
+	\medskip
+	\begin{center}
+	\only<1>{\includegraphics[width=0.90\textwidth]{graphics/ddbea-recomb.png}}
+	\only<2>{\includegraphics[width=0.90\textwidth]{graphics/ddbea-results.png}}
+	\end{center}
 \end{frame}
 
 
