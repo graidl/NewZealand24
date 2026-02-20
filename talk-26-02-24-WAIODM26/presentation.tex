@@ -576,7 +576,7 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 \begin{frame}{Denoising Diffusion Models (DDMs)}
 	\begin{itemize}
 		\item State-of-the-art in many generative AI applications,\\
-		in particular the creation of realistically-looking images
+		in particular in image/video generation
 	
 		\medskip
 		\includegraphics[width=0.9\textwidth]{graphics/diffusion.png}
@@ -585,7 +585,7 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 		\item \structure{Training}
 		\begin{itemize}
 			\item Gaussian noise step-wise added to original images
-			\item Neural network trained to predict noise added in each step
+			\item Neural network trained to remove noise from intermediate noisy images
 		\end{itemize}
 		\item \structure{Inference}
 		\begin{itemize}
@@ -593,41 +593,34 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 			\item Stepwise remove noise via neural network
 		\end{itemize}
 		\item DDMs can be conditioned on additional input
-		\item \important{Concept can also be applied to graph neural networks!}
+		\item \important{Concept can also be applied in discrete domains using, e.g., graph neural networks!}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.} 
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Comb.~Opt.} 
 	
-	\citep{sun-23}
+	\medskip
+	\structure{\it Sun, Z., Yang, Y., 2023. DIFUSCO: Graph-based Diffusion Solvers for Combinatorial Optimization. NeurIPS 2023, pp.~3706--3731.}
 
 	\bigskip
 	\begin{itemize}
 		\itemsep1ex
 		\item TSP and maximum independent set problem (MISP) considered
 		\item utilizes an anisotropic \important{graph neural network} with edge gating
-		\item \important{discrete diffusion} based on Bernoulli noise
+		\item \important{Gaussian noise} or \important{discrete diffusion} based on Bernoulli noise
 		\item trained on many small instances + (close to) optimal solutions
 		\item used to create \important{diverse heatmaps} 
-		\item greedy heuristics and MCTS used as decoder
+		%\item greedy heuristics and MCTS used as decoder
 	\end{itemize}
 
 	\bigskip
-	\only<1>{\centering \includegraphics[width=0.4\textwidth]{graphics/graphdiff.png}}
-	\only<2>{\begin{itemize}
-		\item<2> \structure{Advantages}
-		\begin{itemize}
-			\item \important{multi-modality of solution space is considered}
-			\item \important{faster} than auto-regressive models
-			\item \important{outperforms earlier approaches} by a large margin in their tests
-			\item \important{better scaling behavior} to larger instances
-		\end{itemize}
-	\end{itemize}}
+	\only<1>{\centering\includegraphics[width=1\textwidth]{graphics/difusco-cont.png}\\(Gaussian noise)}
+	\only<2>{\centering\includegraphics[width=1\textwidth]{graphics/difusco-disc.png}\\(Bernoulli noise)}
 \end{frame}
 
 \begin{frame}
-	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Comb.~Opt.}
 
 	\begin{center}
 		\includegraphics[width=\textwidth]{graphics/difusco1.jpg}
@@ -635,53 +628,151 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 	\end{center}
 \end{frame}
 
-\begin{frame}
-	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Combinatorial Opt.}
+\begin{frame}{DIFUSCO: Graph-Based Diffusion Solver for Comb.~Opt.}
 
+	Obtained heatmaps are not always ``perfect'', i.e.\ feasible and optimal solutions::
 	\begin{center}
 		\includegraphics[width=\textwidth]{graphics/difusco2.jpg}
-		(from \citet{sun-23})
 	\end{center}
+
+	\bigskip
+	$\rightarrow$ \important{post-processing} by, e.g., greedy heuristics, local search or Monte Carlo tree search (MCTS) 
 \end{frame}
+
+
+\begin{frame}{Advantages of DDMs}
+	\begin{itemize}
+		\itemsep4ex
+		\item a distribution is learned, i.e., \important{multi-modality of solution space is considered}
+		\begin{itemize}
+			\item[$\rightarrow$] able to create many diverse solutions
+			\item[$\rightarrow$] and this, on a GPU, in parallel!
+		\end{itemize}
+		\item can be \important{much faster} than auto-regressive models
+		\begin{itemize}
+			\item only a constant number of inference steps
+		\end{itemize}
+		\item DIFUSCO \important{outperformed earlier end-to-end learning approaches} by a substantial margin
+		\item \important{better generalization behavior} to larger instances
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Further Developments on DDMs for Comb.~Opt.}
+	\begin{itemize}
+		\itemsep2ex
+		\item Improvements in training and inference 
+		\begin{itemize}
+			\item improved noise schedules, progressive distillation for reducing number of steps
+			\item better neural network architectures, e.g., with attention mechanisms
+		\end{itemize}
+		\item Variants for unsupervised learning, e.g., by reinforcement learning principles
+		\item Boosting generalization by energy-guided sampling
+		\item More direct handling of constraints
+		\item Applications to other problems, e.g., 
+		\begin{itemize}
+			\item SAT
+			\item scheduling
+			\item network design
+			\item integer linear programming
+			\item multi-objective optimization
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{DDM-based Approach for the $\alpha$-Domination Problem}
+
+\medskip
+\structure{\it Wustinger,  M., Iurlano, E., Raidl, G.~R., 2026. A Denoising Diffusion Adaptive Search for the $\alpha$-Domination Problem on Social Graphs, accepted for EvoCOP 2026.}
+
+\vspace{7mm}
+\begin{minipage}{0.5\textwidth}
+\structure{\bf $\alpha$-Domination Problem}\\[1ex]
+\structure{Given:} Graph \(G=(V,E)\) and \(\alpha \in (0,1]\).\\[1ex]
+\structure{Find:} Minimum-size subset \(S \subseteq V\) such that for every vertex \(v \in V\), at least \(\alpha\) fraction of its neighbors are in \(S\).
+\end{minipage}\qquad
+\begin{minipage}{0.35\textwidth}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{graphics/alphadom.png}\\
+0.5-domination solution
+\end{center}
+\end{minipage}
+
+\vspace{7mm}
+\structure{\bf Denoising Diffusion Adaptive Search (DDAS) -- Key Idea}\\[1ex]
+\begin{itemize}
+	\item DDM creates many diverse heatmaps
+	\item each refined by configuration checking local search (CC)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Experimental Results for the $\alpha$-Domination Problem}
+\begin{table}[t!]
+\centering
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrr
+                |r  % Gurobi
+                rr  % Greedy
+                rr  % CC
+                |rr  % difusco_cl_sum
+                rr  % ddasp_cl_sum
+                }
+%\toprule
+%\multicolumn{3}{c|}{Graphs} 
+%& \multicolumn{5}{c|}{Baselines} 
+%& \multicolumn{4}{c}{}\\
+Instance & $|V|$ & $\overline{\mathrm{deg}}$ 
+& Gurobi & \multicolumn{2}{c}{Greedy} & \multicolumn{2}{c|}{CC} 
+& \multicolumn{2}{c}{DIFUSCO}
+& \multicolumn{2}{c}{DDASP} \\
+& & & & \multicolumn{1}{c}{$\mu_{|S|}$} & \multicolumn{1}{c}{$\sigma_{|S|}$} 
+& \multicolumn{1}{c}{$\mu_{|S|}$} & \multicolumn{1}{c|}{$\sigma_{|S|}$} 
+& \multicolumn{1}{c}{$\mu_{|S|}$} & \multicolumn{1}{c}{$\sigma_{|S|}$} 
+& \multicolumn{1}{c}{$\mu_{|S|}$} & \multicolumn{1}{c}{$\sigma_{|S|}$} \\
+\midrule
+fb-Amherst41    & 2235  & 81.4  & \important{\bf 738} & 806.3  & 6.8  & 787.3  & 4.3  & 759.5  & 2.6  & 758.1  & 2.8 \\
+fb-Princeton12  & 6596  & 88.9  & 2208 & 2313.0 & 7.0  & 2280.3 & 9.5  & 2176.9 & 3.5  & \important{\bf 2174.3} & 3.8 \\
+fb-Dartmouth6   & 7694  & 79.0  & 2465 & 2588.2 & 6.0  & 2565.1 & 11.3 & 2452.8 & 3.5  & \important{\bf 2448.7} & 3.6 \\
+fb-Yale4        & 8578  & 94.5  & 2928 & 3059.5 & 10.7 & 3032.0 & 8.4  & 2923.8 & 5.1  & \important{\bf 2915.8} & 5.0 \\
+fb-Maine59      & 9069  & 53.6  & 3167 & 3241.1 & 9.1  & 3212.6 & 11.7 & 3044.3 & 2.8  & \important{\bf 3043.9} & 2.4 \\
+fb-Stanford3    & 11586 & 98.1  & 3902 & 3965.4 & 12.6 & 3928.5 & 14.1 & 3835.4 & 4.3  & \important{\bf 3807.9} & 5.3 \\
+fb-Columbia2    & 11770 & 75.5  & 4005 & 4075.8 & 10.1 & 4025.5 & 18.3 & 3848.9 & 3.8  & \important{\bf 3843.1} & 4.7 \\
+fb-NotreDame57  & 12155 & 89.1  & 5804 & 4469.8 & 10.5 & 4402.0 & 16.4 & 4234.2 & 4.1  & \important{\bf 4226.2} & 5.3 \\
+fb-Baylor93     & 12803 & 106.2 & 6132 & 4649.8 & 12.1 & 4613.6 & 9.0  & 4424.4 & 5.2  & \important{\bf 4409.5} & 5.8 \\
+fb-Harvard1     & 15126 & 109.0 & 6826 & 5263.2 & 16.2 & 5187.0 & 22.8 & 5148.4 & 7.7  & \important{\bf 5047.6} & 10.7 \\
+%\bottomrule
+\end{tabular}
+}
+\end{table}
+\end{frame}
+
 
 	
 \begin{frame}
 	\frametitle{Denoising Diffusion Based Evolutionary Algorighm}
 
-	Ongoing work with J.~Salva Soler, M.~Wustinger, E.~Iurlano
+	\medskip
+	\structure{\it Salvà Soler, J., Raidl, G.~R. 2025. A Denoising Diffusion-Based Evolutionary Algorithm Framework, Int.~Conf.~on Machine Learning, Optimization, and Data Science (LOD) 2025.}
 
-	\bigskip
+	\medskip
 	\begin{center}
-	\includegraphics[width=0.33\textwidth]{graphics/ea.jpg}
+	\includegraphics[width=0.7\textwidth]{graphics/ddbea.png}
 	\end{center}
+\end{frame}
 
-	\only<1>{
+\begin{frame}{Denoising Diffusion Based Evolutionary Algorighm}
 	\begin{itemize}
 		\itemsep2ex
-		\item Utilize DIFUSCO to create diverse initial population
-		\item \important{Intelligent recombination} 
-		\begin{itemize}
-			\item \important{Second DDM} trained to derive a best solution\\ \important{conditioned by a given set of parental solutions},\\
-			i.e., mostly using only their solution components
-		\end{itemize}
-		\item Labeled offline-training data derived by MILPs
-		\item Under investigation for TSP, MISP, $\alpha$-domination problem, graph burning problem
-	\end{itemize}
-	}
-	\only<2->{
-	\begin{itemize}
-		\itemsep2ex
+		\item Labeled offline-training data derived by ILP
+		\item Tested on Maximum Independent Set Problem
 		\item \structure{Advantages}
 		\begin{itemize}
 			\item Depending on problem, the \important{whole population can be kept completely on the GPU}
-			\item Scales favorably: \important{runtime in principle almost independent of instance size!}
+			\item Scales very well to large instances
 		\end{itemize} 
-		\item<3> \structure{Open Question}
-		\begin{itemize}
-			\item Unsupervised learning possible by RL principles?
-		\end{itemize}
 	\end{itemize}
-	}
 \end{frame}
 
 
