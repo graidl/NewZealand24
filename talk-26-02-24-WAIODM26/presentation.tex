@@ -555,20 +555,16 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 	
 	\medskip
 	\begin{itemize}
-		\itemsep1ex
-		\item \structure{Large neighborhood search:} iteratively \important{destroy} parts of a solution and \important{repair} them,\\ e.g., by an ILP or iterated greedy
+		\itemsep0.5ex
+		\item \structure{Large neighborhood search:} iteratively \important{destroy} parts of a solution and \important{repair} %,\\ e.g., by an ILP or iterated greedy
 		\item GFlowNet trained to \important{select promising parts to destroy}
 		\item benchmarked on MISP, MaxCut, densest $k$-subgraph problems
-		\item GFlowNets are \alert{doing here particularly well}!
-		\begin{itemize}
-			\item able to produce \important{many different promising destroy sets}
-			\item other ML-methods tend to collapse into uni-modal trap
-		\end{itemize}
+		\item GFlowNets \alert{particularly well suited} as they produce \important{\textbf{different}} promising destroy sets!
 	\end{itemize}
 
 	\medskip
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{graphics/gflownet4lns.png}
+		\includegraphics[width=0.6\textwidth]{graphics/gflownet4lns.png}
 	\end{center}
 
 \end{frame}
