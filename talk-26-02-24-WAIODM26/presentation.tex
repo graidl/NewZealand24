@@ -81,8 +81,8 @@
 \pgfplotsset{compat=1.18}
 
 
-\newcommand{\tmax}{\ensuremath{t^\mathrm{max}}}
-\newcommand{\plim}{\ensuremath{p^\mathrm{lim}}}
+\newcommand{\tmax}{\ensuremath{t^\max}}
+\newcommand{\plim}{\ensuremath{p^\lim}}
 \newcommand{\ILP}{\ensuremath{\mathrm{ILP}}}
 \newcommand{\ppath}{\ensuremath{p^\mathrm{path}}}
 \newcommand{\Tavail}{T^\mathrm{avail}}
@@ -316,7 +316,7 @@ Some Personal Experiences}
 		\item Few words on Large Language Models (LLMs) for Comb.~Opt.
 		\item Generative Flow Networks (GFlowNets) for Comb.~Opt.
 		\item Denoising Diffusion Models (DDMs) for Comb.~Opt.
-		\item Conclusions and Outlook
+		\item Conclusions
 	\end{itemize}
 \end{frame}
 
@@ -429,7 +429,7 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 	\bigskip
 	\begin{itemize}
 		\itemsep1ex
-		\item considered problems: min vertex cover, max cut, TSP
+		\item considered problems: MinVertexCover, MaxCut, TSP
 		\item utilizes \important{graph neural network} (GNN) 
 		%\item graph embedding network \important{structure2vec} used to ``featurize'' nodes
 		\item trained with \important{reinforcement learning} (RL), here Q-learning
@@ -442,13 +442,13 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 \begin{frame}{Frequent Issues with Autoregressive Models to Solve COPs}
 	\begin{itemize}
 		\itemsep2.5ex
-		\item RL \alert{training often highly challenging}, unstable
+		\item RL \alert{training often challenging}, unstable
 		\begin{itemize}
 			\item alternative: \important{supervised learning}, but requires large amount of labeled data,\\ 
 			i.e., instances with known (close-to)-optimal solutions
 		\end{itemize}
-		\item \alert{latency}: the GNN must be inferenced many times to construct a solution
-		\item \alert{generalization} to large instances often limited
+		\item \alert{latency}: neural network must be inferenced many times to construct a solution
+		\item \alert{generalization} to larger instances often poor
 		\item typically only able to \alert{produce one or few similar solutions},\\ despite there may be many (close-to)-optimal solutions
 		\item usually \alert{not competitive with state-of-the-art methods} outside the AI/ML domain!
 	\end{itemize}
@@ -464,14 +464,14 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 
 	\medskip
 	\begin{itemize}
-		\item \important{stochastic policy} (generative model),
-		\item trained such that it samples objects $x$ through a sequence of construction steps
-		\item with probability \important{proportional to a reward function $R(x)$}
+		\item \important{stochastic policy} (generative model) approximating a \textbf{\important{probability distribution}},
+		\item trained such that it samples objects \(x\) through a sequence of construction steps
+		\item with probability \important{proportional to a reward function \(R(x)\)}
 
 	\includegraphics[width=0.5\textwidth]{graphics/gflownet_anim.png}\\[-1ex]
 	{\footnotesize (image from \url{https://yoshuabengio.org/2022/03/05/generative-flow-networks})}
 
-	\item related to RL, but \important{learn whole distributions}!
+	\item related to RL, but RL trained to find just \alert{one ``best'' solution}!
 	\end{itemize}
 \end{frame}
 
@@ -493,7 +493,7 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 % \]
 %\end{block}
 \medskip
-\structure{Goal:} \important{Achieve flow consistency}
+\structure{Goal:} \important{Achieve flow consistency}, \alert{not maximze reward} as in RL!
 
 \bigskip
 
@@ -542,11 +542,11 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 			\item Does not (necessarily) rely on intermediate rewards
 		\end{itemize}
 		\item \important{Model symmetries more efficiently}
-		\item \important{Do not get so easily trapped in objects reachable by many trajectories}
-		\item $\approx 200$ papers published on GFlowNets since 2021
+		\item \important{Do not get trapped so easily in objects reachable by many trajectories}
+		\item \(\approx 200\) papers published on GFlowNets since 2021
 		\pause
 		\item \alert{but also here: on their own, i.e., in an end-to-end fashion, usually not competitive\\ with state-of-the-art methods outside the AI/ML domain;}\\
-		\important{$\rightarrow$ promising as a component in hybrid approaches!}
+		\important{\(\rightarrow\) promising as a component in hybrid approaches!}
 	\end{itemize}
 \end{frame}
 	
@@ -558,15 +558,13 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 		\itemsep0.5ex
 		\item \structure{Large neighborhood search:} iteratively \important{destroy} parts of a solution and \important{repair} %,\\ e.g., by an ILP or iterated greedy
 		\item GFlowNet trained to \important{select promising parts to destroy}
-		\item benchmarked on MISP, MaxCut, densest $k$-subgraph problems
+		\pause
+		\item benchmarked on MISP, MaxCut, Densest $k$-Subgraph problems\\[2.5ex]
+		\begin{center}
+		\includegraphics[width=0.57\textwidth]{graphics/gflownet4lns.png}
+		\end{center}
 		\item GFlowNets \alert{particularly well suited} as they produce \important{\textbf{different}} promising destroy sets!
 	\end{itemize}
-
-	\medskip
-	\begin{center}
-		\includegraphics[width=0.6\textwidth]{graphics/gflownet4lns.png}
-	\end{center}
-
 \end{frame}
 
 
@@ -591,12 +589,12 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 		\item \structure{Training}
 		\begin{itemize}
 			\item Gaussian noise step-wise added to original images
-			\item Neural network trained to remove noise from intermediate noisy images
+			\item Neural network trained to predict noise from intermediate noisy images
 		\end{itemize}
 		\item \structure{Inference}
 		\begin{itemize}
-			\item Starts from pure random noise
-			\item Stepwise remove noise via neural network
+			\item Start from pure random noise
+			\item Remove noise step-wise via neural network predictions
 		\end{itemize}
 		\item DDMs can be conditioned on additional input
 		\item \important{Concept can also be applied in discrete domains using, e.g., graph neural networks!}
@@ -650,8 +648,8 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 		\itemsep4ex
 		\item a distribution is learned, i.e., \important{multi-modality of solution space is considered}
 		\begin{itemize}
-			\item[$\rightarrow$] able to create many diverse solutions
-			\item[$\rightarrow$] and this, on a GPU, in parallel!
+			\item[\(\rightarrow\)] able to create many diverse solutions
+			\item[\(\rightarrow\)] and this, on a GPU, in parallel!
 		\end{itemize}
 		\item can be \important{much faster} than auto-regressive models
 		\begin{itemize}
@@ -685,14 +683,14 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{DDM-based Approach for the $\alpha$-Domination Problem}
+\begin{frame}{DDM-based Approach for the \(\alpha\)-Domination Problem}
 
 \medskip
-\structure{\it Wustinger,  M., Iurlano, E., Raidl, G.~R., 2026. A Denoising Diffusion Adaptive Search for the $\alpha$-Domination Problem on Social Graphs, accepted for EvoCOP 2026.}
+\structure{\it Wustinger,  M., Iurlano, E., Raidl, G.~R., 2026. A Denoising Diffusion Adaptive Search for the \(\alpha\)-Domination Problem on Social Graphs, accepted for EvoCOP 2026.}
 
 \vspace{7mm}
 \begin{minipage}{0.5\textwidth}
-\structure{\bf $\alpha$-Domination Problem}\\[1ex]
+\structure{\bf \(\alpha\)-Domination Problem}\\[1ex]
 \structure{Given:} Graph \(G=(V,E)\) and \(\alpha \in (0,1]\).\\[1ex]
 \structure{Find:} Minimum-size subset \(S \subseteq V\) such that for every vertex \(v \in V\), at least \(\alpha\) fraction of its neighbors are in \(S\).
 \end{minipage}\qquad
@@ -712,7 +710,7 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 \end{frame}
 
 
-\begin{frame}[fragile]{Experimental Results for the $\alpha$-Domination Problem}
+\begin{frame}[fragile]{Experimental Results for the \(\alpha\)-Domination Problem}
 \begin{table}[t!]
 \centering
 \small
@@ -728,14 +726,14 @@ Similar approaches exist/in development, e.g., for CP and SAT solvers.
 %\multicolumn{3}{c|}{Graphs} 
 %& \multicolumn{5}{c|}{Baselines} 
 %& \multicolumn{4}{c}{}\\
-Instance & $|V|$ & $\overline{\mathrm{deg}}$ 
+Instance & \(|V|\) & \(\overline{\mathrm{deg}}\) 
 & Gurobi & \multicolumn{2}{c}{Greedy} & \multicolumn{2}{c|}{CC} 
 & \multicolumn{2}{c}{DIFUSCO}
 & \multicolumn{2}{c}{DDASP} \\
-& & & & \multicolumn{1}{c}{$\mu_{|S|}$} & \multicolumn{1}{c}{$\sigma_{|S|}$} 
-& \multicolumn{1}{c}{$\mu_{|S|}$} & \multicolumn{1}{c|}{$\sigma_{|S|}$} 
-& \multicolumn{1}{c}{$\mu_{|S|}$} & \multicolumn{1}{c}{$\sigma_{|S|}$} 
-& \multicolumn{1}{c}{$\mu_{|S|}$} & \multicolumn{1}{c}{$\sigma_{|S|}$} \\
+& & & & \multicolumn{1}{c}{\(\mu_{|S|}\)} & \multicolumn{1}{c}{\(\sigma_{|S|}\)} 
+& \multicolumn{1}{c}{\(\mu_{|S|}\)} & \multicolumn{1}{c|}{\(\sigma_{|S|}\)} 
+& \multicolumn{1}{c}{\(\mu_{|S|}\)} & \multicolumn{1}{c}{\(\sigma_{|S|}\)} 
+& \multicolumn{1}{c}{\(\mu_{|S|}\)} & \multicolumn{1}{c}{\(\sigma_{|S|}\)} \\
 \midrule
 fb-Amherst41    & 2235  & 81.4  & \important{\bf 738} & 806.3  & 6.8  & 787.3  & 4.3  & 759.5  & 2.6  & 758.1  & 2.8 \\
 fb-Princeton12  & 6596  & 88.9  & 2208 & 2313.0 & 7.0  & 2280.3 & 9.5  & 2176.9 & 3.5  & \important{\bf 2174.3} & 3.8 \\
@@ -763,7 +761,7 @@ fb-Harvard1     & 15126 & 109.0 & 6826 & 5263.2 & 16.2 & 5187.0 & 22.8 & 5148.4 
 
 	\medskip
 	\begin{center}
-	\includegraphics[width=0.7\textwidth]{graphics/ddbea.png}
+	\includegraphics[width=0.67\textwidth]{graphics/ddbea.png}
 	\end{center}
 \end{frame}
 
@@ -801,7 +799,7 @@ fb-Harvard1     & 15126 & 109.0 & 6826 & 5263.2 & 16.2 & 5187.0 & 22.8 & 5148.4 
 	\medskip
 	\begin{itemize}
 		\itemsep2.5ex
-		\item \structure{Can LLMs be used to solve COPs?}
+		\item \structure{Can today's LLMs be used to solve COPs?}
 		\begin{itemize}
 			\item \alert{hardly on their own},
 			\item but highly \important{promising as front-end} to existing solvers, e.g., MILP, CP, SAT;
@@ -815,7 +813,7 @@ fb-Harvard1     & 15126 & 109.0 & 6826 & 5263.2 & 16.2 & 5187.0 & 22.8 & 5148.4 
 		\item \structure{Denoising diffusion models}
 		\begin{itemize}
 			\item also \important{learn whole distributions}
-			\item non-autoregressive, $rightarrow$ \important{often faster}
+			\item non-autoregressive, \(\rightarrow\) \important{often faster}
 		\end{itemize} 
 		\item \structure{Cleverly designed hybrid approaches most promising}, e.g.,
 		\begin{itemize}
@@ -824,98 +822,6 @@ fb-Harvard1     & 15126 & 109.0 & 6826 & 5263.2 & 16.2 & 5187.0 & 22.8 & 5148.4 
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-
-
-\end{document}
-
-
-% \begin{frame}
-% 	\frametitle{Simplest Approach: Learning Heatmaps}
-
-% 	\begin{itemize}
-% 		\itemsep2ex
-% 		\item Learn model indicating likelihood for
-% 		\begin{itemize}
-% 			\item components, e.g., edges in TSP, nodes in MISP, MaxCut,
-% 			\item to appear in (close to) optimal solutions
-% 		\end{itemize}
-% 		\includegraphics[width=0.25\textwidth]{graphics/heatmap.jpg}
-% 		\item Actual solution(s) obtained by, e.g., greedy decoder or more advanced heuristic search
-% 		\item Training
-% 		\begin{itemize}
-% 			\item Supervised based on (close to) optimally solved instances
-% 			\item Reinforcement learning
-% 		\end{itemize}
-% 	\end{itemize}
-
-% \end{frame}
-
-% \begin{frame}
-% 	\frametitle{Potential Issue of Heatmaps: Unimodality}
-
-% 	\structure{Example:} \important{Maximum independent set problem} on $K_{3,3}$ has two optimal solutions:
-
-% 	\bigskip
-% 	\begin{center}
-% 	\begin{tikzpicture}
-% 			\node[draw, circle, fill=green] (n1) at (0,0) {1};
-% 			\node[draw, circle, fill=green] (n2) at (0,-1.5) {2};
-% 			\node[draw, circle, fill=green] (n3) at (0,-3) {3};
-% 			\node[draw, circle] (n4) at (2,0) {4};
-% 			\node[draw, circle] (n5) at (2,-1.5) {5};
-% 			\node[draw, circle] (n6) at (2,-3) {6};
-% 			\draw (n1) -- (n4);
-% 			\draw (n1) -- (n5);
-% 			\draw (n1) -- (n6);
-% 			\draw (n2) -- (n4);
-% 			\draw (n2) -- (n5);
-% 			\draw (n2) -- (n6);
-% 			\draw (n3) -- (n4);
-% 			\draw (n3) -- (n5);
-% 			\draw (n3) -- (n6);
-% 	\end{tikzpicture}
-% 	\qquad
-% 	\begin{tikzpicture}
-% 		\node[draw, circle] (n1) at (0,0) {1};
-% 		\node[draw, circle] (n2) at (0,-1.5) {2};
-% 		\node[draw, circle] (n3) at (0,-3) {3};
-% 		\node[draw, circle, fill=green] (n4) at (2,0) {4};
-% 		\node[draw, circle, fill=green] (n5) at (2,-1.5) {5};
-% 		\node[draw, circle, fill=green] (n6) at (2,-3) {6};
-% 		\draw (n1) -- (n4);
-% 		\draw (n1) -- (n5);
-% 		\draw (n1) -- (n6);
-% 		\draw (n2) -- (n4);
-% 		\draw (n2) -- (n5);
-% 		\draw (n2) -- (n6);
-% 		\draw (n3) -- (n4);
-% 		\draw (n3) -- (n5);
-% 		\draw (n3) -- (n6);
-% \end{tikzpicture}
-% \end{center}
-
-% \structure{Heatmap:} \alert{all nodes are equally likely} in an optimal solution.
-
-% \bigskip
-% $\rightarrow$ no meaningful information
-
-% \bigskip
-% \alert{More generally, symmetries and different (close to) optimal solutions often cause problems.}
-
-% \end{frame}
-
-
-
-
-% \begin{frame}[allowframebreaks]
-% 	\frametitle{References}
-% 	\footnotesize
-% 	%\nocite{*} 
-% 	% \bibliographystyle{abbrv}
-% 	\bibliographystyle{apalike}
-% 	\bibliography{lit.bib}
-% \end{frame}
-
 
 
 \end{document}
