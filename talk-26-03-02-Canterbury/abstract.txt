@@ -1,0 +1,3 @@
+Discrete Optimization for E-Mobility
+
+This talk will give an overview on work that has been done in the Algorithms and Complexity Group at TU Wien, Austria, to support further adoption of electric vehicles. We will consider a location planning problem for setting up battery swapping stations for electric scooters, consider an advanced scheduler for efficiently charging fleets of electric vehicles, and finally look at the electric autonomous dial-a-ride problem. The methods we developed for solving these problems range from mathematical programming techniques to metaheuristics and machine learning. 
