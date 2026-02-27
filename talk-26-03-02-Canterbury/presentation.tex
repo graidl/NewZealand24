@@ -404,12 +404,61 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 	\vfill
 \end{frame}
 
-\begin{frame}
- \citep{jatschka-21b,varga-22,limmer-23a,limmer-23b}
+\begin{frame}{Charging E-Vehicle Fleets -- Basic Setting}
+
+\begin{structure}{Given}
+	\begin{itemize}
+	\item Fleet of electric vehicles, for each vehicle:
+	\begin{itemize}
+		\item State-of-Charge (SoC)
+		\item Time window for charging
+		\item Required energy to be charged
+	\end{itemize}
+	\item Charging at common site with limited electrical power supply
+	\item Photovoltaic system
+	\end{itemize}
+\end{structure}
+
+\begin{structure}{Goal}
+	\begin{itemize}
+	\item Schedule charging of vehicles to minimize costs and maximize usage of PV
+	\end{itemize}
+\end{structure}
+
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{graphics/fleet-charging.png}
+\end{center}
+
+%\citep{jatschka-21b,varga-22,limmer-23a,limmer-23b}
 \end{frame}
 
+\begin{frame}{Our Approaches}
+\begin{itemize}
+	\itemsep3ex
+	\item \structure{\citet{jatschka-21b}} 
+	\begin{itemize}
+		\item SoC-dependent maximum charging power considered
+		\item piecewise linear approximation
+		\item MILP model
+	\end{itemize}%
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=north east,xshift=-6mm,yshift=-16mm] at (current page.north east) {\includegraphics[width=0.35\textwidth]{graphics/max-charge-power.png}};
+	\end{tikzpicture}
+	\item \structure{\citet{varga-22}}
+	\begin{itemize}
+		\item also assignment of cars to reservations considered
+		\item MILP model
+		\item exact Benders decomposition approach
+	\end{itemize}
+	\item \structure{\citet{limmer-23b}}
+	\begin{itemize}
+		\item for large scenarios
+		\item Large Neighborhood Search (LNS) heuristic based on MILP model
+	\end{itemize}
+\end{itemize}
 
 
+\end{frame}
 
 
 
