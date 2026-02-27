@@ -502,17 +502,21 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\item \structure{Key-feature:} an efficient algorithm to insert charging station visits into routes on-the-fly
 		\item \important{Leading} for benchmark instances from literature with up to \important{100 users, 8 vehicles}
 	\end{itemize}
- 
 	\bigskip
-	\only<2>{However:}
+ 
+	\only<1>{\begin{center}
+		\includegraphics[width=0.45\textwidth]{graphics/lns.png}
+	\end{center}}
+	\pause
+	\only{\structure{However:}}
 
 	\bigskip
 	\begin{itemize}
 		\itemsep3ex
-		\item<2> \citet{Limmer:2023}: Simpler and faster LNS also applicable to instances with\\
+		\item \citet{Limmer:2023}: Simpler and faster LNS also applicable to instances with\\
 		\important{few hundred vehicles, several thousand users}
-		\item<2> Our LNS only achieves \alert{few iterations within time-limit, gaps $~$10--30\%} 
-		\item<2> \important{\bf How to scale up our LNS?}
+		\item Our LNS only achieves \alert{few iterations within time-limit, gaps $~$10--30\%} 
+		\item \important{\bf How to scale up our LNS?}
 	\end{itemize}
 
 \end{frame}
@@ -552,7 +556,7 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\item Trained model on medium-sized instances and solutions obtained by the LNS
 		\item Diverse classical ML models as well as neural networks considered;\\ \important{reasonable results obtained}
 		\pause
-		\item \important{More substantial improvements achieved with graph neural networks}
+		\item \important{More substantial improvements achieved with a \textbf{graph neural network}}
 	\end{itemize}
 
 \end{frame}
