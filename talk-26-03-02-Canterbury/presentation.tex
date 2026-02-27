@@ -442,7 +442,8 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\item MILP model
 	\end{itemize}%
 	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=north east,xshift=-6mm,yshift=-16mm] at (current page.north east) {\includegraphics[width=0.35\textwidth]{graphics/max-charge-power.png}};
+		\node[anchor=north east,xshift=-6mm,yshift=-16mm,align=center] at (current page.north east) {\small Kona Hyundai\\
+		\includegraphics[width=0.3\textwidth]{graphics/max-charge-power.png}};
 	\end{tikzpicture}
 	\item \structure{\citet{varga-22}}
 	\begin{itemize}
@@ -456,7 +457,6 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\item Large Neighborhood Search (LNS) heuristic based on MILP model
 	\end{itemize}
 \end{itemize}
-
 
 \end{frame}
 
@@ -494,7 +494,7 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 \begin{frame}
 	\frametitle{Large Neighborhood Search for EADARP}
 
-	(Bresich et al., 2024; GECCO 2024)
+	\citep{bresich-25c}
 
 	\bigskip
 	\begin{itemize}
@@ -502,7 +502,7 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\item \structure{Key-feature:} an efficient algorithm to insert charging station visits into routes on-the-fly
 		\item \important{Leading} for benchmark instances from literature with up to \important{100 users, 8 vehicles}
 	\end{itemize}
-
+ 
 	\bigskip
 	\only<2>{However:}
 
@@ -520,21 +520,22 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 \begin{frame}
 	\frametitle{Sparsening/Clustering Techniques for EADARP}
 
-	\structure{Sparsening to $k$-nearest neighbor graph or\\ clustering into separate geographical regions:}
+	\structure{Sparsening to $k$-nearest neighbor graph or\\ clustering into separate geographical regions}
+
+	\pause
+	\bigskip
+	\alert{Does not work.} -- Why? 
 
 	\bigskip
-	\alert{Does not work at all.} -- Why? 
-
-	\bigskip
-	\only<2>{Each order has
-				\begin{itemize}
-					\item a pickup location
-					\item a dropoff location
-					\item a time window
-				\end{itemize}
-				and orders need to be combined to tours;\\
-				moreover charging not considered
-				}
+	Each order has
+		\begin{itemize}
+			\item a pickup location
+			\item a dropoff location
+			\item a time window
+		\end{itemize}
+		and orders need to be combined to tours;\\
+		moreover charging not considered
+	
 \end{frame}
 
 \begin{frame}
@@ -550,7 +551,8 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\includegraphics[width=0.25\textwidth]{graphics/heatmap.jpg}
 		\item Trained model on medium-sized instances and solutions obtained by the LNS
 		\item Diverse classical ML models as well as neural networks considered;\\ \important{reasonable results obtained}
-		\item<3> \important{More substantial improvements achieved with graph neural networks!}
+		\pause
+		\item \important{More substantial improvements achieved with graph neural networks}
 	\end{itemize}
 
 \end{frame}
