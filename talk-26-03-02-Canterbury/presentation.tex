@@ -367,7 +367,7 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\item O/D pairs to merge?
 		\item for stations to merge?
 	\end{itemize}
-	\item Diverse similarity measures considered, ended up with Jaccard similarity
+	\item Diverse similarity measures considered %, ended up with Jaccard similarity
 	\item In tests \important{$\approx$40--50\% better} than a reasonable construction heuristic
 \end{itemize}
 \end{frame}
@@ -378,7 +378,7 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 	\bigskip
 	\begin{itemize}
 		\itemsep2ex
-		\item We \important{learned models to approximate the expected loss in solution quality} when
+		\item We \important{learned neural networks to approximate the expected loss in solution quality} when
 		\begin{itemize}
 			\item merging two O/D pairs or 
 			\item merging two stations, respectively
@@ -388,7 +388,6 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 			\item merging pairs of nodes, solving, extension/refinement
 			\item in comparison to solving original problem
 		\end{itemize} 
-		\item Models: multilayer perceptron with two hidden layers
 		\item Diverse features derived from original nodes and merged nodes
 		\item \important{Improvements of up to 1--5\% obtained}
 		\item \important{Reasonable generalization to larger instances}
@@ -439,12 +438,12 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 	\begin{itemize}
 		\item SoC-dependent maximum charging power considered
 		\item piecewise linear approximation
-		\item MILP model
-	\end{itemize}%
+		\item MILP model%
 	\begin{tikzpicture}[remember picture,overlay]
 		\node[anchor=north east,xshift=-6mm,yshift=-16mm,align=center] at (current page.north east) {\small Kona Hyundai\\
 		\includegraphics[width=0.3\textwidth]{graphics/max-charge-power.png}};
 	\end{tikzpicture}
+	\end{itemize}
 	\item \structure{\citet{varga-22}}
 	\begin{itemize}
 		\item also assignment of cars to reservations considered
@@ -454,8 +453,11 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 	\item \structure{\citet{limmer-23b}}
 	\begin{itemize}
 		\item for large scenarios
-		\item Large Neighborhood Search (LNS) heuristic based on MILP model
+		\item Large Neighborhood Search (LNS) heuristic based\\ on MILP model
 	\end{itemize}
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south east,xshift=-6mm,yshift=0mm,align=center] at (current page.south east) {\includegraphics[width=0.3\textwidth]{graphics/lns.png}};
+	\end{tikzpicture}
 \end{itemize}
 
 \end{frame}
@@ -499,7 +501,7 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 	\bigskip
 	\begin{itemize}
 		\itemsep3ex
-		\item \structure{Key-feature:} an efficient algorithm to insert charging station visits into routes on-the-fly
+		\item \structure{Key-feature:} an \important{efficient algorithm to insert charging station visits into routes on-the-fly}
 		\item \important{Leading} for benchmark instances from literature with up to \important{100 users, 8 vehicles}
 	\end{itemize}
 	\bigskip
@@ -515,8 +517,8 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\itemsep3ex
 		\item \citet{Limmer:2023}: Simpler and faster LNS also applicable to instances with\\
 		\important{few hundred vehicles, several thousand users}
-		\item Our LNS only achieves \alert{few iterations within time-limit, gaps $~$10--30\%} 
-		\item \important{\bf How to scale up our LNS?}
+		\item Our LNS only achieves \alert{few iterations within time-limit, gaps $\approx$10--30\%} 
+		\item \important{\bf How to scale up the LNS?}
 	\end{itemize}
 
 \end{frame}
@@ -555,7 +557,6 @@ Former project on \structure{Public Bike Sharing Station Planning and Rebalancin
 		\includegraphics[width=0.25\textwidth]{graphics/heatmap.jpg}
 		\item Trained model on medium-sized instances and solutions obtained by the LNS
 		\item Diverse classical ML models as well as neural networks considered;\\ \important{reasonable results obtained}
-		\pause
 		\item \important{More substantial improvements achieved with a \textbf{graph neural network}}
 	\end{itemize}
 

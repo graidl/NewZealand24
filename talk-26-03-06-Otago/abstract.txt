@@ -1,0 +1,3 @@
+Denoising Diffusion Models for Combinatorial Optimization
+
+In the area of discrete/combinatorial optimization, machine learning techniques have become popular to support or even replace classical solving techniques like those from the areas of mathematical programming and (meta-)heuristics. We will have a critical look at these developments. After briefly considering more frequently applied autoregressive models, we will focus on denoising diffusion models and see why they can be particularly promising. While we find that as stand-alone approaches, they are usually also not competitive with state-of-the-art methods for solving classical combinatorial optimization problems, we will see few examples on how to make sensible use of them.
