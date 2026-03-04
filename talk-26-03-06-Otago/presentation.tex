@@ -1,0 +1,619 @@
+\documentclass[aspectratio=1610]{beamer}
+\setbeamersize{text margin left=7mm,text margin right=5mm}
+\usefonttheme[onlymath]{serif}
+\usetheme{default}
+\usefonttheme{professionalfonts}
+%\setbeamertemplate{navigation symbols}{} 
+\beamertemplatenavigationsymbolsempty
+\addtobeamertemplate{navigation symbols}{}{
+    \usebeamerfont{footline}
+    \usebeamercolor[fg]{footline}
+    %\hspace{1em}
+    \footnotesize\insertframenumber\,%/\inserttotalframenumber
+}
+
+% cSpell:disable
+\definecolor{rcomment}{rgb}{0.3, 0.3, 0.3}  % darkgrey
+\definecolor{rred}{rgb}{0.7,0.2,0.2}        % red
+\definecolor{rblue}{rgb}{0.2,0.2,0.7}       % blue (blended blue of beamer)
+\definecolor{rpurple}{rgb}{0.45, 0.0, 0.9}  % violett
+\definecolor{rpink}{rgb}{0.8, 0.0, 0.4}     % pink
+\definecolor{rgreen}{rgb}{0.1, 0.5, 0.1}    % darkgreen
+\definecolor{rorange}{rgb}{0.8, 0.4,0}      % orange
+\definecolor{rblack}{rgb}{0, 0, 0}          % black
+\definecolor{deeptuerkis}{rgb}{0, 0.5, 0.5} % Türkis
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{blendedblue}{rgb}{0.2,0.2,0.7}
+\newcommand{\important}[1]{{\color{green!60!black}#1}}
+
+% \documentclass{beamer}
+% \mode<presentation> {
+%   \usetheme{Singapore}
+%   \setbeamertemplate{navigation symbols}{}
+%   \setbeamertemplate{footline}[frame number]
+% }
+
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{nicefrac}
+\usepackage{varwidth}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage[linesnumbered, ruled, noend]{algorithm2e}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multimedia}
+
+
+\usepackage{natbib}
+% \usepackage[backend=bibtex,style=authoryear-comp]{biblatex}
+% \bibliography{bibliography}
+
+\usepackage[draft,nomargin,inline]{fixme}  % add final for disabling remarks
+\fxsetface{inline}{\itshape}
+\fxsetface{env}{\itshape}
+%\fxuselayouts{margin}
+%\fxuselayouts{inline}
+\fxusetheme{color}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{calc, decorations.markings}
+\tikzset{vertex/.style={circle, draw=black}}
+\tikzset{tr/.style={draw=white, fill=white, sloped}}
+\tikzset{del/.style={draw=red, text=red}}
+\tikzset{layer/.style={rectangle, draw=black, minimum width=1.5cm, minimum height=0.75cm}}
+\tikzset{plus/.style={
+  circle, draw=black, minimum width=0.3cm, inner sep=0cm, outer sep=0cm,
+  path picture={
+    \draw[black] (path picture bounding box.south) -- (path picture bounding box.north)
+                 (path picture bounding box.west) -- (path picture bounding box.east);
+  }
+}}
+\tikzset{buswidth/.style={decoration={
+  markings,
+  mark=at position 0.5 with {\node[font=\footnotesize] {/};\node[below=3pt] {\tiny #1};}
+}, postaction={decorate}}}
+
+\pgfplotsset{compat=1.18}
+
+
+\newcommand{\tmax}{\ensuremath{t^\max}}
+\newcommand{\plim}{\ensuremath{p^\lim}}
+\newcommand{\ILP}{\ensuremath{\mathrm{ILP}}}
+\newcommand{\ppath}{\ensuremath{p^\mathrm{path}}}
+\newcommand{\Tavail}{T^\mathrm{avail}}
+\newcommand{\Irej}{I^\mathrm{rej}}
+\newcommand{\Greedy}{\textsc{Greedy}}
+\newcommand{\Markov}{\textsc{Markov}}
+
+% \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+% cSpell:enable
+
+\title{Denoising Diffusion Models for Combinatorial Optimization}
+
+\author{Günther R.\ Raidl}
+\date{University of Otago, NZ\\March 6, 2026}
+\titlegraphic{\includegraphics[height=7mm]{graphics/logo-tuwien-informatics.png}\quad
+	\includegraphics[height=7mm]{graphics/AClongColor.pdf}}
+
+\institute[]{\normalsize Algorithms and Complexity Group, TU Wien, Austria,\\
+    \texttt{raidl@ac.tuwien.ac.at}\\[1ex]
+}
+
+\logo{\includegraphics[height=15pt]{graphics/logo.pdf}\vspace{255pt}} % Logo on top right
+
+% cSpell:disable
+\definecolor{rred}{rgb}{0.7,0.2,0.2}         % red
+\newcommand{\hl}[1]{\textcolor{rred}{#1}}    % highlight
+
+\definecolor{rgreen}{rgb}{0.216,0.784,0.216} % green
+\definecolor{rblue}{rgb}{0.216,0.443,0.784}  % blue
+\definecolor{rorange}{rgb}{1.0,0.4,0.0}      % orange
+
+\definecolor{orange}{RGB}{255,100,66}
+\definecolor{seaborn0}{HTML}{1f77b4}
+\definecolor{seaborn1}{HTML}{ff7f0e}
+\definecolor{seaborn2}{HTML}{2ca02c}
+\definecolor{seaborn3}{HTML}{d62728}
+\definecolor{seaborn4}{HTML}{9467bd}
+\definecolor{seaborn5}{HTML}{8c564b}
+\definecolor{seaborn6}{HTML}{e377c2}
+\definecolor{seaborn7}{HTML}{7f7f7f}
+\definecolor{seaborn8}{HTML}{bcbd22}
+\definecolor{seaborn9}{HTML}{17becf}
+
+\newbool{printlegend}
+
+\newcommand{\cumuldistr}[7]{ % Arguments: source directory, data series, width, height, x label, y label, title
+  \begin{tikzpicture}
+    \begin{semilogxaxis}[%
+          width={#3},
+          height={#4},
+          title style={align=center},
+          title={\large #7},
+          xlabel style={at={(axis description cs:0.5,0.05)},anchor=north},
+          xlabel=#5,
+          ylabel style={align=center},
+          ylabel=#6,
+          every axis plot post/.append style={mark=none},
+          every axis plot/.append style={thick},
+          legend entries={GNN,Random,Sorted,Hooker},
+          \ifbool{printlegend}{
+            legend columns=1,
+            legend pos=south east,
+          }{
+            legend to name=legend:cumuldistr-#1-#2,
+            legend columns=-1,
+          }
+          ]
+      \addplot+[seaborn0, solid]  table [x=#2, y=no_instances, col sep=comma, mark=none] {#1/pgdeletion_#2.csv};
+      \addplot+[seaborn1, dashed] table [x=#2, y=no_instances, col sep=comma, mark=none] {#1/deletion_#2.csv};
+      \addplot+[seaborn2, dashed] table [x=#2, y=no_instances, col sep=comma, mark=none] {#1/sdeletion_#2.csv};
+      \addplot+[seaborn3, dashed] table [x=#2, y=no_instances, col sep=comma, mark=none] {#1/hdeletion_#2.csv};
+    \end{semilogxaxis}
+  \end{tikzpicture}
+}
+% cSpell:enable
+\renewcommand{\footnotesize}{\scriptsize}
+
+\begin{document}{}
+
+
+\part{Main}
+
+\begin{frame}
+  \titlepage
+\end{frame} 
+
+
+\begin{frame}{Main Research Interests of G.~R.}
+
+
+\medskip 
+\begin{minipage}{0.45\textwidth}
+  \begin{itemize}
+      \item Combinatorial optimization (COP)
+      \item Metaheuristics
+      \item Mathematical programming
+      \item Constraint programming
+      \item Machine learning
+      \item \important{\bf Hybrid approaches} incl.\ matheuristics, learning + classical algorithms for COP
+  \end{itemize}
+\end{minipage}\qquad
+\begin{minipage}{0.4\textwidth}
+    \structure{Application areas}
+    \begin{itemize}
+      \item Transport optimization
+      \item Scheduling
+      \item Network design
+      \item Problems in bioinformatics
+      \item Cutting and packing
+    \end{itemize}
+  \end{minipage}
+
+  \bigskip
+  \includegraphics[width=\textwidth]{graphics/AC-TU-Wien.jpg}
+\end{frame}
+
+
+% \begin{frame}{Selected Ongoing Projects}
+% \begin{itemize}
+%   \itemsep3.5ex
+%   \item \structure{Dynamic Vehicle Routing Problems with Focus on E-mobility \& Learning}
+%   \begin{itemize}
+%     \item with T.~Rodemann et al., Honda Research Institute Europe
+%     \item with Y. Mei, Victoria University of Wellington, NZ
+%   \end{itemize}
+
+%   \includegraphics[width=0.8\textwidth]{graphics/darp-bss-example.jpg}
+% \end{itemize}
+% \end{frame}
+
+
+% \begin{frame}{Selected Ongoing Projects (contd.)}
+% \begin{itemize}
+% 	\itemsep3.5ex
+% 	\item \structure{Cooperative Personnel Scheduling}
+% 	\begin{itemize}
+% 	\item with S.~Limmer et al., Honda Research Institute Europe
+% 	\end{itemize}
+
+% 	\includegraphics[width=0.6\textwidth]{graphics/coopsched.png}
+% \end{itemize}
+% \end{frame}
+	
+% \begin{frame}{Selected Ongoing Projects (contd.)}
+% 	\begin{itemize}
+% 	  \itemsep3.5ex
+% 	  \item \structure{Roman Domination Problems, Influence Maximization Problems, and Variants}
+% 	  \begin{itemize}
+% 		\item with M. Djukanovic et al., Univ.\ of Banja Luka, Bosnia and Herzegovina
+% 	  \end{itemize}
+
+% 	  \bigskip
+% 	  \includegraphics[width=0.7\textwidth]{graphics/influence_maximization.png}
+% 	\end{itemize}
+% \end{frame}
+	
+% \begin{frame}{Selected Ongoing Projects (contd.)}
+% 	\begin{itemize}
+% 	  \itemsep3.5ex
+% 	  \item Doctoral College Vienna Graduate School on Computational Optimization
+% 	  \begin{itemize}
+% 		\item with University of Vienna, IST Austria, Vienna University of Economics and Business
+% 	  \end{itemize}
+
+% 	  \includegraphics[width=0.5\textwidth]{graphics/vgsco.png}
+% 	\end{itemize}
+% \end{frame}
+	
+
+% \begin{frame}{Recent Industry Colloaborations}
+% \begin{itemize}
+% \itemsep3.5ex
+% 	\item \structure{Minimizing waste in cutting glass, wood, and steel}
+% 	\begin{itemize}
+% 	\item with Lodestar Inc., Eurosoft GmbH.
+% 	\end{itemize} 
+
+% 	\bigskip
+% 	\includegraphics[width=0.34\textwidth, angle=90]{graphics/cutting_example.png}
+% \end{itemize}  
+% \end{frame}
+
+
+% \begin{frame}{Recent Industry Colloaborations (contd.)}
+% 	\begin{itemize}
+% 	\itemsep3.5ex
+% 		\item \structure{Public Bike Sharing Station Planning and Rebalancing}
+% 		\begin{itemize}
+% 		\item with City Bike Wien, NextBike, Austrian Institute of Technology
+% 		\end{itemize} 
+	
+% 		\bigskip
+% 		\includegraphics[width=0.8\textwidth]{graphics/BBSS.jpg}
+% 	\end{itemize}  
+% \end{frame}
+	
+
+% \begin{frame}{Recent Industry Colloaborations (contd.)}
+% 	\begin{itemize}
+% 	\itemsep3.5ex
+% 		\item \structure{Planning Battery Exchange Stations for Electric Scooters}
+% 		\begin{itemize}
+% 		\item with Honda Japan, Honda Research Institute Europe
+% 		\end{itemize} 
+	
+% 		\bigskip
+% 		\includegraphics[width=0.6\textwidth]{graphics/bex.png}
+% 	\end{itemize}  
+% \end{frame}
+
+
+% \begin{frame}{Recent Industry Colloaborations (contd.)}
+% 	\begin{itemize}
+% 	\itemsep3.5ex
+% 		\item \structure{Transport Optimization for an Online Supermarket with Within-the-Hour Delivery}
+% 		\begin{itemize}
+% 		\item with Alfies GmbH
+% 		\end{itemize} 
+	
+% 		\bigskip
+% 		\includegraphics[width=0.6\textwidth]{graphics/alfies.jpg}
+% 	\end{itemize}  
+% \end{frame}
+	
+% --------------------------------------------------------
+
+\begin{frame}{AI/ML for Combinatorial Optimization}
+	\begin{itemize}
+		\itemsep4ex
+		\item Currently very active research area
+		\item Many possibilities how data-driven methods can help in solving COPs
+		\item \important{End-to-end} ML approaches versus \important{ML-supported} classical methods
+		\item \important{Autoregressive models}
+		\item \important{Denoising Diffusion Models (DDMs)}
+	\end{itemize}
+\end{frame}
+
+% -------------------------------------------------
+
+% \begin{frame}[plain]
+% 	\centering
+% 	\vfill
+% 	{\huge\structure{Generative Flow Networks (GFlowNets)\\ for Combinatorial Optimization}}
+% 	\vfill
+% \end{frame}
+
+
+
+\begin{frame}{Autoregressive Models for Combinatorial Optimization}
+	\medskip
+	Example:\\
+	\structure{\it Dai, H. et al., 2017. Learning combinatorial optimization algorithms over graphs, in NeurIPS 2017, pp.\ 6348--6358.}
+
+	\bigskip
+	\begin{itemize}
+		\itemsep1ex
+		\item considered problems: MinVertexCover, MaxCut, TSP
+		\item utilizes \important{graph neural network} (GNN) 
+		%\item graph embedding network \important{structure2vec} used to ``featurize'' nodes
+		\item trained with \important{reinforcement learning} (RL), here Q-learning
+		\begin{center}
+			\includegraphics[width=0.9\linewidth]{graphics/dai}
+		\end{center}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Frequent Issues with Autoregressive Models to Solve COPs}
+	\begin{itemize}
+		\itemsep2.5ex
+		\item RL \alert{training often challenging}, unstable
+		\begin{itemize}
+			\item alternative: \important{supervised learning}, but requires large amount of labeled data,\\ 
+			i.e., instances with known (close-to)-optimal solutions
+		\end{itemize}
+		\item \alert{latency}: neural network must be inferenced many times to construct a solution
+		\item \alert{generalization} to larger instances often poor
+		\item typically only able to \alert{produce one or few similar solutions},\\ despite there may be many (close-to)-optimal solutions
+		\item usually \alert{not competitive with state-of-the-art methods} outside the AI/ML domain!
+	\end{itemize}
+\end{frame}
+
+
+
+% -------------------------------------------------
+
+% \begin{frame}[plain]
+% 	\centering
+% 	\vfill
+% 	{\huge\structure{Denoising Diffusion Models\\ for Combinatorial Optimization}}
+% 	\vfill
+% \end{frame}
+
+\begin{frame}{Denoising Diffusion Models (DDMs)}
+	\begin{itemize}
+		\item State-of-the-art in many generative AI applications,\\
+		in particular in image/video generation
+	
+		\medskip
+		\includegraphics[width=0.9\textwidth]{graphics/diffusion.png}
+	
+		\bigskip
+		\item \structure{Training}
+		\begin{itemize}
+			\item Gaussian noise step-wise added to original images
+			\item Neural network trained to predict noise from intermediate noisy images
+		\end{itemize}
+		\item \structure{Inference}
+		\begin{itemize}
+			\item Start from pure random noise
+			\item Remove noise step-wise via neural network predictions
+		\end{itemize}
+		\item DDMs can be conditioned on additional input
+		\item \important{Concept can also be applied in discrete domains using, e.g., graph neural networks!}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Comb.~Opt.} 
+	
+	\medskip
+	\structure{\it Sun, Z., Yang, Y., 2023. DIFUSCO: Graph-based Diffusion Solvers for Combinatorial Optimization. NeurIPS 2023, pp.~3706--3731.}
+
+	\bigskip
+	\begin{itemize}
+		\itemsep1ex
+		\item TSP and maximum independent set problem (MISP) considered
+		\item utilizes an anisotropic \important{graph neural network} with edge gating
+		\item \important{Gaussian noise} or \important{discrete diffusion} based on Bernoulli noise
+		\item trained on many small instances + (close to) optimal solutions
+		\item used to create \important{diverse heatmaps} 
+		%\item greedy heuristics and MCTS used as decoder
+	\end{itemize}
+
+	\bigskip
+	\only<1>{\centering\includegraphics[width=1\textwidth]{graphics/difusco-cont.png}\\(Gaussian noise)}
+	\only<2>{\centering\includegraphics[width=1\textwidth]{graphics/difusco-disc.png}\\(Bernoulli noise)}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DIFUSCO: Graph-Based Diffusion Solver for Comb.~Opt.}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{graphics/difusco1.jpg}
+	\end{center}
+\end{frame}
+
+\begin{frame}{DIFUSCO: Graph-Based Diffusion Solver for Comb.~Opt.}
+
+	Obtained heatmaps are not always ``perfect'', i.e.\ feasible and optimal solutions::
+	\begin{center}
+		\includegraphics[width=\textwidth]{graphics/difusco2.jpg}
+	\end{center}
+
+	\bigskip
+	$\rightarrow$ \important{post-processing} by, e.g., greedy heuristics, local search or Monte Carlo tree search 
+\end{frame}
+
+
+\begin{frame}{Advantages of DDMs}
+	\begin{itemize}
+		\itemsep4ex
+		\item a distribution is learned, i.e., \important{multi-modality of solution space is considered}
+		\begin{itemize}
+			\item[\(\rightarrow\)] able to create many diverse solutions
+			\item[\(\rightarrow\)] and this, on a GPU, in parallel!
+		\end{itemize}
+		\item can be \important{much faster} than auto-regressive models
+		\begin{itemize}
+			\item only a constant number of inference steps
+		\end{itemize}
+		\item DIFUSCO \important{outperformed earlier end-to-end learning approaches} by a substantial margin
+		\item \important{better generalization behavior} to larger instances
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Further Developments on DDMs for Comb.~Opt.}
+	\begin{itemize}
+		\itemsep2ex
+		\item Improvements in training and inference 
+		\begin{itemize}
+			\item improved noise schedules, progressive distillation for reducing number of steps
+			\item better neural network architectures, e.g., with attention mechanisms
+		\end{itemize}
+		\item Variants for unsupervised learning, e.g., by reinforcement learning principles
+		\item Boosting generalization by energy-guided sampling
+		\item More direct handling of constraints
+		\item Applications to other problems, e.g., 
+		\begin{itemize}
+			\item SAT
+			\item scheduling
+			\item network design
+			\item integer linear programming
+			\item multi-objective optimization
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{DDM-based Approach for the \(\alpha\)-Domination Problem}
+
+\medskip
+\structure{\it Wustinger,  M., Iurlano, E., Raidl, G.~R., 2026. A Denoising Diffusion Adaptive Search for the \(\alpha\)-Domination Problem on Social Graphs, accepted for EvoCOP 2026.}
+
+\vspace{7mm}
+\begin{minipage}{0.5\textwidth}
+\structure{\bf \(\alpha\)-Domination Problem}\\[1ex]
+\structure{Given:} Graph \(G=(V,E)\) and \(\alpha \in (0,1]\).\\[1ex]
+\structure{Find:} Minimum-size subset \(S \subseteq V\) such that for every vertex \(v \in V\), at least \(\alpha\) fraction of its neighbors are in \(S\).
+\end{minipage}\qquad
+\begin{minipage}{0.35\textwidth}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{graphics/alphadom.png}\\
+0.5-domination solution
+\end{center}
+\end{minipage}
+
+\vspace{7mm}
+\structure{\bf Denoising Diffusion Adaptive Search (DDAS) -- Key Idea}\\[1ex]
+\begin{itemize}
+	\item DDM creates many diverse heatmaps
+	\item each refined by configuration checking local search (CC)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Experimental Results for the \(\alpha\)-Domination Problem}
+\begin{table}[t!]
+\centering
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrr
+                |r  % Gurobi
+                rr  % Greedy
+                rr  % CC
+                |rr  % difusco_cl_sum
+                rr  % ddasp_cl_sum
+                }
+%\toprule
+%\multicolumn{3}{c|}{Graphs} 
+%& \multicolumn{5}{c|}{Baselines} 
+%& \multicolumn{4}{c}{}\\
+Instance & \(|V|\) & \(\overline{\mathrm{deg}}\) 
+& Gurobi & \multicolumn{2}{c}{Greedy} & \multicolumn{2}{c|}{CC} 
+& \multicolumn{2}{c}{DIFUSCO}
+& \multicolumn{2}{c}{DDASP} \\
+& & & & \multicolumn{1}{c}{\(\mu_{|S|}\)} & \multicolumn{1}{c}{\(\sigma_{|S|}\)} 
+& \multicolumn{1}{c}{\(\mu_{|S|}\)} & \multicolumn{1}{c|}{\(\sigma_{|S|}\)} 
+& \multicolumn{1}{c}{\(\mu_{|S|}\)} & \multicolumn{1}{c}{\(\sigma_{|S|}\)} 
+& \multicolumn{1}{c}{\(\mu_{|S|}\)} & \multicolumn{1}{c}{\(\sigma_{|S|}\)} \\
+\midrule
+fb-Amherst41    & 2235  & 81.4  & \important{\bf 738} & 806.3  & 6.8  & 787.3  & 4.3  & 759.5  & 2.6  & 758.1  & 2.8 \\
+fb-Princeton12  & 6596  & 88.9  & 2208 & 2313.0 & 7.0  & 2280.3 & 9.5  & 2176.9 & 3.5  & \important{\bf 2174.3} & 3.8 \\
+fb-Dartmouth6   & 7694  & 79.0  & 2465 & 2588.2 & 6.0  & 2565.1 & 11.3 & 2452.8 & 3.5  & \important{\bf 2448.7} & 3.6 \\
+fb-Yale4        & 8578  & 94.5  & 2928 & 3059.5 & 10.7 & 3032.0 & 8.4  & 2923.8 & 5.1  & \important{\bf 2915.8} & 5.0 \\
+fb-Maine59      & 9069  & 53.6  & 3167 & 3241.1 & 9.1  & 3212.6 & 11.7 & 3044.3 & 2.8  & \important{\bf 3043.9} & 2.4 \\
+fb-Stanford3    & 11586 & 98.1  & 3902 & 3965.4 & 12.6 & 3928.5 & 14.1 & 3835.4 & 4.3  & \important{\bf 3807.9} & 5.3 \\
+fb-Columbia2    & 11770 & 75.5  & 4005 & 4075.8 & 10.1 & 4025.5 & 18.3 & 3848.9 & 3.8  & \important{\bf 3843.1} & 4.7 \\
+fb-NotreDame57  & 12155 & 89.1  & 5804 & 4469.8 & 10.5 & 4402.0 & 16.4 & 4234.2 & 4.1  & \important{\bf 4226.2} & 5.3 \\
+fb-Baylor93     & 12803 & 106.2 & 6132 & 4649.8 & 12.1 & 4613.6 & 9.0  & 4424.4 & 5.2  & \important{\bf 4409.5} & 5.8 \\
+fb-Harvard1     & 15126 & 109.0 & 6826 & 5263.2 & 16.2 & 5187.0 & 22.8 & 5148.4 & 7.7  & \important{\bf 5047.6} & 10.7 \\
+%\bottomrule
+\end{tabular}
+}
+\end{table}
+\end{frame}
+
+
+	
+\begin{frame}
+	\frametitle{Denoising Diffusion Based Evolutionary Algorighm}
+
+	\medskip
+	\structure{\it Salvà Soler, J., Raidl, G.~R. 2025. A Denoising Diffusion-Based Evolutionary Algorithm Framework, Int.~Conf.~on Machine Learning, Optimization, and Data Science (LOD) 2025.}
+
+	\medskip
+	\begin{center}
+	\includegraphics[width=0.67\textwidth]{graphics/ddbea.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Denoising Diffusion Based Evolutionary Algorighm}
+	\begin{itemize}
+		\itemsep1ex
+		\item Labeled offline-training data derived by ILP
+		\item Tested on Maximum Independent Set Problem
+		\item \structure{Advantages}
+		\begin{itemize}
+			\item Depending on problem, the \important{whole population can be kept completely on the GPU}
+			\item Scales well to larger instances
+		\end{itemize} 
+	\end{itemize}
+
+	\medskip
+	\begin{center}
+	\only<1>{\includegraphics[width=0.90\textwidth]{graphics/ddbea-recomb.png}}
+	\only<2>{\includegraphics[width=0.90\textwidth]{graphics/ddbea-results.png}}
+	\end{center}
+\end{frame}
+
+
+% -------------------------------------------------
+
+% \begin{frame}[plain]
+% 	\centering
+% 	\vfill
+% 	{\huge\structure{Conclusions}}
+% 	\vfill
+% \end{frame}
+
+\begin{frame}
+	\frametitle{Conclusions}
+	\medskip
+	\begin{itemize}
+		\itemsep3.5ex
+		\item \structure{Autoregressive models for solving COPs very popular}
+		\begin{itemize}
+			\item but \alert{have issues, on their own usually not competitive} to well-designed classical methods
+			\item \important{GFlowNets particularly promising} for generating diverse solutions, more robust training
+		\end{itemize}
+		\item \structure{Denoising diffusion models}
+		\begin{itemize}
+			\item also \important{learn whole distributions}
+			\item non-autoregressive, \(\rightarrow\) \important{often faster}
+		\end{itemize} 
+		\item \structure{Cleverly designed hybrid approaches most promising}, e.g.,
+		\begin{itemize}
+			\item combined with local search or other metaheuristics for post-processing
+			\item using DDMs for intelligent recombination in EAs		
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\end{document}
